@@ -1,3 +1,4 @@
+import { TareasService } from './services/tareas.service';
 import { ProyectosService } from './services/proyectos.service';
 import { AuthService } from './auth.service';
 import { environment } from './../environments/environment';
@@ -27,6 +28,7 @@ import { TareaComponent } from './components/tarea/tarea.component';
 import { HorasComponent } from './components/horas/horas.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
+import { KeysPipe } from './pipes/keys.pipe';
 
 
 
@@ -38,7 +40,8 @@ import { AuthGuard } from './auth-guard.service';
     TareasComponent,
     TareaComponent,
     HorasComponent,
-    LoginComponent
+    LoginComponent,
+    KeysPipe
   ],
   //ojo con esto...
   exports: [ AppComponent ],
@@ -55,7 +58,8 @@ import { AuthGuard } from './auth-guard.service';
     RouterModule.forRoot([
       //Protejo las rutas con el metodo canActivate del AuthGuard Service
       { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard] },
-      { path: 'tareas', component: TareasComponent, canActivate: [AuthGuard] },
+      //{ path: 'tareas', component: TareasComponent, canActivate: [AuthGuard] },
+      { path: 'tareas/:id', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tarea', component: TareaComponent, canActivate: [AuthGuard] },
       { path: 'horas', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent }
@@ -65,7 +69,8 @@ import { AuthGuard } from './auth-guard.service';
     AngularFireAuth,
     AuthService,
     AuthGuard,
-    ProyectosService
+    ProyectosService,
+    TareasService
   ],
   bootstrap: [AppComponent]
 })
