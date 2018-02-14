@@ -1,0 +1,36 @@
+<!-- <h3>TAREA <small>{{tarea.nombre}}...</small></h3> -->
+
+<h3>TAREA <small>tarea</small></h3>
+<form>
+  <div class="form-group">
+    <label for="title">Tarea</label>
+    <input id="title" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+      <label for="comment">Descripcion de la tarea:</label>
+      <textarea class="form-control" rows="5" id="comment"></textarea>
+    </div>  
+  <div class="form-group">
+      <label for="proyecto">Proyecto</label>
+      <select id="proyecto" class="form-control">
+        <option value=""></option>
+      </select>  
+  </div>
+
+  Asigno Fechas
+
+  <div class="form-group">
+    <label>Fecha de Inicio (estimada)</label>
+    <br>
+    <ng-datepicker [(ngModel)]="tarea.Create_date" name="inicio" ></ng-datepicker>
+  </div>
+
+  <div class="form-group">
+    <label>Fecha de Fin (estimada)</label>
+    <br>
+    <ng-datepicker [(ngModel)]="tarea.Date_deadline" name="fin" ></ng-datepicker>    
+  </div>
+
+    
+    <button class="btn btn-primary">Guardar</button>
+</form>

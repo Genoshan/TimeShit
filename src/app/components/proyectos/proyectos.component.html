@@ -1,0 +1,44 @@
+<div>
+  <h1>PROYECTOS</h1>
+  <div class="row animated fadeIn fast">
+    <div class="col-md-12">
+      <div class="table-responsive">
+
+        <table class="table">
+          <thead class="thead-default">
+            <tr>              
+              <th>Id Proyecto</th>
+              <th>Horas</th>
+              <th>Fecha de Creación</th>
+              <th class="text-center">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let proyecto of proyectos">              
+              <td>{{ proyecto.id }}</td>
+              <td>{{ proyecto.total_hours }}</td>
+              <td>{{ proyecto.create_date | date }}</td>
+              <td class="text-right w120">
+
+                <!-- <button [routerLink]="['/tareas',proyectos[k].nombre]" -->
+
+
+                <!-- Hay que vincular los proyectos a las tareas con una nueva coleccion en firebase  -->
+
+
+                <button [routerLink]="['/tareas',k]" type="button" class="btn btn-outline-primary ">Tareas
+                </button>
+                <button type="button" class="btn btn-outline-success">+ Horas
+                </button>
+
+              </td>
+            </tr>
+        </table>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
