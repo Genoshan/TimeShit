@@ -1,23 +1,28 @@
 <div>
   <h1>PROYECTOS</h1>
+  <hr>
+  <button [routerLink]="['/proyecto']"
+  type="button" class="btn btn-primary ">+ Nuevo Proyecto
+  </button>
+  <hr>
   <div class="row animated fadeIn fast">
     <div class="col-md-12">
       <div class="table-responsive">
 
         <table class="table">
           <thead class="thead-default">
-            <tr>              
-              <th>Id Proyecto</th>
-              <th>Horas</th>
-              <th>Fecha de Creación</th>
+            <tr>                            
+              <th>Nombre</th>
+              <th>Total de Horas</th>
+              <th>Fecha de Creación</th>              
               <th class="text-center">Opciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let k of proyectos  | keys; let i = index">   
-              <td>{{i + 1}}</td>           
-              <td>{{ proyectos[k].id }}</td>
-              <td>{{ proyectos[k].total_hours }}</td>
+              <!-- <td>{{i + 1}}</td>            -->              
+              <td>{{ proyectos[k].project_code }}</td>
+              <td>{{ proyectos[k].total_hours }}</td>              
               <td>{{ proyectos[k].create_date | date }}</td>
               <td class="text-right w120">
 
