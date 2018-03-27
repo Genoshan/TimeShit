@@ -30,6 +30,14 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
 import { KeysPipe } from './pipes/keys.pipe';
 
+//Font Awesome- Iconos
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
+//JQuery
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 
 @NgModule({
@@ -55,6 +63,10 @@ import { KeysPipe } from './pipes/keys.pipe';
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),    
     AngularFireDatabaseModule,
+    AngularFontAwesomeModule,
+    BsDropdownModule,
+    TooltipModule,
+    ModalModule,
     RouterModule.forRoot([
       //Protejo las rutas con el metodo canActivate del AuthGuard Service
       { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard] },
