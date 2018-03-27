@@ -1,3 +1,4 @@
+import { Proyecto } from './../interfaces/proyecto';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -13,12 +14,12 @@ export class ProyectosService {
     effective_hours: 0,
     planned_hours: 0,
     active:true,
-    analytic_account_id: 0, 
+    analytic_account_id: 1, 
     create_uid:0,
     progress_rate: 0,
     sequence: 0,	
     privacy_visibility: "",	
-    total_hours: 0,	
+    total_hours: 10,	
     state: "",	
     project_code: "proyecto1",
     project_escalation_id:0, 
@@ -34,12 +35,12 @@ export class ProyectosService {
     effective_hours: 0,
     planned_hours: 0,
     active:true,
-    analytic_account_id: 0, 
+    analytic_account_id: 2, 
     create_uid:0,
     progress_rate: 0,
     sequence: 0,	
     privacy_visibility: "",	
-    total_hours: 0,	
+    total_hours: 20,	
     state: "",	
     project_code: "proyecto2",
     project_escalation_id:0, 
@@ -55,12 +56,12 @@ export class ProyectosService {
     effective_hours: 0,
     planned_hours: 0,
     active:true,
-    analytic_account_id: 0, 
+    analytic_account_id: 3, 
     create_uid:0,
     progress_rate: 0,
     sequence: 0,	
     privacy_visibility: "",	
-    total_hours: 0,	
+    total_hours: 30,	
     state: "",	
     project_code: "proyecto3",
     project_escalation_id:0, 
@@ -74,6 +75,14 @@ export class ProyectosService {
 
   getProyectos(){
     return this.proyectos;
+  }
+
+  crearProyectos(p: Proyecto){
+    
+    this.proyectos.push(p);
+    console.log(this.proyectos);
+    
+    //return this.proyectos;
   }
 
 }

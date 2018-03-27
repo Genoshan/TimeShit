@@ -23,6 +23,7 @@ import { NgDatepickerModule } from 'ng2-datepicker';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { ProyectoComponent } from './proyecto/proyecto.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { TareaComponent } from './components/tarea/tarea.component';
 import { HorasComponent } from './components/horas/horas.component';
@@ -45,11 +46,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppComponent,
     NavbarComponent,
     ProyectosComponent,
+    ProyectoComponent,
     TareasComponent,
     TareaComponent,
     HorasComponent,
     LoginComponent,
     KeysPipe
+    
   ],
   //ojo con esto...
   exports: [ AppComponent ],
@@ -70,6 +73,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     RouterModule.forRoot([
       //Protejo las rutas con el metodo canActivate del AuthGuard Service
       { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard] },
+      { path: 'proyecto', component: ProyectoComponent, canActivate: [AuthGuard] },
       //{ path: 'tareas', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tareas/:id', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tarea', component: TareaComponent, canActivate: [AuthGuard] },
