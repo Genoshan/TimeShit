@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Hora } from './../../interfaces/hora';
 
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { DatepickerOptions } from 'ng2-datepicker';
@@ -23,6 +24,14 @@ export class HorasComponent implements OnInit {
     maxDate: new Date(Date.now()),  // Maximal selectable date
     barTitleIfEmpty: 'Click to select a date'
   };
+
+  hora:Hora={
+
+    nombre:"",
+    descripcion:"",
+    cantHoras:0,
+    fecha:new Date(Date.now())
+  }
     
 
   constructor() { }

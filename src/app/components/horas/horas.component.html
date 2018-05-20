@@ -25,14 +25,14 @@
     </div>
     
     <div class="col-md-6">      
-      <label for="plannedhs">Horas Dedicadas</label>
-      <input  [(ngModel)]="proyecto.planned_hours" name="planned_hours" id="planned_hours" type="number" class="form-control">
+      <label for="horas">Horas</label>
+      <input  [(ngModel)]="hora.cantHoras" name="cantHoras" id="cantHoras" type="number" class="form-control">
     </div>    
 
   <div class="form-group">
-      <label>Fecha de Inicio (estimada)</label>
+      <label>Fecha</label>
       <br>
-      <ng-datepicker [(ngModel)]="proyecto.create_date" name="inicio" ></ng-datepicker>
+      <ng-datepicker [(ngModel)]="hora.fecha" name="inicio" ></ng-datepicker>
     </div>
 </div>
     
