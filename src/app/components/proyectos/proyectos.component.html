@@ -5,6 +5,11 @@
     <div class="col-md-12">
       <div class="table-responsive">
 
+          <button [routerLink]="['/proyecto']" type="button" class="btn btn-primary ">
+            <fa name="plus"></fa>Nuevo Proyecto          
+          </button>
+          <hr>
+
         <div class="input-group">
           <input class="form-control col-md-6" placeholder="Buscar proyectos">
           <div class="input-group-addon">
@@ -13,12 +18,6 @@
             </button>
           </div>
         </div>
-        <hr>
-
-        <button [routerLink]="['/proyecto']" type="button" class="btn btn-primary ">
-          <fa name="plus"></fa>Nuevo Proyecto          
-        </button>
-        <hr>
 
         <!-- Tabla principal de Proyectos  -->
 
@@ -27,7 +26,7 @@
         <table class="table">
           <thead class="thead-default">
             <tr>
-              <th>Id Proyecto</th>
+              <!-- <th>Id Proyecto</th> -->
               <th>Nombre Proyecto</th>
               <th>Horas</th>
               <th>Fecha de Creación</th>
@@ -37,7 +36,7 @@
           <tbody>
             <tr *ngFor="let k of proyectos  | keys; let i = index">
               <!-- <td>{{i + 1}}</td>            -->
-              <td>{{ proyectos[k].id }}</td>
+              <!-- <td>{{ proyectos[k].id }}</td> -->
               <td>{{ proyectos[k].project_code }}</td>
               <td>{{ proyectos[k].total_hours }}</td>
               <td>{{ proyectos[k].create_date | date }}</td>

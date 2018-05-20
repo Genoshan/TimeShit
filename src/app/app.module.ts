@@ -23,7 +23,7 @@ import { NgDatepickerModule } from 'ng2-datepicker';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
-import { ProyectoComponent } from './proyecto/proyecto.component';
+import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { TareaComponent } from './components/tarea/tarea.component';
 import { HorasComponent } from './components/horas/horas.component';

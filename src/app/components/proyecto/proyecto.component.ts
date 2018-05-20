@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Proyecto } from './../interfaces/proyecto';
+import { Proyecto } from '../../interfaces/proyecto';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as frLocale from 'date-fns/locale/fr';
-import { ProyectosService } from '../services/proyectos.service';
+import { ProyectosService } from '../../services/proyectos.service';
 
 
 

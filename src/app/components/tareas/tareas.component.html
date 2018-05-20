@@ -5,6 +5,11 @@
     <div class="col-md-12">
       <div class="table-responsive">
 
+          <button [routerLink]="['/tarea']" type="button" class="btn btn-primary "> 
+            <fa name="plus"></fa>Nueva Tarea
+          </button>
+          <hr>
+
         <div class="input-group">
           <input class="form-control col-md-6" placeholder="Buscar tareas">
           <div class="input-group-addon">
@@ -13,12 +18,7 @@
             </button>
           </div>
         </div>
-        <hr>
 
-        <button [routerLink]="['/tarea']" type="button" class="btn btn-primary "> 
-          <fa name="plus"></fa>Nueva Tarea
-        </button>
-        <hr>
 
         <!-- Tabla principal de Tareas  -->
 
@@ -27,7 +27,7 @@
         <table class="table">
           <thead class="thead-default">
             <tr>
-              <th>#</th>
+              <!-- <th>#</th> -->
               <th>Tarea</th>
               <th>Nota</th>
               <th>Horas</th>
@@ -38,7 +38,7 @@
           <tbody>
 
             <tr *ngFor="let k of tareas | keys; let i = index">
-              <td>{{ tareas[k].id }}</td>
+              <!-- <td>{{ tareas[k].id }}</td> -->
               <td>{{ tareas[k].name }}</td>
               <td>{{ tareas[k].project_id }}</td>
               <td></td>
