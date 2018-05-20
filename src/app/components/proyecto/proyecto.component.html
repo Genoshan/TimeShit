@@ -23,18 +23,7 @@
         <input [(ngModel)]="proyecto.active" name="active" class="form-check-input" type="checkbox" value="">
         Activo
       </label>
-    </div>
-
-    <!-- <div class="form-group">
-        <label for="state">Estado</label>
-        <select id="state" class="form-control">
-          <option value="Open">Abierto</option>
-          <option value="Close">Cerrado</option>
-          <option value="Cancelled">Cancelado</option>
-        </select>  
-    </div> -->
-
-    
+    </div>   
 
     <div class="form-group">
         <label>Fecha de Inicio (estimada)</label>
@@ -42,25 +31,6 @@
         <ng-datepicker [(ngModel)]="proyecto.create_date" name="inicio" ></ng-datepicker>
       </div>
   </div>
-
-
-  <!-- <div class="form-group">
-      <label for="comment">Descripcion del proyecto:</label>
-      <textarea class="form-control" rows="5" id="comment"></textarea>
-    </div>   -->
- 
- <!--  <div class="form-group">
-    <label>Fecha de Inicio (estimada)</label>
-    <br>
-    <ng-datepicker [(ngModel)]="proyecto.create_date" name="inicio" ></ng-datepicker>
-  </div> -->
-
- <!--  <div class="form-group">
-    <label>Fecha de Fin (estimada)</label>
-    <br>
-    <ng-datepicker [(ngModel)]="proyecto.date_deadline" name="fin" ></ng-datepicker>    
-  </div> -->
-
     
     <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
 </form>
