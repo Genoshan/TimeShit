@@ -1,102 +1,68 @@
-<h1>Tareas Prueba Ro</h1>
-<hr>
+<div>
+  <h1>TAREAS Prueba Ro</h1>
 
+  <div class="row animated fadeIn fast">
+    <div class="col-md-12">
+      <div class="table-responsive">
 
+        <div class="input-group">
+          <input class="form-control col-md-6" placeholder="Buscar tareas">
+          <div class="input-group-addon">
+            <button type="button" class="btn btn-outline-primary">
+              <fa name="search"></fa>
+            </button>
+          </div>
+        </div>
+        <hr>
 
+        <button [routerLink]="['/tarea']" type="button" class="btn btn-primary "> 
+          <fa name="plus"></fa>Nueva Tarea
+        </button>
+        <hr>
 
+        <!-- Tabla principal de Tareas  -->
 
-<button [routerLink]="['/tarea']"
-type="button" class="btn btn-primary ">+ Nueva Tarea
-</button>
-<hr>
+        <br>
 
-<!-- Tabla principal de Tareas  -->
+        <table class="table">
+          <thead class="thead-default">
+            <tr>
+              <th>#</th>
+              <th>Tarea</th>
+              <th>Nota</th>
+              <th>Horas</th>
+              <th class="text-right">Proyecto</th>
+              <th class="text-right">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
 
-
-<div class="row animated fadeIn fast">
-  <div class="col-md-12">
-
-    <div class="table-responsive">
-
-      <table class="table">
-        <thead class="thead-default">
-          <tr>
-            <th>#</th>
-            <th>Tarea</th>
-            <th>Nota</th>
-            <th>Horas</th>
-            <th class="text-right">Proyecto</th>
-
-            <th class="text-right">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-
-            <tr *ngFor="let k of tareas | keys; let i = index">              
+            <tr *ngFor="let k of tareas | keys; let i = index">
               <td>{{ tareas[k].id }}</td>
-              <td>{{ tareas[k].name }}</td>              
+              <td>{{ tareas[k].name }}</td>
               <td>{{ tareas[k].project_id }}</td>
               <td></td>
               <!-- <td *ngFor="let l of tareas[k].proyectos[l] | keys;"> {{l}}: {{proyecto[l].}} </td> -->
 
               <td class="text-right w120">
-<!-- Agregar Horas -->
-            <button [routerLink]="['/horas',k]"
-               type="button" class="btn btn-outline-success">
-               <i class="fa fa-plus-circle" aria-hidden="true"></i>
-            </button>
+                <!-- Agregar Horas -->
+                <button [routerLink]="['/horas',k]" type="button" class="btn btn-outline-success">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </button>
 
-<!-- Editar Tarea -->
+                <!-- Editar Tarea -->
 
-            <button [routerLink]="['/tarea',k]"
-              type="button" class="btn btn-outline-success">
-              <i class="fa fa-pencil-square" aria-hidden="true"></i>
-            </button>
+                <button [routerLink]="['/tarea',k]" type="button" class="btn btn-outline-success">
+                  <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                </button>
 
-<!-- Borrar Tarea -->
-            <button (click)="borrarTarea(k)"
-            type="button" class="btn btn-outline-danger">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </button>
+                <!-- Borrar Tarea -->
+                <button (click)="borrarTarea(k)" type="button" class="btn btn-outline-danger">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
 
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-
-
-
-  <!-- <tr *ngFor="let k of tareas | keys; let i = index">
-    <td>{{i + 1}}</td>
-    <td>{{ tareas[k].nombre }}</td>
-    <td>{{ tareas[k].nota }}</td>
-    <td>{{ tareas[k].canthora }}</td>
-    <td *ngFor="let l of tareas[k].proyectos[l] | keys;"> {{l}}: {{proyecto[l].}} </td> -->
-
-
-
-  <!-- <table>
-    <template let ngFor [ngForOf]="tareas">
-      <tr *ngFor="let row of tareas.proyectos">{{row.nombre}}</tr>
-    </template>
-  </table> -->
-
-
-<!-- Termina Tabla principal de Tareas  -->
-
-<!-- 
-  <div *ngIf="(tareas | keys).length === 0 && !loading"
-  class="alert alert-info" role="alert">
-  <strong>No hay </strong> registros que mostrar
-</div> -->
-
-<!-- <div *ngIf="loading"
-class="alert alert-warning" role="alert">
-<strong>Cargando... </strong> por favor espere
-
-    </div> -->
-
-    </div>
-  </div>
-</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
