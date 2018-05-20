@@ -25,16 +25,28 @@
     </div>
     
     <div class="col-md-6">      
-      <label for="horas">Horas</label>
+      <label for="horas">Cantidad de Horas</label>
       <input  [(ngModel)]="hora.cantHoras" name="cantHoras" id="cantHoras" type="number" class="form-control">
-    </div>    
+      <br>
 
-  <div class="form-group">
+      <label for="horas">Descripcion</label>
+      <!-- <input  [(ngModel)]="hora.Descripcion" name="descripcion" id="descripcion" type="text" class="form-control"> -->
+
+      <textarea [(ngModel)]="hora.Descripcion" name="descripcion" id="descripcion" type="text" class="form-control"></textarea>
+
+
+      <br>
+
       <label>Fecha</label>
       <br>
       <ng-datepicker [(ngModel)]="hora.fecha" name="inicio" ></ng-datepicker>
+
+
+
+      <br>
+      <button class="btn btn-primary" (click)="agregarHora()">Guardar</button>
     </div>
-</div>
+    </div>    
     
-    <button class="btn btn-primary" (click)="agregarHora()">Guardar</button>
+    
 </form>
