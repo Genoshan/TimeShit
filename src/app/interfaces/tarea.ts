@@ -2,6 +2,11 @@ import {Proyecto} from "./proyecto";
 
 export interface Tarea{
 
+nombre:string;
+descripcion:string;
+fechaInicio:Date;
+fechaFIn:Date;
+
 id:number;
 create_date:Date;
 sequence:number;

@@ -28,6 +28,12 @@ export class ProyectoComponent implements OnInit{
   };
 
     proyecto:Proyecto= {
+
+      nombre:"",
+      fechaInicio:new Date(Date.now()),
+      Estado:true,
+      codigoProyecto:"",
+      
     id: 0,
     create_date: new Date(Date.now()),
     write_date: new Date(Date.now()),        

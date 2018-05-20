@@ -23,6 +23,7 @@ export class HorasComponent implements OnInit {
     maxDate: new Date(Date.now()),  // Maximal selectable date
     barTitleIfEmpty: 'Click to select a date'
   };
+    
 
   constructor() { }
 

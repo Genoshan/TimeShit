@@ -26,6 +26,12 @@ export class TareaComponent implements OnInit {
   };
 
    tarea:Tarea = {
+
+    nombre:"",
+	  descripcion:"",
+    fechaInicio:new Date(Date.now()),
+    fechaFIn:new Date(Date.now()),
+    
     id:0,
     create_date:new Date(Date.now()),
     sequence:0,

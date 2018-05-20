@@ -1,4 +1,17 @@
 export interface Proyecto {
+
+
+
+    /*
+    ESTRUCTURA DE DATOS DE PROYECTOS
+    */
+
+    nombre:string;
+    fechaInicio:Date;
+    Estado:boolean;
+    codigoProyecto:string;
+
+
     id: number; 
     create_date: Date; /*IS 'Created on*/
     write_date: Date;  /*IS 'Last Updated on'*/      
