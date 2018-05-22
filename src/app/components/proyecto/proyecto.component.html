@@ -15,15 +15,26 @@
         </select>  
     </div>
     
+
     <label for="plannedhs">Horas Planificadas</label>
-    <input  [(ngModel)]="proyecto.planned_hours" name="planned_hours" id="planned_hours" type="text" class="form-control">
-      
-    <div class="form-check">
-      <label class="form-check-label">
-        <input [(ngModel)]="proyecto.active" name="active" class="form-check-input" type="checkbox" value="">
-        Activo
-      </label>
-    </div>   
+    <div class="row">
+        <div class="form-group col-lg-1">            
+            <input  [(ngModel)]="proyecto.planned_hours" name="planned_hours" id="planned_hours" type="number" class="form-control">
+              <hr>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input [(ngModel)]="proyecto.active" name="active" class="form-check-input" type="checkbox" value="">
+                Activo
+              </label>
+            </div> 
+        </div>
+    </div>
+    
+<!-- Validar si este tipo de date con NGModel se puede usar , entiendo que si... -->
+    <input type="date" id="exampleInput" name="input" [(ngModel)]="proyecto.create_date"/>
+
+       value = {{proyecto.create_date | date: "dd-MM-yyyy"}}
+  
 
     <div class="form-group">
         <label>Fecha de Inicio (estimada)</label>
