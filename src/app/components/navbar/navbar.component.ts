@@ -7,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class NavbarComponent {
+  
+
   constructor(public auth:AuthService) {    
    }
+
+   toggleCollapse() {
+    
+  }
 
   logout() {
     this.auth.logout();
