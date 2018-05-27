@@ -1,40 +1,47 @@
+<h3>NUEVO PROYECTO</h3>
+<form class="form-inline">
+  <label class="sr-only" for="inlineFormInput">Nombre</label>
+
+  <input [(ngModel)]="proyecto.codigoProyecto" name="code" id="title" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
+    placeholder="Proyecto">
+
+  <label class="sr-only" for="inlineFormInputGroup">Fecha de Inicio</label>
+  <div class="input-group mb-2 mr-sm-2 mb-sm-0">    
+      <input placeholder="Fecha de Inicio" class="form-control col-sm-11" type="text" onfocus="(this.type='date')"
+       id="date" [(ngModel)]="proyecto.fechaInicio" name="createDate">
+    <!-- <input type="date" class="form-control col-sm-11" id="inlineFormInputGroup" name="createDate" [(ngModel)]="proyecto.fechaInicio"> -->
+    
+
+  </div>
+
+  <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+    <label class="form-check-label">
+      <input [(ngModel)]="proyecto.active" name="active" class="form-check-input" type="checkbox" value=""> Activo
+    </label>
+  </div>
+
+  <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
+</form>
 
 
-<form>
-  <div class="form-group">
-      <h3>NUEVO PROYECTO</h3>
-    <label for="title">Nombre</label>
-    <input  [(ngModel)]="proyecto.project_code" name="code" id="title" type="text" class="form-control">
 
-    <div class="form-group">
+
+<!-- Combo de Empresa -->
+<!-- <div class="form-group">
         <label for="Empresa">Empresa</label>
         <select id="Empresa" class="form-control">
           <option value="Empresa1">Empresa1</option>
           <option value="Empresa2">Empresa2</option>
           <option value="Empresa3">Empresa3</option>
         </select>  
-    </div>
-    
+    </div> -->
 
-    <label for="plannedhs">Horas Planificadas</label>
+
+<!-- Campo Horas Planificadas -->
+<!-- <label for="plannedhs">Horas Planificadas</label>
     <div class="row">
         <div class="form-group col-lg-1">            
             <input  [(ngModel)]="proyecto.planned_hours" name="planned_hours" id="planned_hours" type="number" class="form-control">
               <hr>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input [(ngModel)]="proyecto.active" name="active" class="form-check-input" type="checkbox" value="">
-                Activo
-              </label>
-            </div> 
         </div>
-    </div>   
-
-  
-    <input type="date" class="form-control col-sm-4" name="createDate" [(ngModel)]="proyecto.create_date"/>
-
-
-  </div>
-    
-    <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
-</form>
+    </div>    -->

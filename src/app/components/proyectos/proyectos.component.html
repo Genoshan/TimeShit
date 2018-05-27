@@ -35,8 +35,7 @@
           <thead class="thead-default">
             <tr>
               <!-- <th>Id Proyecto</th> -->
-              <th>Nombre Proyecto</th>
-              <th>Horas</th>
+              <th>Nombre Proyecto</th>              
               <th>Fecha de Creación</th>
               <th class="text-center">Opciones</th>
             </tr>
@@ -45,9 +44,8 @@
             <tr *ngFor="let k of proyectos  | keys; let i = index">
               <!-- <td>{{i + 1}}</td>            -->
               <!-- <td>{{ proyectos[k].id }}</td> -->
-              <td>{{ proyectos[k].project_code }}</td>
-              <td>{{ proyectos[k].total_hours }}</td>
-              <td>{{ proyectos[k].create_date | date }}</td>
+              <td>{{ proyectos[k].codigoProyecto }}</td>
+              <td>{{ proyectos[k].fechaInicio | date: "dd-MM-yyyy" }}</td>              
               <td class="text-right w120">              
 
 
