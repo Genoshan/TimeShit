@@ -1,9 +1,11 @@
 import { Proyecto } from './../interfaces/proyecto';
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class ProyectosService {
-
+    
   private proyectos:any[] = [{
     id: 1,    
     fechaInicio: new Date(Date.now()),
@@ -95,9 +97,16 @@ export class ProyectosService {
   }
 
   crearProyectos(p: Proyecto){
-    
+        
     this.proyectos.push(p);
     console.log(this.proyectos);
+    
+    //return this.proyectos;
+  }
+
+  editarProyectos(p: Proyecto,id:string ){
+    //Proyecto proy= this.proyectos.find(p;
+    console.log(p);
     
     //return this.proyectos;
   }

@@ -73,7 +73,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     RouterModule.forRoot([
       //Protejo las rutas con el metodo canActivate del AuthGuard Service
       { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard] },
-      { path: 'proyecto', component: ProyectoComponent, canActivate: [AuthGuard] },
+      { path: 'proyecto/:id', component: ProyectoComponent, canActivate: [AuthGuard] },
       //{ path: 'tareas', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tareas/:id', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tarea', component: TareaComponent, canActivate: [AuthGuard] },

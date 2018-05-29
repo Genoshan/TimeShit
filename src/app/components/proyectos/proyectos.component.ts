@@ -14,12 +14,13 @@ export class ProyectosComponent implements OnInit {
 
   proyecto:Proyecto = {
 
-    nombre:"",
+    //nombre:"",
     fechaInicio:new Date(Date.now()),
     Estado:true,
-    codigoProyecto:"",
-    
+    codigoProyecto:"",    
     id: 0,
+
+    /*
     create_date: new Date(Date.now()),
     write_date: new Date(Date.now()),        
     alias_model: "",
@@ -37,7 +38,8 @@ export class ProyectosComponent implements OnInit {
     state: "",	
     project_code: "",
     project_escalation_id:0, 
-    project_project_resource_calendar_id: 0
+    project_project_resource_calendar_id: 0*/
+    
   }
 
   constructor( private pservice: ProyectosService) { }

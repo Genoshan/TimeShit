@@ -7,7 +7,7 @@
 
           <h1>PROYECTOS</h1>
 
-          <button [routerLink]="['/proyecto']" type="button" class="btn btn-primary ">
+          <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">
             <fa name="plus"></fa>Nuevo Proyecto          
           </button>                  
           <button [routerLink]="['/horas']" type="button" class="btn btn-outline-success ">
@@ -52,7 +52,7 @@
                 <!-- Hay que vincular los proyectos a las tareas con una nueva coleccion en firebase  -->
 
                  <!-- Editar Proyecto -->
-                <button [routerLink]="['/proyecto']" type="button" class="btn btn-outline-primary btn-responsive  ">
+                <button [routerLink]="['/proyecto',proyectos[k].id]" type="button" class="btn btn-outline-primary btn-responsive  ">
                   Editar
                   <fa name="edit"></fa>
                 </button>

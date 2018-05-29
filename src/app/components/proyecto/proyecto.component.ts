@@ -4,7 +4,7 @@ import { NgDatepickerModule } from 'ng2-datepicker';
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as frLocale from 'date-fns/locale/fr';
 import { ProyectosService } from '../../services/proyectos.service';
-
+import { Router,ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,6 +14,7 @@ import { ProyectosService } from '../../services/proyectos.service';
 })
 export class ProyectoComponent implements OnInit{
 
+  
     proyecto:Proyecto= {
 
       //nombre:"",
@@ -42,14 +43,46 @@ export class ProyectoComponent implements OnInit{
     // project_project_resource_calendar_id: 0
   }
 
+  nuevo:boolean=false;
+  id:string;
 
-  constructor(private pr:ProyectosService) { }
-
-  crearProyectos(){
-    console.log(this.proyecto);
-    this.pr.crearProyectos(this.proyecto);
+  constructor(private pr:ProyectosService,
+    private activatedRoute:ActivatedRoute){
+    this.activatedRoute.params
+      .subscribe(parametros => {
+        console.log(parametros);
+        this.id = parametros['id'];
+      } )
   }
 
+  crearProyectos(){
+    if (this.id=="nuevo")
+    {
+      // insertando
+      this.pr.crearProyectos(this.proyecto)
+      /*.subscribe( data=>{
+        this.activatedRoute.navigate(['/proyecto',data.name])
+    },
+    error=> console.error(error)
+  );*/
+
+    }
+    else
+    {
+      //actualizando
+      this.pr.editarProyectos(this.proyecto, this.id)
+      /*.subscribe( data=>{
+      console.log(data);
+    },
+    error=> console.error(error));
+    */
+    }
+    
+
+
+
+    
+  }
 
 
   ngOnInit() {
