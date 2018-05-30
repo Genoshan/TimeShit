@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProyectosComponent implements OnInit {
 
-  proyectos:any[] = [];
+  proyectos:Proyecto[] = [];
 
   proyecto:Proyecto = {
 

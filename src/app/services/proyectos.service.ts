@@ -6,7 +6,14 @@ import 'rxjs/Rx';
 @Injectable()
 export class ProyectosService {
     
-  private proyectos:any[] = [{
+  private Proyecto:{
+    id: number,    
+    fechaInicio: Date,
+    Estado: boolean,
+    codigoProyecto: string
+  };
+
+  private proyectos:Proyecto[] = [{
     id: 1,    
     fechaInicio: new Date(Date.now()),
     Estado: true,
@@ -96,6 +103,11 @@ export class ProyectosService {
     return this.proyectos;
   }
 
+  getProyecto(id:number){
+
+    return this.Proyecto=this.proyectos.find(x => x.id == id);
+  }
+
   crearProyectos(p: Proyecto){
         
     this.proyectos.push(p);
@@ -104,9 +116,11 @@ export class ProyectosService {
     //return this.proyectos;
   }
 
-  editarProyectos(p: Proyecto,id:string ){
+  editarProyectos(p: Proyecto, id:string ){
+
     //Proyecto proy= this.proyectos.find(p;
-    console.log(p);
+    
+    console.log(p.codigoProyecto,p.fechaInicio,p.Estado,p.id);
     
     //return this.proyectos;
   }

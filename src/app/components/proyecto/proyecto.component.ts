@@ -55,6 +55,14 @@ export class ProyectoComponent implements OnInit{
       } )
   }
 
+  getProyecto(){
+        if (this.id=="nuevo"){}
+        else{
+          this.proyecto=this.pr.getProyecto(Number(this.id));
+        }        
+      }
+
+
   crearProyectos(){
     if (this.id=="nuevo")
     {
@@ -71,21 +79,19 @@ export class ProyectoComponent implements OnInit{
     {
       //actualizando
       this.pr.editarProyectos(this.proyecto, this.id)
+      console.log(this.proyecto,this.id);
       /*.subscribe( data=>{
       console.log(data);
     },
     error=> console.error(error));
     */
     }
-    
-
-
-
-    
   }
 
 
   ngOnInit() {
+    this.getProyecto();
+    console.log(this.proyecto);
   }
 
 
