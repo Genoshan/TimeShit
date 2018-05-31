@@ -14,37 +14,20 @@ import { Router,ActivatedRoute } from '@angular/router';
 })
 export class ProyectoComponent implements OnInit{
 
-  
-    proyecto:Proyecto= {
+    /*****ATRIBUTOS******/
 
-      //nombre:"",
+    proyecto:Proyecto= {
+      
       fechaInicio:new Date(Date.now()),
       Estado:true,
       codigoProyecto:"",
-      id: 0,
-
-    // create_date: new Date(Date.now()),
-    // write_date: new Date(Date.now()),        
-    // alias_model: "",
-    // alias_id:0,	
-    // write_uid:0,	
-    // effective_hours: 0,
-    // planned_hours: 0,
-    // active:true,
-    // analytic_account_id: 0, 
-    // create_uid:0,
-    // progress_rate: 0,
-    // sequence: 0,	
-    // privacy_visibility: "",	
-    // total_hours: 0,	
-    // state: "",	
-    // project_code: "",
-    // project_escalation_id:0, 
-    // project_project_resource_calendar_id: 0
+      id: 0,    
   }
 
   nuevo:boolean=false;
   id:string;
+
+  /********CONSTRUCTOR******/
 
   constructor(private pr:ProyectosService,
     private activatedRoute:ActivatedRoute){
@@ -55,8 +38,13 @@ export class ProyectoComponent implements OnInit{
       } )
   }
 
+  /*****OPERACIONES*****/
+
   getProyecto(){
-        if (this.id=="nuevo"){}
+        if (this.id=="nuevo")
+        {
+
+        }
         else{
           this.proyecto=this.pr.getProyecto(Number(this.id));
         }        
@@ -88,11 +76,10 @@ export class ProyectoComponent implements OnInit{
     }
   }
 
-
+  /**** CARGA INICIAL DEL COMPONENTE *****/
   ngOnInit() {
     this.getProyecto();
     console.log(this.proyecto);
   }
-
 
 }
