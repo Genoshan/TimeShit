@@ -12,6 +12,13 @@ export class ProyectosService {
     Estado: boolean,
     codigoProyecto: string
   };
+  
+  private proyectosxtermino:Proyecto[] = [{
+    id: 0,    
+    fechaInicio: new Date(Date.now()),
+    Estado: false,
+    codigoProyecto: ""    
+  }];
 
   private proyectos:Proyecto[] = [{
     id: 1,    
@@ -46,6 +53,12 @@ export class ProyectosService {
   getProyecto(id:number){
 
     return this.Proyecto=this.proyectos.find(x => x.id == id);
+  }
+
+  getProyectoxTermino(termino:string){
+
+    return this.proyectos.filter(x => x.codigoProyecto.toLowerCase().indexOf(termino.toLowerCase()) > -1);
+    
   }
 
   crearProyectos(p: Proyecto){

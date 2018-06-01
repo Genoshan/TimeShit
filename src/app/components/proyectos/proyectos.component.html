@@ -17,7 +17,7 @@
           <hr>
 
         <div class="input-group" >
-          <input class="form-control col-md-6" placeholder="Buscar proyectos">
+          <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar proyectos">          
           <div class="input-group-addon">
             <button type="button" class="btn btn-outline-primary">
               <fa name="search"></fa>
@@ -25,12 +25,15 @@
           </div>
         </div>
 
+
+        
         <!-- Tabla principal de Proyectos  -->
 
         <br>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12" id="todays-table">
+
         <table class="table">
           <thead class="thead-default">
             <tr>

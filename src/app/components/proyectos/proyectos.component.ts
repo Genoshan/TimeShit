@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProyectosComponent implements OnInit {
 
   proyectos:Proyecto[] = [];
+  loading:boolean;
 
   proyecto:Proyecto = {
 
@@ -42,7 +43,17 @@ export class ProyectosComponent implements OnInit {
     
   }
 
-  constructor( private pservice: ProyectosService) { }
+  constructor( private pservice: ProyectosService) {
+    
+   }
+
+   buscar(termino: string) {
+    console.log(termino);
+
+    this.loading = true;
+    this.proyectos=this.pservice.getProyectoxTermino(termino);
+    console.log(this.proyectos);      
+  }
 
   ngOnInit() {
     this.proyectos = this.pservice.getProyectos();
