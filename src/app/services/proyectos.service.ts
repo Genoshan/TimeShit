@@ -20,29 +20,17 @@ export class ProyectosService {
     codigoProyecto: ""    
   }];
 
-  private proyectos:Proyecto[] = [{
-    id: 1,    
-    fechaInicio: new Date(Date.now()),
-    Estado: true,
-    codigoProyecto: "proyecto1"    
-  },
-  {
-
-    id: 2,    
-    fechaInicio: new Date(Date.now()),
-    Estado: true,
-    codigoProyecto: "proyecto2"
-  },
-  {
-
-    id: 3,    
-    fechaInicio: new Date(Date.now()),
-    Estado: true,
-    codigoProyecto: "proyecto3"
-  }]
+  private proyectos:Proyecto[] = [];
 
 
   constructor() { 
+
+    //CREACION DE PROYECTOS EN MEMORIA
+    for(let i=1;i<=100;i++)
+    {
+      this.Proyecto={id:i,fechaInicio:new Date(Date.now()), Estado:true,codigoProyecto:"proyecto"+i};      
+      this.proyectos.push(this.Proyecto);
+    }
 
   }
 

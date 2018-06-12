@@ -39,7 +39,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
-
+//PAGINATION
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginationModule } from 'ngx-pagination-bootstrap';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BsDropdownModule,
     TooltipModule,
     ModalModule,
+    NgxPaginationModule,
+    PaginationModule,
     RouterModule.forRoot([
       //Protejo las rutas con el metodo canActivate del AuthGuard Service
       { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard] },

@@ -27,6 +27,7 @@
 
 
         
+
         <!-- Tabla principal de Proyectos  -->
 
         <br>
@@ -44,15 +45,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let k of proyectos  | keys; let i = index">
+            <tr *ngFor="let k of proyectos | keys; let i = index ">
               <!-- <td>{{i + 1}}</td>            -->
               <!-- <td>{{ proyectos[k].id }}</td> -->
               <td>{{ proyectos[k].codigoProyecto }}</td>
               <td>{{ proyectos[k].fechaInicio | date: "dd-MM-yyyy" }}</td>              
-              <td class="text-right w120">              
-
-
-                <!-- Hay que vincular los proyectos a las tareas con una nueva coleccion en firebase  -->
+              <td class="text-right w120">               
 
                  <!-- Editar Proyecto -->
                 <button [routerLink]="['/proyecto',proyectos[k].id]" type="button" class="btn btn-outline-primary btn-responsive  ">
@@ -73,8 +71,12 @@
               </td>
             </tr>
         </table>
-
+        
       </div>
+
+      <!-- PAGINACION COMENTADA
+        <ng-pagination [position]="'left'" [pageSize]="10" [itemsCount]="proyectos.length" 
+          [data]="proyectos" (getPageData)="getPageData($event)"></ng-pagination> -->
 
     </div>
   </div>
