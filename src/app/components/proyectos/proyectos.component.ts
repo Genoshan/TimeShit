@@ -1,7 +1,8 @@
 import { ProyectosService } from './../../services/proyectos.service';
 import { Proyecto } from './../../interfaces/proyecto';
 import { Component, OnInit } from '@angular/core';
-import { PaginationModule } from 'ngx-pagination-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+//import { PaginationModule } from 'ngx-pagination-bootstrap';
 
 @Component({
   selector: 'app-proyectos',

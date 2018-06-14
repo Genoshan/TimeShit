@@ -45,7 +45,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let k of proyectos | keys; let i = index ">
+            <!-- <tr *ngFor="let k of proyectos | keys; let i = index "> -->
+                <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:5,currentPage: p} ">
               <!-- <td>{{i + 1}}</td>            -->
               <!-- <td>{{ proyectos[k].id }}</td> -->
               <td>{{ proyectos[k].codigoProyecto }}</td>
@@ -67,17 +68,11 @@
                   Horas
                   <fa name="plus"></fa>
                 </button>
-
               </td>
             </tr>
         </table>
         
       </div>
-
-      <!-- PAGINACION COMENTADA
-        <ng-pagination [position]="'left'" [pageSize]="10" [itemsCount]="proyectos.length" 
-          [data]="proyectos" (getPageData)="getPageData($event)"></ng-pagination> -->
-
     </div>
   </div>
 
@@ -88,4 +83,6 @@
   </div>
 
 </div>
+
+<pagination-controls (pageChange)=" p =$event"> </pagination-controls>
 

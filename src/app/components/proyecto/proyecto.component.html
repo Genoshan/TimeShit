@@ -1,6 +1,10 @@
 <h3>PROYECTO</h3>
+
+
 <form class="form-inline">
   <label class="sr-only" for="inlineFormInput">Nombre</label>
+  
+  <button [routerLink]="['/proyectos']" type="button" class="btn btn-outline-primary btn-responsive"> < </button>
 
   <input [(ngModel)]="proyecto.codigoProyecto" name="codigoProyecto"  type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
     placeholder="Proyecto">
@@ -19,8 +23,7 @@
   </div>
 
   <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
-
-  <button [routerLink]="['/proyectos']" type="button" class="btn btn-danger ">Volver</button>
+  <button class="btn btn-danger" (click)="eliminarProyectos()">Eliminar</button>
 
 </form>
 
