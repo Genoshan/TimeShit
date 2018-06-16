@@ -1,0 +1,18 @@
+<div class="col-lg-6">
+    <h1>"TU VIEJA"</h1>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-7">
+        <P>
+            <label>Usuario Odoo</label>
+            <input type="email" name="email" #email="ngModel" [(ngModel)]="usuario.email" class="form-control" required/>
+            <span *ngIf="!email.valid && email.touched">El email es obligatorio</span>
+
+
+        </P>
+        <P>
+            <label>Contraseña</label>
+            <input type="password" name="password" #password="ngModel" [(ngModel)]="usuario.password" class="form-control" required/>
+            <span *ngIf="!password.valid && password.touched">La contraseña es obligatoria</span>
+        </P>
+        <input type="submit" value="Entrar" class="btn btn-success" />
+    </form>
+</div>

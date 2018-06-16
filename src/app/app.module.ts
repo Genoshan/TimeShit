@@ -42,6 +42,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 //PAGINATION
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-pagination-bootstrap';
+import { UsuarioComponent } from './components/usuario/usuario.component';
+import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { PaginationModule } from 'ngx-pagination-bootstrap';
     TareaComponent,
     HorasComponent,
     LoginComponent,
-    KeysPipe
+    KeysPipe,
+    UsuarioComponent,
+    LoginUsuarioComponent
     
   ],
   //ojo con esto...
@@ -82,7 +86,8 @@ import { PaginationModule } from 'ngx-pagination-bootstrap';
       { path: 'tareas/:id', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tarea', component: TareaComponent, canActivate: [AuthGuard] },
       { path: 'horas', component: HorasComponent, canActivate: [AuthGuard] },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'login-usuario', component: LoginUsuarioComponent }
     ]),
   ],
   providers: [
