@@ -1,6 +1,8 @@
 import { UsuarioService } from './../../services/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../interfaces/usuario';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,62 +12,34 @@ import { Usuario } from '../../interfaces/usuario';
 })
 export class LoginUsuarioComponent implements OnInit {
 
-  usuario:Usuario = {
+  user:Usuario={
     nombre: "",
     email: "",
-    password: "",
+    //password: string;
     img: "",
     ci: ""
   }
+
+  email:string;
+  pass:string;  
   public identity;
 
 
-  constructor(private pservice: UsuarioService) {    
+  constructor(private router: Router, private pservice: UsuarioService) {    
    }
 
   ngOnInit() {
-    console.log(this.usuario);      
+    //console.log(this.usuario);      
   }
 
-  onSubmit(){
+  onSubmit(loginForm: NgForm){
 
     //Logueo usuario y conseguir el objeto
-    this.pservice.login(this.usuario).subscribe(
-      response=> {
-        this.identity = response.user;
-
-        /* VROBLES Seccion 15 Clase 79
-        https://www.udemy.com/curso-de-angular-2-4-5-avanzado-mean-jwt/learn/v4/t/lecture/7689302?start=0
-        
-        if (!this.identity||!this.identity._id) {
-          alert('El usuario no se ha logueado correctamente')
-        } 
-        else {
-
-            //Conseguir objeto (token)
-            this.pservice.login(this.usuario).subscribe(
-              response=>{
-                this.identity=response.Usuario;
-                if (!this.identity||!this.identity._id) {
-                  alert('El usuario no se ha logueado correctamente');
-                } 
-                else {
-                  
-                }              
-              },
-              
-              error=>{
-                console.log(<any>error);
-              }
-            );
-        } */        
-
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
-    console.log(this.usuario);      
+    
+    this.pservice.login(loginForm.value.email,loginForm.value.pass)
+      .subscribe(
+      correcto => this.router.navigate(['/proyectos']));
+    //console.log(this.usuario);      
   }
 
 

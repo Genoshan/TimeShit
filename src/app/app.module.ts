@@ -1,5 +1,4 @@
-import { TareasService } from './services/tareas.service';
-import { ProyectosService } from './services/proyectos.service';
+
 import { AuthService } from './auth.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
@@ -45,6 +44,12 @@ import { PaginationModule } from 'ngx-pagination-bootstrap';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 
+//SERVICES
+import { TareasService } from './services/tareas.service';
+import { ProyectosService } from './services/proyectos.service';
+import { UsuarioService } from './services/usuario.service';
+import { HttpModule } from '@angular/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +83,7 @@ import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.
     ModalModule,
     NgxPaginationModule,
     PaginationModule,
+    HttpModule,
     RouterModule.forRoot([
       //Protejo las rutas con el metodo canActivate del AuthGuard Service
       { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard] },
@@ -95,7 +101,9 @@ import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.
     AuthService,
     AuthGuard,
     ProyectosService,
-    TareasService
+    TareasService,
+    UsuarioService,
+    HttpModule
   ],
   bootstrap: [AppComponent]
 })
