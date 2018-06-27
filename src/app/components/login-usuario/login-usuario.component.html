@@ -1,20 +1,41 @@
 <div class="col-lg-6">
-    <h1>"TU VIEJA"</h1>
+
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="col-lg-7">
+        <h1>Login</h1>
+        <hr>
         <P>
-            <label>Usuario Odoo</label>
+            <label>Email de Odoo</label>
             <input ngModel name="email" type="email" #email="ngModel" class="form-control" required/>
             <!-- <input type="email" name="email" #email="ngModel" [(ngModel)]="email" class="form-control" required/> -->
-            <span *ngIf="!email.valid && email.touched">El email es obligatorio</span>
+            <!-- <span *ngIf="!email.valid && email.touched" class="alert alert-danger">El email es obligatorio</span>            -->
 
 
-        </P>
-        <P>
-            <label>Contraseña</label>
-            <input ngModel name="pass" type="password" #pass="ngModel" class="form-control" required/>
-            <!-- <input  name="password" type="password" #password="ngModel" [(ngModel)]="password" class="form-control" required/> -->
-            <span *ngIf="!pass.valid && pass.touched">La contraseña es obligatoria</span>
-        </P>
-        <input type="submit" value="Entrar" class="btn btn-success" />
+            <P>
+                <label>Contraseña</label>
+                <input ngModel name="pass" type="password" #pass="ngModel" class="form-control" required/> <br>
+                <!-- <input  name="password" type="password" #password="ngModel" [(ngModel)]="password" class="form-control" required/> -->
+
+                <input type="submit" value="Entrar" class="btn btn-success" />
+
+                <div *ngIf="!email.valid && email.touched" class="alert alert-danger">
+
+                    <div [hidden]="!email.errors.required">
+                        El email es obligatorio
+                    </div>
+                </div>
+                <div *ngIf="!pass.valid && pass.touched" class="alert alert-danger">
+                    <div [hidden]="!pass.errors.required">
+                        La contraseña es obligatoria
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" *ngIf="status == 'error'">
+                    No te has identificado correctamente
+                </div>
+
     </form>
+
+
+
+
 </div>

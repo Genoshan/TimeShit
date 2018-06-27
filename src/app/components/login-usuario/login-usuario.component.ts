@@ -23,6 +23,7 @@ export class LoginUsuarioComponent implements OnInit {
   email:string;
   pass:string;  
   public identity;
+  status:string;
 
 
   constructor(private router: Router, private pservice: UsuarioService) {    
@@ -37,11 +38,23 @@ export class LoginUsuarioComponent implements OnInit {
     //Logueo usuario y conseguir el objeto
     
     this.pservice.login(loginForm.value.email,loginForm.value.pass)
-      .subscribe(
-      correcto => this.router.navigate(['/proyectos']));
+      .subscribe(        
+      correcto => { if(correcto)this.router.navigate(['/proyectos'])
+        else{
+          this.status = 'error';
+          //alert('El usuario no esta');
+        }
+      
+    } 
+      
+    )
+      ,      
+                error => {
+                    console.log("error");                    
+      ;
     //console.log(this.usuario);      
   }
-
-
-
 }
+}
+
+

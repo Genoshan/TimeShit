@@ -37,6 +37,7 @@ export class ProyectosService {
 
   getProyectos(){
     return this.proyectos;
+    //Llamar al servicio de la API y traer por la CI
   }
 
   getProyecto(id:number){

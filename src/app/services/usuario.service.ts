@@ -59,7 +59,7 @@ export class UsuarioService {
             return true;
           }
         else {
-          console.log(this.Usuario["Nombre"]);
+          console.log(this.Usuario["Nombre"] + " " +  "No entro vieja!");
           return false;
         }
         
