@@ -39,17 +39,22 @@ export class LoginUsuarioComponent implements OnInit {
     
     this.pservice.login(loginForm.value.email,loginForm.value.pass)
       .subscribe(        
-      correcto => { if(correcto)this.router.navigate(['/proyectos'])
+      correcto => { 
+        if(correcto)this.router.navigate(['/proyectos'])
         else{
           this.status = 'error';
           //alert('El usuario no esta');
         }
-      
-    } 
-      
+    },(error) => {
+      this.status = 'error';
+      //console.log(error);                    
+
+//console.log(this.usuario);      
+} 
     )
       ,      
                 error => {
+                  this.status = 'error';
                     console.log("error");                    
       ;
     //console.log(this.usuario);      

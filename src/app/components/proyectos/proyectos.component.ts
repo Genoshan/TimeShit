@@ -1,5 +1,6 @@
 import { ProyectosService } from './../../services/proyectos.service';
 import { Proyecto } from './../../interfaces/proyecto';
+import { Usuario } from '../../interfaces/usuario';
 import { Component, OnInit } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 //import { PaginationModule } from 'ngx-pagination-bootstrap';
@@ -14,6 +15,14 @@ export class ProyectosComponent implements OnInit {
   proyectos:Proyecto[] = [];
   loading:boolean;
 
+  user:Usuario={
+    nombre: "",
+    email: "",
+    //password: string;
+    img: "",
+    ci: ""
+  }  
+
   proyecto:Proyecto = {
 
     //nombre:"",
@@ -21,28 +30,9 @@ export class ProyectosComponent implements OnInit {
     Estado:true,
     codigoProyecto:"",    
     id: 0,
-
-    /*
-    create_date: new Date(Date.now()),
-    write_date: new Date(Date.now()),        
-    alias_model: "",
-    alias_id:0,	
-    write_uid:0,	
-    effective_hours: 0,
-    planned_hours: 0,
-    active:true,
-    analytic_account_id: 0, 
-    create_uid:0,
-    progress_rate: 0,
-    sequence: 0,	
-    privacy_visibility: "",	
-    total_hours: 0,	
-    state: "",	
-    project_code: "",
-    project_escalation_id:0, 
-    project_project_resource_calendar_id: 0*/
-    
   }
+
+  status:string;
 
   constructor( private pservice: ProyectosService) {
     
@@ -59,6 +49,32 @@ export class ProyectosComponent implements OnInit {
   ngOnInit() {
     this.proyectos = this.pservice.getProyectos();
     console.log(this.proyectos);
-  }
 
+    //LISTA PROYECTOS DEL USUARIO DESDE API
+    this.user=JSON.parse(localStorage.getItem('usuario'));
+    this.pservice.getProyectosUsuario(this.user.ci)
+      .subscribe(        
+      correcto => { 
+        if(correcto)this.proyectos = correcto.proyectos
+        else{
+          this.status = 'error';
+          //alert('El usuario no esta');
+        }
+    },(error) => {
+      this.status = 'error';
+      //console.log(error);                    
+
+//console.log(this.usuario);      
+      } 
+    )
+      ,      
+                error => {
+                  this.status = 'error';
+                    console.log("error");                    
+      ;
+    //console.log(this.usuario);      
+  }
 }
+}
+
+
