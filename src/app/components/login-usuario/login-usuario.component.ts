@@ -46,19 +46,19 @@ export class LoginUsuarioComponent implements OnInit {
           //alert('El usuario no esta');
         }
     },(error) => {
-      this.status = 'error';
+      this.status = 'exception';
       //console.log(error);                    
 
 //console.log(this.usuario);      
 } 
     )
-      ,      
+      /* ,      
                 error => {
                   this.status = 'error';
                     console.log("error");                    
       ;
     //console.log(this.usuario);      
-  }
+  } */
 }
 }
 

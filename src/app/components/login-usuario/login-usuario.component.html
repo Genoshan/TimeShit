@@ -33,6 +33,10 @@
                     No te has identificado correctamente
                 </div>
 
+                <div class="alert alert-danger" *ngIf="status == 'exception'">
+                    Error de Servidor
+                </div>
+
     </form>
 
 

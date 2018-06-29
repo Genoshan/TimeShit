@@ -51,7 +51,7 @@ export class ProyectosService {
   constructor(private _http: Http) { 
     
     //esto tiene que estar en un GLOBAL
-    this.url = "http://Dev-Pc:81/api/";
+    this.url = "http://localhost:88/api/";
 
     //CREACION DE PROYECTOS EN MEMORIA
     for(let i=1;i<=100;i++)
@@ -76,7 +76,7 @@ export class ProyectosService {
 
     return this._http
       .post(
-        this.url + "GetProyectos?pCI=" + ci,
+        this.url + "ListarProyectosDeUsuario?pDocumento=" + ci+"",
         params
       )
       .map((res: any) => { 
@@ -90,11 +90,11 @@ export class ProyectosService {
                   
           if (this.proyectos.length>0)
           {
-            console.log(this.proyectos);            
+            //console.log(this.proyectos);            
             return this.proyectos;
           }
         else {
-          console.log(this.proyectos + " " +  "No tenes proyectos vieja!");
+          //console.log(this.proyectos + " " +  "No tenes proyectos vieja!");
           return false;
         }
         

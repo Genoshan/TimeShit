@@ -47,24 +47,33 @@ export class ProyectosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.proyectos = this.pservice.getProyectos();
-    console.log(this.proyectos);
+
+    //lista en memoria
+    //this.proyectos = this.pservice.getProyectos();
+    //console.log(this.proyectos);
 
     //LISTA PROYECTOS DEL USUARIO DESDE API
     this.user=JSON.parse(localStorage.getItem('usuario'));
-    this.pservice.getProyectosUsuario(this.user.ci)
+
+    //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
+    this.pservice.getProyectosUsuario(this.user["CI"])
       .subscribe(        
       correcto => { 
-        if(correcto)this.proyectos = correcto.proyectos
+        if(correcto)
+        {
+          //this.proyectos = JSON.parse(correcto.proyectos);
+          this.proyectos = correcto;
+          console.log(this.proyectos);
+            //<Proyecto[] > correcto.json()
+           
+        }
         else{
           this.status = 'error';
           //alert('El usuario no esta');
         }
     },(error) => {
       this.status = 'error';
-      //console.log(error);                    
-
-//console.log(this.usuario);      
+      console.log(error);                    
       } 
     )
       ,      

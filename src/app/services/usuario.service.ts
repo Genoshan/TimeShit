@@ -29,7 +29,7 @@ export class UsuarioService {
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
-    this.url = "http://Dev-Pc:81/api/";
+    this.url = "http://localhost:88/api/";
   }
 
   login(email: string, pass: string) {
