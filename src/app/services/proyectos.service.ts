@@ -18,7 +18,7 @@ import { Proyecto } from './../interfaces/proyecto';
 export class ProyectosService {
   
   private Proyecto:{
-    id: number,    
+    IdProyecto: number,    
     fechaInicio: Date,
     Estado: boolean,
     codigoProyecto: string
@@ -39,9 +39,10 @@ export class ProyectosService {
   //METODOS
   
   private proyectosxtermino:Proyecto[] = [{
-    id: 0,    
+    IdProyecto: 0,    
     fechaInicio: new Date(Date.now()),
     Estado: false,
+    Nombre:"",
     codigoProyecto: ""    
   }];
 
@@ -52,14 +53,6 @@ export class ProyectosService {
     
     //esto tiene que estar en un GLOBAL
     this.url = "http://localhost:88/api/";
-
-    //CREACION DE PROYECTOS EN MEMORIA
-    for(let i=1;i<=100;i++)
-    {
-      this.Proyecto={id:i,fechaInicio:new Date(Date.now()), Estado:true,codigoProyecto:"proyecto"+i};      
-      this.proyectos.push(this.Proyecto);
-    }
-
   }
 
   getProyectos(){
@@ -79,22 +72,16 @@ export class ProyectosService {
         this.url + "ListarProyectosDeUsuario?pDocumento=" + ci+"",
         params
       )
-      .map((res: any) => { 
+      .map((res: any) => {        
         
-        /*"Nombre": "Claudio Martín Bevegni Martos",
-        "Email": "martin.bevegni@arkanosoft.com",
-        "Img": "",
-        "CI": "4279633-8"*/
-         //console.log(res['Nombre']); 
          this.proyectos = res.json();
                   
           if (this.proyectos.length>0)
-          {
-            //console.log(this.proyectos);            
+          {            
             return this.proyectos;
           }
         else {
-          //console.log(this.proyectos + " " +  "No tenes proyectos vieja!");
+          
           return false;
         }
         
@@ -104,21 +91,21 @@ export class ProyectosService {
   
   getProyecto(id:number){
 
-    return this.Proyecto=this.proyectos.find(x => x.id == id);
+    return this.Proyecto=this.proyectos.find(x => x.IdProyecto == id);
   }
 
   getProyectoxTermino(termino:string){
 
-    return this.proyectos.filter(x => x.codigoProyecto.toLowerCase().indexOf(termino.toLowerCase()) > -1);
+    return this.proyectos.filter(x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1);
     
   }
 
   crearProyectos(p: Proyecto){
     
-    p.id=this.proyectos.length+1;
+    p.IdProyecto=this.proyectos.length+1;
     
     this.proyectos.push(p);
-    console.log(this.proyectos);
+    
 
     //return this.proyectos;
   }
@@ -126,7 +113,7 @@ export class ProyectosService {
   editarProyectos(p: Proyecto, id:string ){
 
     //Proyecto proy= this.proyectos.find(p;
-    let projectoaux = this.proyectos.find(x => x.id == Number(id));         
+    let projectoaux = this.proyectos.find(x => x.IdProyecto == Number(id));         
     let index = this.proyectos.indexOf(projectoaux);
     this.proyectos[index]=projectoaux;    
     

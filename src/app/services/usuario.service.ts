@@ -44,22 +44,15 @@ export class UsuarioService {
         params
       )
       .map((res: any) => { 
-        
-        /*"Nombre": "Claudio Martín Bevegni Martos",
-        "Email": "martin.bevegni@arkanosoft.com",
-        "Img": "",
-        "CI": "4279633-8"*/
-         //console.log(res['Nombre']); 
+                
          this.Usuario = res.json();
                   
           if (this.Usuario["Nombre"]!=null)
-          {
-            console.log(this.Usuario["Nombre"]);
+          {            
             localStorage.setItem('usuario',JSON.stringify(this.Usuario));
             return true;
           }
-        else {
-          console.log(this.Usuario["Nombre"] + " " +  "No entro vieja!");
+        else {          
           return false;
         }
         

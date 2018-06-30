@@ -25,11 +25,11 @@ export class ProyectosComponent implements OnInit {
 
   proyecto:Proyecto = {
 
-    //nombre:"",
+    Nombre:"",
     fechaInicio:new Date(Date.now()),
     Estado:true,
     codigoProyecto:"",    
-    id: 0,
+    IdProyecto: 0,
   }
 
   status:string;
@@ -39,19 +39,13 @@ export class ProyectosComponent implements OnInit {
    }
 
    buscar(termino: string) {
-    console.log(termino);
-
     this.loading = true;
     this.proyectos=this.pservice.getProyectoxTermino(termino);
-    console.log(this.proyectos);      
+    
   }
 
   ngOnInit() {
-
-    //lista en memoria
-    //this.proyectos = this.pservice.getProyectos();
-    //console.log(this.proyectos);
-
+  
     //LISTA PROYECTOS DEL USUARIO DESDE API
     this.user=JSON.parse(localStorage.getItem('usuario'));
 
@@ -61,28 +55,17 @@ export class ProyectosComponent implements OnInit {
       correcto => { 
         if(correcto)
         {
-          //this.proyectos = JSON.parse(correcto.proyectos);
-          this.proyectos = correcto;
-          console.log(this.proyectos);
-            //<Proyecto[] > correcto.json()
+          this.proyectos = correcto;        
            
         }
         else{
-          this.status = 'error';
-          //alert('El usuario no esta');
+          this.status = 'error';          
         }
     },(error) => {
       this.status = 'error';
       console.log(error);                    
       } 
-    )
-      ,      
-                error => {
-                  this.status = 'error';
-                    console.log("error");                    
-      ;
-    //console.log(this.usuario);      
-  }
+    )      
 }
 }
 

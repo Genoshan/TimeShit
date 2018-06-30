@@ -30,7 +30,7 @@ export class LoginUsuarioComponent implements OnInit {
    }
 
   ngOnInit() {
-    //console.log(this.usuario);      
+    
   }
 
   onSubmit(loginForm: NgForm){
@@ -47,18 +47,9 @@ export class LoginUsuarioComponent implements OnInit {
         }
     },(error) => {
       this.status = 'exception';
-      //console.log(error);                    
-
-//console.log(this.usuario);      
+      
 } 
-    )
-      /* ,      
-                error => {
-                  this.status = 'error';
-                    console.log("error");                    
-      ;
-    //console.log(this.usuario);      
-  } */
+    )      
 }
 }
 

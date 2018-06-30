@@ -20,8 +20,9 @@ export class ProyectoComponent implements OnInit{
       
       fechaInicio:new Date(Date.now()),
       Estado:true,
+      Nombre:"",
       codigoProyecto:"",
-      id: 0,    
+      IdProyecto: 0,    
   }
 
   nuevo:boolean=false;
@@ -32,8 +33,7 @@ export class ProyectoComponent implements OnInit{
   constructor(private pr:ProyectosService,
     private activatedRoute:ActivatedRoute){
     this.activatedRoute.params
-      .subscribe(parametros => {
-        console.log(parametros);
+      .subscribe(parametros => {        
         this.id = parametros['id'];
       } )
   }
@@ -66,20 +66,13 @@ export class ProyectoComponent implements OnInit{
     else
     {
       //actualizando
-      this.pr.editarProyectos(this.proyecto, this.id)
-      console.log(this.proyecto,this.id);
-      /*.subscribe( data=>{
-      console.log(data);
-    },
-    error=> console.error(error));
-    */
+      this.pr.editarProyectos(this.proyecto, this.id)            
     }
   }
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ngOnInit() {
-    this.getProyecto();
-    console.log(this.proyecto);
+    this.getProyecto();    
   }
 
 }

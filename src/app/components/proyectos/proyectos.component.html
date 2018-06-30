@@ -38,7 +38,7 @@
                             <table class="table">
                                 <thead class="thead-default">
                                     <tr>
-                                        <!-- <th>Id Proyecto</th> -->
+                                        <th>Id</th>
                                         <th>Codigo</th>
                                         <th>Nombre</th>
                                         <th>Fecha Inicio</th>
@@ -49,19 +49,21 @@
                                     <!-- <tr *ngFor="let k of proyectos | keys; let i = index "> -->
                                     <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:5,currentPage: p} ">
                                         <!-- <td>{{i + 1}}</td>            -->
-                                        <!-- <td>{{ proyectos[k].id }}</td> -->
+                                        <!-- ALGO RARO HAY ACÄ -->
+                                        <td>{{ proyectos[k].IdProyecto }}</td>
                                         <td>{{ proyectos[k].CodigoProyecto }}</td>
                                         <td>{{ proyectos[k].Nombre }}</td>
                                         <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
+
                                         <td class="text-right w120">
 
                                             <!-- Editar Proyecto -->
-                                            <button [routerLink]="['/proyecto',proyectos[k].id]" type="button" class="btn btn-outline-primary btn-responsive  ">
+                                            <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button" class="btn btn-outline-primary btn-responsive  ">
                   Editar
                   <fa name="edit"></fa>
                 </button>
                                             <!-- Lista de Tareas -->
-                                            <button [routerLink]="['/tareas',proyectos[k].id]" type="button" class="btn btn-outline-primary  ">
+                                            <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-primary  ">
                   Tareas
                   <fa name="calendar"></fa>
                 </button>
