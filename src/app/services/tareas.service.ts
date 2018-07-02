@@ -51,7 +51,14 @@ export class TareasService {
         
       })
       .catch(this.handleError); 
-  }  
+  }
+  
+  //BUSCADOR DE TAREAS
+  getTareasxTermino(termino:string){
+
+    return this.tareas.filter(x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1);
+    
+  }
 
   //MANEJADOR DE ERRORES DE SERVICIO
   private handleError(error:any)

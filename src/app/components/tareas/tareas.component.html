@@ -13,7 +13,7 @@
                 <hr>
 
                 <div class="input-group">
-                    <input class="form-control col-md-6" placeholder="Buscar tareas">
+                    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar tareas">
                     <div class="input-group-addon">
                         <button type="button" class="btn btn-outline-primary">
               <fa name="search"></fa>
@@ -21,6 +21,7 @@
                     </div>
                 </div>
 
+                <hr>
 
                 <!-- Tabla principal de Tareas  -->
 
@@ -33,18 +34,20 @@
                             <th>Tarea</th>
                             <th>Fecha Inicio</th>
                             <th>Horas</th>
-                            <th class="text-right">Proyecto</th>
-                            <th class="text-right">Opciones</th>
+                            <th>Proyecto</th>
+                            <th class="text-center">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        <tr *ngFor="let k of tareas | keys; let i = index">
+                        <tr *ngFor="let k of tareas | keys | paginate:{itemsPerPage:5,currentPage: p}">
+
                             <!-- <td>{{ tareas[k].id }}</td> -->
                             <td>{{ tareas[k].Nombre }}</td>
-                            <td>{{ tareas[k].FechaInicio }}</td>
-                            <!-- <td>{{ tareas[k].Id }}</td> -->
+                            <td>{{ tareas[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
                             <td></td>
+                            <td>{{ id }}</td>
+
                             <!-- <td *ngFor="let l of tareas[k].proyectos[l] | keys;"> {{l}}: {{proyecto[l].}} </td> -->
 
                             <td class="text-right w120">
@@ -69,3 +72,4 @@
                     </tbody>
                 </table>
             </div>
+            <pagination-controls (pageChange)=" p =$event"> </pagination-controls>

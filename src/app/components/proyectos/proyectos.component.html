@@ -38,7 +38,7 @@
                             <table class="table">
                                 <thead class="thead-default">
                                     <tr>
-                                        <th>Id</th>
+                                        <!-- <th>Id</th> -->
                                         <th>Codigo</th>
                                         <th>Nombre</th>
                                         <th>Fecha Inicio</th>
@@ -48,9 +48,7 @@
                                 <tbody>
                                     <!-- <tr *ngFor="let k of proyectos | keys; let i = index "> -->
                                     <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:5,currentPage: p} ">
-                                        <!-- <td>{{i + 1}}</td>            -->
-                                        <!-- ALGO RARO HAY ACÄ -->
-                                        <td>{{ proyectos[k].IdProyecto }}</td>
+                                        <!-- <td>{{ proyectos[k].IdProyecto }}</td> -->
                                         <td>{{ proyectos[k].CodigoProyecto }}</td>
                                         <td>{{ proyectos[k].Nombre }}</td>
                                         <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>

@@ -2,28 +2,29 @@
 
 
 <form class="form-inline">
-  <label class="sr-only" for="inlineFormInput">Nombre</label>
-  
-  <button [routerLink]="['/proyectos']" type="button" class="btn btn-outline-primary btn-responsive"> < </button>
+    <label class="sr-only" for="inlineFormInput">Nombre</label>
 
-  <input [(ngModel)]="proyecto.codigoProyecto" name="codigoProyecto"  type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
-    placeholder="Proyecto">
+    <button [routerLink]="['/proyectos']" type="button" class="btn btn-outline-primary btn-responsive"> < </button>
 
-  <label class="sr-only" for="inlineFormInputGroup">Fecha de Inicio</label>
-  <div class="input-group mb-2 mr-sm-2 mb-sm-0">    
-      <input placeholder="Fecha de Inicio" class="form-control col-sm-11" type="text" onfocus="(this.type='date')"
-        [(ngModel)]="proyecto.fechaInicio" name="createDate">
-    <!-- <input type="date" class="form-control col-sm-11" id="inlineFormInputGroup" name="createDate" [(ngModel)]="proyecto.fechaInicio"> -->
-  </div>
+    <input [(ngModel)]="proyecto.Nombre" name="Nombre" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Proyecto">
 
-  <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-    <label class="form-check-label">
+    <label class="sr-only" for="inlineFormInputGroup">Fecha de Inicio</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <input placeholder="Fecha de Inicio" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'" name="FechaInicio" (ngModelChange)="proyecto.FechaInicio=$event">
+
+
+
+        <!-- <input type="date" class="form-control col-sm-11" id="inlineFormInputGroup" name="createDate" [(ngModel)]="proyecto.fechaInicio"> -->
+    </div>
+
+    <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+        <label class="form-check-label">
       <input [(ngModel)]="proyecto.Estado" name="estado" class="form-check-input" type="checkbox" > Activo
     </label>
-  </div>
+    </div>
 
-  <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
-  <button class="btn btn-danger" (click)="eliminarProyectos()">Eliminar</button>
+    <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
+    <button class="btn btn-danger" (click)="eliminarProyectos()">Eliminar</button>
 
 </form>
 

@@ -26,7 +26,7 @@ export class ProyectosComponent implements OnInit {
   proyecto:Proyecto = {
 
     Nombre:"",
-    fechaInicio:new Date(Date.now()),
+    FechaInicio:new Date(Date.now()),
     Estado:true,
     codigoProyecto:"",    
     IdProyecto: 0,

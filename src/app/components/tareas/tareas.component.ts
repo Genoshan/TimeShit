@@ -14,6 +14,7 @@ export class TareasComponent implements OnInit {
 
   tareas:Tarea[] = [];
   id: number;
+  loading:boolean;
 
   tarea:Tarea = {
 
@@ -34,6 +35,12 @@ export class TareasComponent implements OnInit {
       this.id = parametros['id']
       console.log(parametros['id']);      
 } );
+}
+
+buscar(termino: string) {
+  this.loading = true;
+  this.tareas=this.tservice.getTareasxTermino(termino);
+  
 }
   ngOnInit() {
      //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    

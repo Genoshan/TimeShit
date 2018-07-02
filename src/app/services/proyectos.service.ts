@@ -19,7 +19,7 @@ export class ProyectosService {
   
   private Proyecto:{
     IdProyecto: number,    
-    fechaInicio: Date,
+    FechaInicio: Date,
     Estado: boolean,
     codigoProyecto: string
   };
@@ -40,7 +40,7 @@ export class ProyectosService {
   
   private proyectosxtermino:Proyecto[] = [{
     IdProyecto: 0,    
-    fechaInicio: new Date(Date.now()),
+    FechaInicio: new Date(Date.now()),
     Estado: false,
     Nombre:"",
     codigoProyecto: ""    
