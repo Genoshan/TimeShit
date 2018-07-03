@@ -7,7 +7,7 @@
 
                 <h1>TAREAS Prueba Ro</h1>
 
-                <button [routerLink]="['/tarea']" type="button" class="btn btn-primary "> 
+                <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary "> 
             <fa name="plus"></fa>Nueva Tarea
           </button>
                 <hr>
@@ -52,13 +52,13 @@
 
                             <td class="text-right w120">
                                 <!-- Agregar Horas -->
-                                <button [routerLink]="['/horas',k]" type="button" class="btn btn-outline-success">
+                                <button [routerLink]="['/horas',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
                   <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </button>
 
-                                <!-- Editar Tarea -->
+                                <!-- Editar Tarea proyectos[k].IdProyecto -->
 
-                                <button [routerLink]="['/tarea',k]" type="button" class="btn btn-outline-success">
+                                <button [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
                   <i class="fa fa-pencil-square" aria-hidden="true"></i>
                 </button>
 

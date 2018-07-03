@@ -18,11 +18,12 @@ export class TareasComponent implements OnInit {
 
   tarea:Tarea = {
 
-    Id: 0,
+    IdTarea: 0,
     Nombre: "",
     Descripcion: "",
     FechaInicio:new Date(Date.now()),
-    FechaFIn: new Date(Date.now())  
+    FechaFIn: new Date(Date.now()),
+    IdProyecto: 0  
   }
   status: string;
 

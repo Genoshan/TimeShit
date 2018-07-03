@@ -90,8 +90,8 @@ import { HttpModule } from '@angular/http';
       { path: 'proyecto/:id', component: ProyectoComponent, canActivate: [AuthGuard] },
       //{ path: 'tareas', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tareas/:id', component: TareasComponent, canActivate: [AuthGuard] },
-      { path: 'tarea', component: TareaComponent, canActivate: [AuthGuard] },
-      { path: 'horas', component: HorasComponent, canActivate: [AuthGuard] },
+      { path: 'tarea/:id', component: TareaComponent, canActivate: [AuthGuard] },
+      { path: 'horas/:id', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'login-usuario', component: LoginUsuarioComponent }
     ]),

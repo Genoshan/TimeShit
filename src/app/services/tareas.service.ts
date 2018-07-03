@@ -13,8 +13,17 @@ import { Observable } from "rxjs/Rx";
 @Injectable()
 export class TareasService {
 
+  //ATRIBUTOS
   private tareas:Tarea[] = [];
   private url: string;
+  private Tarea:{    
+      IdTarea: number;
+      Nombre: string;  
+      Descripcion: string;
+      FechaInicio: Date;
+      FechaFIn: Date
+      IdProyecto: number;    
+    };
 
   constructor(private _http: Http) { 
     
@@ -24,6 +33,12 @@ export class TareasService {
   }
 
   getTareas(key$:number){  }
+
+  //OBTENER TAREA POR SU ID
+  getTarea(id:number){
+
+    return this.Tarea=this.tareas.find(x => x.IdTarea == id);
+  }
 
 //OBTENER TAREAS DE UN PROYECTO DESDE LA API
   getTareasDeProyecto(Id: number) {
@@ -58,6 +73,24 @@ export class TareasService {
 
     return this.tareas.filter(x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1);
     
+  }
+
+  //crear tarea
+  crearTareas(t: Tarea){
+    
+    t.IdTarea=this.tareas.length+1;
+    
+    this.tareas.push(t);
+    
+  }
+
+  editarTarea(t: Tarea, id:string ){
+
+     let tareaaux = this.tareas.find(x => x.IdTarea == Number(id));         
+    let index = this.tareas.indexOf(tareaaux);
+    this.tareas[index]=tareaaux;    
+
+    //return this.proyectos;
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO

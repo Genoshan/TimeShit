@@ -1,9 +1,10 @@
 export interface Tarea{
-  Id: number;
+  IdTarea: number;
   Nombre: string;  
   Descripcion: string;
   FechaInicio: Date;
-  FechaFIn: Date  
+  FechaFIn: Date
+  IdProyecto: number;    
 }
 
 
