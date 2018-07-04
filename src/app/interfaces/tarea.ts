@@ -3,7 +3,7 @@ export interface Tarea{
   Nombre: string;  
   Descripcion: string;
   FechaInicio: Date;
-  FechaFIn: Date
+  FechaFIn: Date;
   IdProyecto: number;    
 }
 

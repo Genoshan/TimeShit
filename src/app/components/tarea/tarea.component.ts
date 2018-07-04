@@ -48,7 +48,6 @@ export class TareaComponent implements OnInit {
   }
 
   user: Usuario = {
-    
     nombre: "",
     email: "",
     //password: string;
@@ -56,18 +55,16 @@ export class TareaComponent implements OnInit {
     ci: ""
   }
 
+  proyecto:Proyecto = {
+    Nombre:"",
+    FechaInicio:new Date(Date.now()),
+    Estado:true,
+    codigoProyecto:"",    
+    IdProyecto: 0,
+  }
+
   status:string;
-
-  /*{
-    "IdTarea": 1,
-    "Nombre": "tin",
-    "Descripcion": "sample string 3",
-    "FechaInicio": "2018-07-01T20:20:25.2937825-03:00",
-    "FechaFIn": "2018-07-01T20:20:25.2937825-03:00",
-    IdProyecto: 1
-  }*/
-
-   
+ 
 
 /********CONSTRUCTOR******/
 
@@ -86,11 +83,15 @@ constructor(private ts:TareasService,private pr:ProyectosService,
 getTarea(){
       if (this.id=="nueva")
       {
+          //console.log(this.proyecto);
+          this.tarea.IdProyecto = this.proyecto.IdProyecto;
       }
       else{
-        
-        this.tarea=this.ts.getTarea(Number(this.id))
-        this.tarea.IdProyecto=157;        
+
+        this.tarea=this.ts.getTarea(Number(this.id));
+        //OBTENGO EL PROYECTO DE LA TAREA SELECCIONADA
+        this.proyecto=this.pr.getProyecto(this.tarea.IdProyecto);
+
       }        
     }
 
@@ -116,25 +117,12 @@ getTarea(){
 
 /**** CARGA INICIAL DEL COMPONENTE *****/
 ngOnInit() {
-  this.getTarea();   
+     
   this.user=JSON.parse(localStorage.getItem('usuario'));
-
-  //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO        
-  this.pr.getProyectosUsuario(this.user["CI"])
-    .subscribe(        
-    correcto => { 
-      if(correcto)
-      {
-        this.proyectos = correcto;        
-         
-      }
-      else{
-        this.status = 'error';          
-      }
-  },(error) => {
-    this.status = 'error';
-    console.log(error);                    
-    }) 
+  this.proyecto = JSON.parse(localStorage.getItem('proyecto'));  
+  //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA  
+  this.getTarea();    
+  this.proyectos.push(this.proyecto);
 }
 
 }

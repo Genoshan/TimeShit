@@ -4,9 +4,11 @@ export interface Hora {
     ESTRUCTURA DE DATOS DE PROYECTOS
     */
     
-    nombre:string;
-    descripcion:string;
-    cantHoras:number;
-    fecha:Date;
     
+    Descripcion:string;
+    CantidadHoras:number;
+    Fecha:Date;
+    IdTarea: number;
+    
+    //AL MOMENTO DE CARGAR LA HORA, PASAR TAMBIEN EL USUARIO Y LA TAREA
 }

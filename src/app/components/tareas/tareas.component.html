@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="table-responsive">
 
-                <h1>TAREAS Prueba Ro</h1>
+                <h1>TAREAS</h1>
 
                 <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary "> 
             <fa name="plus"></fa>Nueva Tarea
@@ -33,7 +33,6 @@
                             <!-- <th>#</th> -->
                             <th>Tarea</th>
                             <th>Fecha Inicio</th>
-                            <th>Horas</th>
                             <th>Proyecto</th>
                             <th class="text-center">Opciones</th>
                         </tr>
@@ -45,8 +44,7 @@
                             <!-- <td>{{ tareas[k].id }}</td> -->
                             <td>{{ tareas[k].Nombre }}</td>
                             <td>{{ tareas[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
-                            <td></td>
-                            <td>{{ id }}</td>
+                            <td>{{ proyecto.Nombre }}</td>
 
                             <!-- <td *ngFor="let l of tareas[k].proyectos[l] | keys;"> {{l}}: {{proyecto[l].}} </td> -->
 

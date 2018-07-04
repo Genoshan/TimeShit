@@ -17,7 +17,7 @@
         <!-- <select id="proyecto" class="form-control">
         <option value=""></option> -->
 
-        <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto"> // value is an object
+        <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto">
             <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
           </select>
     </div>

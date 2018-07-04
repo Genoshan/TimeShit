@@ -27,10 +27,12 @@ export class HorasComponent implements OnInit {
 
   hora:Hora={
 
-    nombre:"",
-    descripcion:"",
-    cantHoras:0,
-    fecha:new Date(Date.now())
+    
+    Descripcion:"",
+    CantidadHoras:0,
+    Fecha:new Date(Date.now()),
+    IdTarea: 0
+
   }
     
 
