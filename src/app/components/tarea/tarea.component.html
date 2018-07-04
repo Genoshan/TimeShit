@@ -16,7 +16,6 @@
         <label for="proyecto">Proyecto</label>
         <!-- <select id="proyecto" class="form-control">
         <option value=""></option> -->
-
         <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto">
             <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
           </select>

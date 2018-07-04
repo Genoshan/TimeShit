@@ -26,7 +26,6 @@ export class HorasComponent implements OnInit {
   };
 
   hora:Hora={
-
     
     Descripcion:"",
     CantidadHoras:0,
