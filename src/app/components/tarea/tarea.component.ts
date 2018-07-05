@@ -96,10 +96,28 @@ getTarea(){
     }
 
   crearTareas(){
-  if (this.id=="nuevo")
+  if (this.id=="nueva")
   {
     // insertando
+    console.log(this.id);
     this.ts.crearTareas(this.tarea)
+    .subscribe(        
+      correcto => { 
+        if(correcto)
+        {
+          //this.proyectos = JSON.parse(correcto.proyectos);
+          this.tarea = correcto;
+          //console.log(this.tareas);
+        }
+        else{
+          this.status = 'error';
+          //alert('El usuario no esta');
+        }
+    },(error) => {
+      this.status = 'error';
+      console.log(error);                    
+      } 
+    )
     /*.subscribe( data=>{
       this.activatedRoute.navigate(['/proyecto',data.name])
   },
@@ -111,7 +129,25 @@ getTarea(){
   {
     //actualizando
     console.log(this.id);
-    this.ts.editarTarea(this.tarea, this.id)            
+    this.ts.editarTarea(this.tarea)   
+    .subscribe(        
+      correcto => { 
+        if(correcto)
+        {
+          //this.proyectos = JSON.parse(correcto.proyectos);
+          this.tarea = correcto;
+          //console.log(this.tareas);
+        }
+        else{
+          this.status = 'error';
+          //alert('El usuario no esta');
+        }
+    },(error) => {
+      this.status = 'error';
+      console.log(error);                    
+      } 
+    )
+               
   }
 }
 

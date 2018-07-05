@@ -33,7 +33,5 @@
         <input placeholder="Fecha de Fin" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="tarea.FechaFIn | date: 'yyyy-MM-dd'" name="FechaFIn" (ngModelChange)="tarea.FechaFIn=$event">
     </div>
 
-
-
-    <button class="btn btn-primary">Guardar</button>
+    <button class="btn btn-primary" (click)="crearTareas()"> Guardar</button>
 </form>

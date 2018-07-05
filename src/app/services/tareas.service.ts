@@ -9,6 +9,8 @@ import {
 } from "@angular/http";
 import { Tarea } from '../interfaces/tarea';
 import { Observable } from "rxjs/Rx";
+import { jsonEval } from "@firebase/util";
+
 
 @Injectable()
 export class TareasService {
@@ -77,20 +79,35 @@ export class TareasService {
 
   //crear tarea
   crearTareas(t: Tarea){
-    
-    t.IdTarea=this.tareas.length+1;
-    
-    this.tareas.push(t);
-    
+		console.log(t);
+		let headers = new Headers();
+		headers.append("Content-Type", "application/json");
+
+          return this._http.put( this.url + 'CrearTarea', JSON.stringify(t))
+                  .map ( (resp: any)  => {
+                    //swal('Tarea Actualizada', t.Nombre, 'success');
+                    console.log(resp);
+					return resp;					
+                  })
+				  .catch(this.handleError);       
   }
 
-  editarTarea(t: Tarea, id:string ){
+  editarTarea(t: Tarea){
+		
+    //let headers = new Headers();   
+    
+    let headers = new Headers({ 'Content-Type': 'application/json', 
+    'Accept': 'q=0.8;application/json;q=0.9' });
+let options = new RequestOptions({ headers: headers }); 
+    
 
-     let tareaaux = this.tareas.find(x => x.IdTarea == Number(id));         
-    let index = this.tareas.indexOf(tareaaux);
-    this.tareas[index]=tareaaux;    
-
-    //return this.proyectos;
+          return this._http.put( this.url + 'EditarTarea', JSON.stringify(t),options )
+                  .map ( (resp: any)  => {
+                    //swal('Tarea Actualizada', t.Nombre, 'success');
+                    console.log(resp);
+					return resp;					
+                  })
+				  .catch(this.handleError);       
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO
