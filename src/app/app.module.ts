@@ -49,6 +49,7 @@ import { TareasService } from './services/tareas.service';
 import { ProyectosService } from './services/proyectos.service';
 import { UsuarioService } from './services/usuario.service';
 import { HttpModule } from '@angular/http';
+import { ListarhorasComponent } from './components/horas/listarhoras/listarhoras.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { HttpModule } from '@angular/http';
     TareasComponent,
     TareaComponent,
     HorasComponent,
+    ListarhorasComponent,
     LoginComponent,
     KeysPipe,
     UsuarioComponent,
@@ -92,6 +94,7 @@ import { HttpModule } from '@angular/http';
       { path: 'tareas/:id', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tarea/:id', component: TareaComponent, canActivate: [AuthGuard] },
       { path: 'horas/:id', component: HorasComponent, canActivate: [AuthGuard] },
+      { path: 'listarhoras/:id', component: ListarhorasComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'login-usuario', component: LoginUsuarioComponent }
     ]),

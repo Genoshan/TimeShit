@@ -7,42 +7,37 @@ import {
   HttpModule,
   RequestOptions
 } from "@angular/http";
-import { Tarea } from '../interfaces/tarea';
+import { Tarea } from "../interfaces/tarea";
 import { Observable } from "rxjs/Rx";
 import { jsonEval } from "@firebase/util";
 
-
 @Injectable()
 export class TareasService {
-
   //ATRIBUTOS
-  private tareas:Tarea[] = [];
+  private tareas: Tarea[] = [];
   private url: string;
-  private Tarea:{    
-      IdTarea: number;
-      Nombre: string;  
-      Descripcion: string;
-      FechaInicio: Date;
-      FechaFIn: Date
-      IdProyecto: number;    
-    };
+  private Tarea: {
+    IdTarea: number;
+    Nombre: string;
+    Descripcion: string;
+    FechaInicio: Date;
+    FechaFIn: Date;
+    IdProyecto: number;
+  };
 
-  constructor(private _http: Http) { 
-    
+  constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
-    this.url = "http://localhost:88/api/";  
-
+    this.url = "http://localhost:88/api/";
   }
 
-  getTareas(key$:number){  }
+  getTareas(key$: number) {}
 
   //OBTENER TAREA POR SU ID
-  getTarea(id:number){
-
-    return this.Tarea=this.tareas.find(x => x.IdTarea == id);
+  getTarea(id: number) {
+    return (this.Tarea = this.tareas.find(x => x.IdTarea == id));
   }
 
-//OBTENER TAREAS DE UN PROYECTO DESDE LA API
+  //OBTENER TAREAS DE UN PROYECTO DESDE LA API
   getTareasDeProyecto(Id: number) {
     let params = JSON.stringify({ pId: Id });
 
@@ -50,70 +45,82 @@ export class TareasService {
     headers.append("Content-Type", "application/json");
 
     return this._http
-      .post(
-        this.url + "ListarTareasDeProyecto?pIdProyecto=" + Id+"",
-        params
-      )
-      .map((res: any) => {         
-        
-         this.tareas = res.json();
-                  
-          if (this.tareas.length>0)
-          {            
-            return this.tareas;
-          }
-        else {          
+      .post(this.url + "ListarTareasDeProyecto?pIdProyecto=" + Id + "", params)
+      .map((res: any) => {
+        this.tareas = res.json();
+
+        if (this.tareas.length > 0) {
+          return this.tareas;
+        } else {
           return false;
         }
-        
       })
-      .catch(this.handleError); 
+      .catch(this.handleError);
   }
-  
-  //BUSCADOR DE TAREAS
-  getTareasxTermino(termino:string){
 
-    return this.tareas.filter(x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1);
-    
+  //BUSCADOR DE TAREAS
+  getTareasxTermino(termino: string) {
+    return this.tareas.filter(
+      x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1
+    );
   }
 
   //crear tarea
-  crearTareas(t: Tarea){
-		console.log(t);
-		let headers = new Headers();
-		headers.append("Content-Type", "application/json");
+  crearTareas(t: Tarea) {
+    console.log(t);
 
-          return this._http.put( this.url + 'CrearTarea', JSON.stringify(t))
-                  .map ( (resp: any)  => {
-                    //swal('Tarea Actualizada', t.Nombre, 'success');
-                    console.log(resp);
-					return resp;					
-                  })
-				  .catch(this.handleError);       
+    //    let body:any = JSON.stringify({ t });
+
+    var body = {
+      IdTarea: t.IdTarea,
+      IdProyecto: t.IdProyecto,
+      Nombre: t.Nombre,
+      Descripcion: t.Descripcion,
+      FechaInicio: "2018-07-01T20:20:25.2937825-03:00",
+      FechaFIn: "2018-07-01T20:20:25.2937825-03:00"
+    };
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json; charset=utf-8");
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + "CrearTarea", body, { headers })
+      .map((resp: any) => {
+        //swal('Tarea Actualizada', t.Nombre, 'success');
+        console.log(resp);
+        return resp;
+      })
+      .catch(this.handleError);
   }
 
-  editarTarea(t: Tarea){
-		
-    //let headers = new Headers();   
-    
-    let headers = new Headers({ 'Content-Type': 'application/json', 
-    'Accept': 'q=0.8;application/json;q=0.9' });
-let options = new RequestOptions({ headers: headers }); 
-    
+  editarTarea(t: Tarea) {
+    //let headers = new Headers();
 
-          return this._http.put( this.url + 'EditarTarea', JSON.stringify(t),options )
-                  .map ( (resp: any)  => {
-                    //swal('Tarea Actualizada', t.Nombre, 'success');
-                    console.log(resp);
-					return resp;					
-                  })
-				  .catch(this.handleError);       
+    let headers = new Headers({
+      "Content-Type": "application/json",
+      Accept: "q=0.8;application/json;q=0.9"
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + "EditarTarea", JSON.stringify(t), options)
+      .map((resp: any) => {
+        //swal('Tarea Actualizada', t.Nombre, 'success');
+        console.log(resp);
+        return resp;
+      })
+      .catch(this.handleError);
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO
-  private handleError(error:any)
-  { 
-    let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+  private handleError(error: any) {
+    let errMsg = error.message
+      ? error.message
+      : error.status
+        ? `${error.status} - ${error.statusText}`
+        : "Server error";
     return Observable.throw(error);
   }
 }

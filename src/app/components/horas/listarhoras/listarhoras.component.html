@@ -5,19 +5,19 @@
         <div class="col-md-12">
             <div class="table-responsive">
 
-                <h1>TAREAS</h1>
+                <h1>HORAS</h1>
 
                 <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary ">
-                    <fa name="plus"></fa>Nueva Tarea
-                </button>
+                  <fa name="plus"></fa>Agregar Horas
+              </button>
                 <hr>
 
                 <div class="input-group">
-                    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar tareas">
+                    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar Horas">
                     <div class="input-group-addon">
                         <button type="button" class="btn btn-outline-primary">
-                            <fa name="search"></fa>
-                        </button>
+                          <fa name="search"></fa>
+                      </button>
                     </div>
                 </div>
 
@@ -31,9 +31,9 @@
                     <thead class="thead-default">
                         <tr>
                             <!-- <th>#</th> -->
-                            <th>Tarea</th>
-                            <th>Fecha Inicio</th>
-                            <th>Proyecto</th>
+                            <th>Cantidad de Horas</th>
+                            <th>Descripcion</th>
+                            <th>Fecha</th>
                             <th class="text-center">Opciones</th>
                         </tr>
                     </thead>
@@ -52,25 +52,25 @@
 
                                 <!-- Listar  Horas -->
                                 <button [routerLink]="['/listarhoras',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
-                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                </button>
+                                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                              </button>
 
 
                                 <!-- Agregar Horas -->
                                 <button [routerLink]="['/horas',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
-                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                </button>
+                                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                              </button>
 
                                 <!-- Editar Tarea proyectos[k].IdProyecto -->
 
                                 <button [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
-                                    <i class="fa fa-pencil-square" aria-hidden="true"></i>
-                                </button>
+                                  <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                              </button>
 
                                 <!-- Borrar Tarea -->
                                 <button (click)="borrarTarea(k)" type="button" class="btn btn-outline-danger">
-                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                </button>
+                                  <i class="fa fa-times" aria-hidden="true"></i>
+                              </button>
 
                             </td>
                         </tr>

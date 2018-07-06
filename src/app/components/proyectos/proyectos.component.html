@@ -8,11 +8,11 @@
                 <h1>PROYECTOS</h1>
 
                 <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">
-            <fa name="plus"></fa>Nuevo Proyecto          
-          </button>
+                    <fa name="plus"></fa>Nuevo Proyecto
+                </button>
                 <button [routerLink]="['/horas']" type="button" class="btn btn-outline-success ">
-            <fa name="plus"></fa>Horas          
-          </button>
+                    <fa name="plus"></fa>Horas
+                </button>
 
                 <hr>
 
@@ -20,13 +20,10 @@
                     <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar proyectos">
                     <div class="input-group-addon">
                         <button type="button" class="btn btn-outline-primary">
-              <fa name="search"></fa>
-            </button>
+                            <fa name="search"></fa>
+                        </button>
                     </div>
                 </div>
-
-
-
 
                 <!-- Tabla principal de Proyectos  -->
 
@@ -57,19 +54,19 @@
 
                                             <!-- Editar Proyecto -->
                                             <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button" class="btn btn-outline-primary btn-responsive  ">
-                  Editar
-                  <fa name="edit"></fa>
-                </button>
+                                                Editar
+                                                <fa name="edit"></fa>
+                                            </button>
                                             <!-- Lista de Tareas -->
                                             <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-primary  ">
-                  Tareas
-                  <fa name="calendar"></fa>
-                </button>
+                                                Tareas
+                                                <fa name="calendar"></fa>
+                                            </button>
                                             <!-- Agregar Horas -->
                                             <button [routerLink]="['/horas']" type="button" class="btn btn-outline-success  ">
-                  Horas
-                  <fa name="plus"></fa>
-                </button>
+                                                Horas
+                                                <fa name="plus"></fa>
+                                            </button>
                                         </td>
                                     </tr>
                             </table>
