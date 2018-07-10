@@ -68,7 +68,7 @@ export class ProyectosService {
     headers.append("Content-Type", "application/json");
 
     return this._http
-      .post(
+      .get(
         this.url + "ListarProyectosDeUsuario?pDocumento=" + ci+"",
         params
       )

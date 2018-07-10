@@ -39,7 +39,7 @@ export class UsuarioService {
     headers.append("Content-Type", "application/json");
 
     return this._http
-      .post(
+      .get(
         this.url + "LoginUsuario?pUsuario=" + email + "&pClave=" + pass,
         params
       )

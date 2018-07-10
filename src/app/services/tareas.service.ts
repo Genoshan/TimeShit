@@ -45,7 +45,7 @@ export class TareasService {
     headers.append("Content-Type", "application/json");
 
     return this._http
-      .post(this.url + "ListarTareasDeProyecto?pIdProyecto=" + Id + "", params)
+      .get(this.url + "ListarTareasDeProyecto?pIdProyecto=" + Id + "", params)
       .map((res: any) => {
         this.tareas = res.json();
 
@@ -76,8 +76,8 @@ export class TareasService {
       IdProyecto: t.IdProyecto,
       Nombre: t.Nombre,
       Descripcion: t.Descripcion,
-      FechaInicio: "2018-07-01T20:20:25.2937825-03:00",
-      FechaFIn: "2018-07-01T20:20:25.2937825-03:00"
+      FechaInicio: t.FechaInicio,
+      FechaFIn: t.FechaFIn
     };
 
     let headers = new Headers();
@@ -98,14 +98,22 @@ export class TareasService {
   editarTarea(t: Tarea) {
     //let headers = new Headers();
 
-    let headers = new Headers({
-      "Content-Type": "application/json",
-      Accept: "q=0.8;application/json;q=0.9"
-    });
+    var body = {
+      IdTarea: t.IdTarea,
+      IdProyecto: t.IdProyecto,
+      Nombre: t.Nombre,
+      Descripcion: t.Descripcion,
+      FechaInicio: t.FechaInicio,
+      FechaFIn: t.FechaFIn
+    };
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
     let options = new RequestOptions({ headers: headers });
 
     return this._http
-      .post(this.url + "EditarTarea", JSON.stringify(t), options)
+      .post(this.url + 'EditarTarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
         console.log(resp);
