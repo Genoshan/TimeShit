@@ -27,7 +27,7 @@ export class TareasService {
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
-    this.url = "http://localhost:88/api/";
+    this.url = "http://rona-pc:88/api/";
   }
 
   getTareas(key$: number) {}
@@ -81,12 +81,12 @@ export class TareasService {
     };
 
     let headers = new Headers();
-    headers.append("Content-Type", "application/json; charset=utf-8");
+    headers.append('Content-Type', 'application/json');
 
     let options = new RequestOptions({ headers: headers });
 
     return this._http
-      .post(this.url + "CrearTarea", body, { headers })
+      .post(this.url + 'CrearTarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
         console.log(resp);
