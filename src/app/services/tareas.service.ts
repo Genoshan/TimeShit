@@ -27,7 +27,7 @@ export class TareasService {
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
-    this.url = "http://rona-pc:88/api/";
+    this.url = "http://localhost:80/api/";
   }
 
   getTareas(key$: number) {}

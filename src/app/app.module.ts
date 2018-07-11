@@ -1,4 +1,5 @@
 
+
 import { AuthService } from './auth.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
@@ -50,6 +51,8 @@ import { ProyectosService } from './services/proyectos.service';
 import { UsuarioService } from './services/usuario.service';
 import { HttpModule } from '@angular/http';
 import { ListarhorasComponent } from './components/horas/listarhoras/listarhoras.component';
+import { HorasService } from './services/horas.service';
+
 
 @NgModule({
   declarations: [
@@ -106,6 +109,7 @@ import { ListarhorasComponent } from './components/horas/listarhoras/listarhoras
     ProyectosService,
     TareasService,
     UsuarioService,
+    HorasService,
     HttpModule
   ],
   bootstrap: [AppComponent]
