@@ -7,7 +7,7 @@
 
                 <h1>HORAS</h1>
 
-                <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary ">
+                <button [routerLink]="['/hora','nueva']" type="button" class="btn btn-primary ">
                   <fa name="plus"></fa>Agregar Horas
               </button>
                 <hr>
@@ -23,7 +23,7 @@
 
                 <hr>
 
-                <!-- Tabla principal de Tareas  -->
+                <!-- Tabla principal de horas  -->
 
                 <br>
 
@@ -31,44 +31,45 @@
                     <thead class="thead-default">
                         <tr>
                             <!-- <th>#</th> -->
-                            <th>Cantidad de Horas</th>
+                            <th>Horas</th>
                             <th>Descripcion</th>
                             <th>Fecha</th>
+                            <th>Tarea</th>
                             <th class="text-center">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        <tr *ngFor="let k of tareas | keys | paginate:{itemsPerPage:5,currentPage: p}">
+                        <tr *ngFor="let k of horas | keys | paginate:{itemsPerPage:5,currentPage: p}">
 
-                            <!-- <td>{{ tareas[k].id }}</td> -->
-                            <td>{{ tareas[k].Nombre }}</td>
-                            <td>{{ tareas[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
-                            <td>{{ proyecto.Nombre }}</td>
-
-                            <!-- <td *ngFor="let l of tareas[k].proyectos[l] | keys;"> {{l}}: {{proyecto[l].}} </td> -->
+                            <!-- <td>{{ horas[k].id }}</td> -->
+                            <td>{{ horas[k].CantidadHoras }}</td>
+                            <td>{{ horas[k].Descripcion }}</td>
+                            <td>{{ horas[k].Fecha | date: "dd-MM-yyyy" }}</td>
+                            <td>{{ tarea.Nombre }}</td>
 
                             <td class="text-right w120">
 
                                 <!-- Listar  Horas -->
-                                <button [routerLink]="['/listarhoras',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
+
+                                <button [routerLink]="['/listarhoras',horas[k].IdTarea]" type="button" class="btn btn-outline-success">
                                   <i class="fa fa-clock-o" aria-hidden="true"></i>
                               </button>
 
 
                                 <!-- Agregar Horas -->
-                                <button [routerLink]="['/horas',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
+                                <button [routerLink]="['/horas',horas[k].IdTarea]" type="button" class="btn btn-outline-success">
                                   <i class="fa fa-plus-circle" aria-hidden="true"></i>
                               </button>
 
                                 <!-- Editar Tarea proyectos[k].IdProyecto -->
 
-                                <button [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
+                                <button [routerLink]="['/tarea',horas[k].IdTarea]" type="button" class="btn btn-outline-success">
                                   <i class="fa fa-pencil-square" aria-hidden="true"></i>
                               </button>
 
                                 <!-- Borrar Tarea -->
-                                <button (click)="borrarTarea(k)" type="button" class="btn btn-outline-danger">
+                                <button (click)="borrarHora(k)" type="button" class="btn btn-outline-danger">
                                   <i class="fa fa-times" aria-hidden="true"></i>
                               </button>
 
