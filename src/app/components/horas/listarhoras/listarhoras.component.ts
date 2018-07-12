@@ -67,14 +67,14 @@ export class ListarhorasComponent implements OnInit {
   ngOnInit() {
     
          //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
-         this.tarea = this.tservice.getTarea(this.id);
+         this.tarea = this.tservice.getTarea(this.id);         
 
          this.hservice.getHorasDeTarea(this.tarea)
          .subscribe(        
          correcto => { 
            if(correcto)
            {             
-             this.tarea = correcto;             
+             this.horas = correcto;             
            }
            else{
              this.status = 'error';            
@@ -83,9 +83,7 @@ export class ListarhorasComponent implements OnInit {
          this.status = 'error';
          console.log(error);                    
          } 
-       ) 
-
-              
+       )            
        
   }
 

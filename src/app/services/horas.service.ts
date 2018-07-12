@@ -57,11 +57,12 @@ export class HorasService {
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
+
     return this._http
       .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto +  "&" + "pIdTarea=" + t.IdTarea + "&" + "pDocumento=" + this.user["CI"] + "" , params)
       .map((res: any) => {
         this.horas = res.json();
-
+        console.log(this.horas);  
         if (this.horas.length > 0) {
           return this.horas;
         } else {
@@ -69,6 +70,14 @@ export class HorasService {
         }
       })
       .catch(this.handleError);
+  }
+
+
+  //BUSCADOR DE HORAS
+  getHorasxTermino(termino: string) {
+    return this.horas.filter(
+      x => x.Descripcion.toLowerCase().indexOf(termino.toLowerCase()) > -1
+    );
   }
 
     //MANEJADOR DE ERRORES DE SERVICIO
@@ -81,11 +90,5 @@ export class HorasService {
       return Observable.throw(error);
     }
 
-      //BUSCADOR DE HORAS
-  getHorasxTermino(termino: string) {
-    return this.horas.filter(
-      x => x.Descripcion.toLowerCase().indexOf(termino.toLowerCase()) > -1
-    );
-  }
 
 }
