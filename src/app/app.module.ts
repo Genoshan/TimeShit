@@ -27,6 +27,8 @@ import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { TareaComponent } from './components/tarea/tarea.component';
 import { HorasComponent } from './components/horas/horas.component';
+import { CargarhorasComponent } from './components/horas/cargarhoras/cargarhoras.component';
+import { ListarhorasComponent } from './components/horas/listarhoras/listarhoras.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
 import { KeysPipe } from './pipes/keys.pipe';
@@ -50,8 +52,8 @@ import { TareasService } from './services/tareas.service';
 import { ProyectosService } from './services/proyectos.service';
 import { UsuarioService } from './services/usuario.service';
 import { HttpModule } from '@angular/http';
-import { ListarhorasComponent } from './components/horas/listarhoras/listarhoras.component';
 import { HorasService } from './services/horas.service';
+
 
 
 @NgModule({
@@ -64,10 +66,12 @@ import { HorasService } from './services/horas.service';
     TareaComponent,
     HorasComponent,
     ListarhorasComponent,
+    CargarhorasComponent,
     LoginComponent,
     KeysPipe,
     UsuarioComponent,
     LoginUsuarioComponent
+    
     
   ],
   //ojo con esto...
@@ -97,6 +101,7 @@ import { HorasService } from './services/horas.service';
       { path: 'tareas/:id', component: TareasComponent, canActivate: [AuthGuard] },
       { path: 'tarea/:id', component: TareaComponent, canActivate: [AuthGuard] },
       { path: 'horas/:id', component: HorasComponent, canActivate: [AuthGuard] },
+      { path: 'cargarhoras/:id', component: CargarhorasComponent, canActivate: [AuthGuard] },
       { path: 'listarhoras/:id', component: ListarhorasComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'login-usuario', component: LoginUsuarioComponent }

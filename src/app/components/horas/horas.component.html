@@ -5,21 +5,19 @@
 
         <div class="form-group col-md-6">
             <h3>CARGAR HORAS</h3>
-            <label for="Proyecto">Proyecto</label>
-            <select id="Proyecto" class="form-control">
-        <option value="Proyecto1">Proyecto1</option>
-        <option value="Proyecto2">Proyecto2</option>
-        <option value="Proyecto3">Proyecto3</option>
-      </select>
+        </div>
+        <div class="form-group">
+            <label for="proyecto">Proyecto</label>
+            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto">
+                <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
+            </select>
         </div>
 
-        <div class="form-group col-md-6">
-            <label for="Tarea">Tarea</label>
-            <select id="Tarea" class="form-control">
-          <option value="Tarea1">Tarea1</option>
-          <option value="Tarea2">Tarea2</option>
-          <option value="Tarea3">Tarea3</option>
-        </select>
+        <div class="form-group">
+            <label for="tarea">Tarea</label>
+            <select [(ngModel)]="hora.IdTarea" name="IdTarea">
+                <option *ngFor="let t of tareas" [ngValue]="t.IdTarea">{{t.Nombre}}</option>
+            </select>
         </div>
 
         <div class="col-md-6">
@@ -31,17 +29,14 @@
             <!-- <input  [(ngModel)]="hora.Descripcion" name="Descripcion" id="Descripcion" type="text" class="form-control"> -->
 
             <textarea [(ngModel)]="hora.Descripcion" name="Descripcion" id="Descripcion" type="text" class="form-control"></textarea>
-
-
             <br>
 
-            <label>Fecha</label>
-            <br>
-            <ng-datepicker [(ngModel)]="hora.Fecha" name="Fecha"></ng-datepicker>
+            <!-- class="sr-only" for="inlineFormInputGroup" -->
+            <label for="comment">Fecha</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <input placeholder="Fecha" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="hora.Fecha | date: 'yyyy-MM-dd'" name="Fecha" (ngModelChange)="hora.Fecha=$event">
+            </div>
 
-
-
-            <br>
             <button class="btn btn-primary" (click)="agregarHora()">Guardar</button>
         </div>
     </div>

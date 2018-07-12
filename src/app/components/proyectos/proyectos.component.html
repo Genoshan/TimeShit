@@ -10,7 +10,7 @@
                 <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">
                     <fa name="plus"></fa>Nuevo Proyecto
                 </button>
-                <button [routerLink]="['/horas']" type="button" class="btn btn-outline-success ">
+                <button [routerLink]="['/cargarhoras','nueva']" type="button" class="btn btn-outline-success ">
                     <fa name="plus"></fa>Horas
                 </button>
 
@@ -63,7 +63,7 @@
                                                 <fa name="calendar"></fa>
                                             </button>
                                             <!-- Agregar Horas -->
-                                            <button [routerLink]="['/horas']" type="button" class="btn btn-outline-success  ">
+                                            <button [routerLink]="['/cargarhoras',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-success  ">
                                                 Horas
                                                 <fa name="plus"></fa>
                                             </button>
