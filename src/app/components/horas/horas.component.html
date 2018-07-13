@@ -37,7 +37,7 @@
                 <input placeholder="Fecha" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="hora.Fecha | date: 'yyyy-MM-dd'" name="Fecha" (ngModelChange)="hora.Fecha=$event">
             </div>
 
-            <button class="btn btn-primary" (click)="agregarHora()">Guardar</button>
+            <button class="btn btn-primary" (click)="CargarHoras()">Guardar</button>
         </div>
     </div>
 

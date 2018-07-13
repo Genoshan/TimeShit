@@ -91,4 +91,36 @@ export class HorasService {
     }
 
 
+      //crear tarea
+      CargarHoras(h: Hora, documento:string) {
+    console.log(h);
+
+    //    let body:any = JSON.stringify({ t });
+    
+    var body = {
+      "<pHoras>kBackingField" : {
+        IdTarea: h.IdTarea,            
+        Descripcion: h.Descripcion,
+        CantidadHoras: h.CantidadHoras,
+        Fecha: h.Fecha
+      },
+      "<pDocumento>kBackingField" : documento
+    };
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'CargarHorasATarea', body, { headers: headers })
+      .map((resp: any) => {
+        //swal('Tarea Actualizada', t.Nombre, 'success');
+        console.log(resp);
+        return resp;
+      })
+      .catch(this.handleError);
+  }
+
+
 }
