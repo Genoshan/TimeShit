@@ -20,7 +20,6 @@ export class HorasService {
   private horas: Hora[]=[];
   private url: string;
 
-
   user: Usuario = {
     nombre: "",
     email: "",
@@ -28,8 +27,6 @@ export class HorasService {
     img: "",
     ci: ""
   }
-  
-  
 
   private Hora: {
     Descripcion:string;
@@ -39,12 +36,16 @@ export class HorasService {
   };
 
   constructor(private _http: Http) {
-    this.url = "http://localhost:80/api/";
+    this.url = "http://localhost:88/api/";
    }
 
+  getHoras(key$: number) {}
    
+  getHora(id: number) {
+    return (this.Hora = this.horas.find(x => x.IdHora == id));
+  }
 
-   getHoras(key$: number) {}
+   
 
 /*    getHora(id: number) {
     return (this.Hora = this.horas.find(x => x.IdTarea == id));
@@ -91,14 +92,15 @@ export class HorasService {
     }
 
 
-      //crear tarea
-      CargarHoras(h: Hora, documento:string) {
+    //crear tarea
+    CargarHoras(h: Hora, documento:string) {
     console.log(h);
 
     //    let body:any = JSON.stringify({ t });
     
     var body = {
       "<pHoras>kBackingField" : {
+        IdHora:h.IdHora,
         IdTarea: h.IdTarea,            
         Descripcion: h.Descripcion,
         CantidadHoras: h.CantidadHoras,
@@ -122,5 +124,29 @@ export class HorasService {
       .catch(this.handleError);
   }
 
+  //editar hora
+  editarHoras(h: Hora) {
+    console.log(h);
+    var body = {
+        IdHora: h.IdHora,
+        IdTarea: h.IdTarea,            
+        Descripcion: h.Descripcion,
+        CantidadHoras: h.CantidadHoras,
+        Fecha: h.Fecha      
+    };
 
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'EditarHoras', body, { headers: headers })
+      .map((resp: any) => {
+        
+        console.log(resp);
+        return resp;
+      })
+      .catch(this.handleError);
+  }
 }

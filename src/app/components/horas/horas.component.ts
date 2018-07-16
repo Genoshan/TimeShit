@@ -37,13 +37,12 @@ export class HorasComponent implements OnInit {
     ci: ""
   }
 
-  hora:Hora={
-    
+  hora:Hora={    
+    IdHora:0,
     Descripcion:"",
     CantidadHoras:0,
     Fecha:new Date(Date.now()),
     IdTarea: 0
-
   }
 
   proyecto:Proyecto= {
@@ -78,27 +77,36 @@ constructor(private ts:TareasService,private pr:ProyectosService, private hs:Hor
 
 /*****OPERACIONES*****/
 
-getTarea(){
+getHora(){
   if (this.id=="nueva")
   {
-      //console.log(this.proyecto);
+      
+      //OBTENGO LA TAREA      
+      this.hora.IdTarea = this.tarea.IdTarea;           
       this.tarea.IdProyecto = this.proyecto.IdProyecto;
+      
+      //OBTENGO EL PROYECTO
+      this.proyecto = this.pr.getProyecto(Number(this.tarea.IdProyecto));
+      
   }
   else{
 
-    this.tarea=this.ts.getTarea(Number(this.id));
+    //OBTENGO LA HORA SEGUN SU ID
+    this.hora=this.hs.getHora(Number(this.id));  
+    //OBTENGO LA TAREA PARA LA HORA SELECCIONADA
+    this.tarea=this.ts.getTarea(Number(this.hora.IdTarea));
     //OBTENGO EL PROYECTO DE LA TAREA SELECCIONADA
     this.proyecto=this.pr.getProyecto(this.tarea.IdProyecto);
-
   }        
 }
 
 CargarHoras(){
-  {
-    // insertando
-    console.log(this.hora);
-    this.hs.CargarHoras(this.hora, this.user.ci)
-    .subscribe(        
+    //creando
+    if (this.id=="nueva")
+    {
+      console.log(this.hora);
+      this.hs.CargarHoras(this.hora, this.user.ci)
+      .subscribe(        
       correcto => { 
         if(correcto)
         {          
@@ -107,40 +115,51 @@ CargarHoras(){
         else{
           this.status = 'error';          
         }
+      },(error) => {
+        this.status = 'error';
+        console.log(error);                    
+      } 
+    )
+    }
+  else
+  {
+
+    //actualizando
+    console.log(this.hora);
+    this.hs.editarHoras(this.hora)   
+    .subscribe(        
+      correcto => { 
+        if(correcto)
+        {
+          //this.proyectos = JSON.parse(correcto.proyectos);
+          this.hora = correcto;
+          //console.log(this.tareas);
+        }
+        else{
+          this.status = 'error';
+          //alert('El usuario no esta');
+        }
     },(error) => {
       this.status = 'error';
       console.log(error);                    
       } 
-    )
+    )    
   }
 }
 
 /**** CARGA INICIAL DEL COMPONENTE *****/
 ngOnInit() {
-     
+
+  //OBTENGO, USUARIO, TAREA Y PROYECTO POR EL CUAL LLEGO DE LA NAVEGACION
   this.user=JSON.parse(localStorage.getItem('usuario'));
-  //this.proyecto = JSON.parse(localStorage.getItem('proyecto'));  
-
-  //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA  
+  this.tarea=JSON.parse(localStorage.getItem('tarea'));
+  this.proyecto = JSON.parse(localStorage.getItem('proyecto'));
   
-  //this.getTarea();   
-  
-  //CARGAR DropDown con Lista de proyecto y tarea
-
-  //Asignamos el id de la tarea de la hora
-
-  this.hora.IdTarea = (Number(this.id));
-
-
-
-  this.tarea=this.ts.getTarea(Number(this.hora.IdTarea));
-
-  this.proyecto=this.pr.getProyecto(this.tarea.IdProyecto);
-
-  //Agrego la tarea a las listas locales de proyecto y tarea obtenidos por los servicios a cada combo
+  //Agrego la tarea y el proyecto a las listas locales de proyecto y tarea obtenidos por los servicios a cada combo
 
   this.proyectos.push(this.proyecto);
   this.tareas.push(this.tarea);
+  this.getHora();  
 }
 
 }

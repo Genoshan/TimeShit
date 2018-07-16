@@ -118,12 +118,6 @@ getTarea(){
       console.log(error);                    
       } 
     )
-    /*.subscribe( data=>{
-      this.activatedRoute.navigate(['/proyecto',data.name])
-  },
-  error=> console.error(error)
-);*/
-
   }
   else
   {

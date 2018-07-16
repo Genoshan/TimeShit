@@ -2,9 +2,8 @@ export interface Hora {
 
     /*
     ESTRUCTURA DE DATOS DE PROYECTOS
-    */
-    
-    
+    */   
+    IdHora:number;
     Descripcion:string;
     CantidadHoras:number;
     Fecha:Date;

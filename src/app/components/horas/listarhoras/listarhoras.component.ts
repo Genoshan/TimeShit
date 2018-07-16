@@ -20,7 +20,7 @@ export class ListarhorasComponent implements OnInit {
   loading:boolean;
 
    hora:Hora = {
-
+    IdHora:0,
     Descripcion: "" ,
     CantidadHoras: 0,
     Fecha:new Date(Date.now()),
@@ -67,7 +67,10 @@ export class ListarhorasComponent implements OnInit {
   ngOnInit() {
     
          //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
-         this.tarea = this.tservice.getTarea(this.id);         
+         this.tarea = this.tservice.getTarea(this.id);      
+
+    //almaceno en localstorage para poder acceder desde una tarea nueva    
+    localStorage.setItem('tarea',JSON.stringify(this.tarea));          
 
          this.hservice.getHorasDeTarea(this.tarea)
          .subscribe(        

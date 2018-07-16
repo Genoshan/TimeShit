@@ -52,7 +52,7 @@ export class ProyectosService {
   constructor(private _http: Http) { 
     
     //esto tiene que estar en un GLOBAL
-    this.url = "http://localhost:80/api/";
+    this.url = "http://localhost:88/api/";
   }
 
   getProyectos(){
