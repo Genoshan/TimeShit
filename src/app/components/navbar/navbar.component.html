@@ -11,26 +11,38 @@
 
             <!-- <li class="nav-item">
         <a class="nav-link" routerLink="/tareas">Tareas</a>
-      </li>    -->
+      </li>    -->         
+
+            <!-- Tengo que evaluar si tengo usuario o no -->
+            <!-- Sin Auth0 -->                                    
+            <li ngbDropdown *ngIf="correcto ; else anonymousUser" class="nav-item dropdown">
+                <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user1.Nombre}} </a>
+
+                <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" routerLink="/proyectos">Proyectos</a>
+                    <a class="dropdown-item" routerLink="/horas">Horas</a>
+                    <a class="dropdown-item" routerLink="/tareas">Tareas</a>                    
+                    <a class="dropdown-item" (click)="logout()">Salir</a>
+                </div>
+            </li>
 
             <ng-template #anonymousUser>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/login">Login</a>
+                    <a class="nav-link" routerLink="/login-usuario">Login</a>
                 </li>
             </ng-template>
 
-            <li ngbDropdown *ngIf="auth.user$ | async as user; else anonymousUser" class="nav-item dropdown">
+            <!-- Con Auth0 -->
+            <!-- <li ngbDropdown *ngIf="auth.user$ | async as user; else anonymousUser" class="nav-item dropdown">
                 <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{ user.displayName }}</a>
 
                 <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" routerLink="/proyectos">Proyectos</a>
                     <a class="dropdown-item" routerLink="/horas">Horas</a>
-                    <a class="dropdown-item" routerLink="/login-usuario">LoginArkano</a>
-                    <!-- <a class="dropdown-item" routerLink="/tareas">Tareas</a>          
-          <a class="dropdown-item" routerLink="/tarea">Tarea</a>    -->
+                    <a class="dropdown-item" routerLink="/login-usuario">LoginArkano</a>            
                     <a class="dropdown-item" (click)="logout()">Salir</a>
                 </div>
-            </li>
+            </li> -->
 
         </ul>
 

@@ -103,8 +103,9 @@ import { HorasService } from './services/horas.service';
       { path: 'horas/:id', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'cargarhoras/:id', component: CargarhorasComponent, canActivate: [AuthGuard] },
       { path: 'listarhoras/:id', component: ListarhorasComponent, canActivate: [AuthGuard] },
-      { path: 'login', component: LoginComponent },
-      { path: 'login-usuario', component: LoginUsuarioComponent }
+      //{ path: 'login', component: LoginComponent },
+      { path: 'login-usuario', component: LoginUsuarioComponent },      
+      { path: '', redirectTo: '/login-usuario', pathMatch: 'full'},
     ]),
   ],
   providers: [
