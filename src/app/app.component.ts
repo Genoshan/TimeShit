@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   /* constructor(private auth: AuthService, router: Router) {
-    console.log(localStorage.getItem('Usuario'));
+    
     
     auth.user$.subscribe(user => {
       if(user) {

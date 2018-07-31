@@ -23,14 +23,14 @@ export class NavbarComponent {
   constructor(/*public auth:AuthService*/private router: Router) {
 
     this.user1 = JSON.parse(localStorage.getItem('usuario'));    
-    console.log(this.user1);
+
 
     if (this.user1== null ){
       this.correcto = false;      
     }
     else this.correcto=true;
 
-    console.log(this.correcto);
+
    }
 
    toggleCollapse() {
@@ -41,8 +41,7 @@ export class NavbarComponent {
         
     this.router.navigate(['']); 
     localStorage.removeItem('usuario');
-    this.user1 = null;
-    console.log('llegaaca');
+    this.user1 = null;    
     //this.auth.logout();
   }
 

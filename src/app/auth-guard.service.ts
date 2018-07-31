@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login-usuario'], { queryParams: { returnUrl: state.url}});
       return false;
     });*/
-    console.log('dummy guard clause for User search');
+    
     return true;
   }
 }

@@ -99,7 +99,7 @@ getTarea(){
   if (this.id=="nueva")
   {
     // insertando
-    console.log(this.id);
+    
     this.ts.crearTareas(this.tarea)
     .subscribe(        
       correcto => { 
@@ -122,7 +122,7 @@ getTarea(){
   else
   {
     //actualizando
-    console.log(this.id);
+    
     this.ts.editarTarea(this.tarea)   
     .subscribe(        
       correcto => { 

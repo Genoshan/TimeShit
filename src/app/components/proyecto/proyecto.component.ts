@@ -47,7 +47,7 @@ export class ProyectoComponent implements OnInit{
         }
         else{
           this.proyecto=this.pr.getProyecto(Number(this.id));
-          console.log(this.proyecto);
+          
         }        
       }
 
@@ -66,8 +66,7 @@ export class ProyectoComponent implements OnInit{
     }
     else
     {
-      //actualizando
-      console.log(this.id);
+      //actualizando      
       this.pr.editarProyectos(this.proyecto, this.id)            
     }
   }

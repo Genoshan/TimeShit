@@ -20,7 +20,7 @@ export class HorasService {
   private horas: Hora[]=[];
   private url: string;
 
-  user: Usuario = {
+  private user: Usuario = {
     nombre: "",
     email: "",
     //password: string;
@@ -29,6 +29,7 @@ export class HorasService {
   }
 
   private Hora: {
+    Idhora: number;
     Descripcion:string;
     CantidadHoras:number;
     Fecha:Date;
@@ -42,7 +43,7 @@ export class HorasService {
   getHoras(key$: number) {}
    
   getHora(id: number) {
-    return (this.Hora = this.horas.find(x => x.IdHora == id));
+    return (this.Hora = this.horas.find(x => x.Idhora == id));
   }
 
    
@@ -63,7 +64,7 @@ export class HorasService {
       .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto +  "&" + "pIdTarea=" + t.IdTarea + "&" + "pDocumento=" + this.user["CI"] + "" , params)
       .map((res: any) => {
         this.horas = res.json();
-        console.log(this.horas);  
+        
         if (this.horas.length > 0) {
           return this.horas;
         } else {
@@ -93,22 +94,22 @@ export class HorasService {
 
 
     //crear tarea
-    CargarHoras(h: Hora, documento:string) {
-    console.log(h);
-
-    //    let body:any = JSON.stringify({ t });
+    
+    CargarHoras(h: Hora, ci:string) {
+    
+    //    let body:any = JSON.stringify({ t });    
     
     var body = {
-      "<pHoras>kBackingField" : {
-        IdHora:h.IdHora,
+      "<pHoras>k__BackingField" : {
+        IdHora:h.Idhora,
         IdTarea: h.IdTarea,            
         Descripcion: h.Descripcion,
         CantidadHoras: h.CantidadHoras,
         Fecha: h.Fecha
       },
-      "<pDocumento>kBackingField" : documento
-    };
-
+      "<pDocumento>k__BackingField" : ci
+    };    
+    
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -118,7 +119,7 @@ export class HorasService {
       .post(this.url + 'CargarHorasATarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
-        console.log(resp);
+        
         return resp;
       })
       .catch(this.handleError);
@@ -126,9 +127,10 @@ export class HorasService {
 
   //editar hora
   editarHoras(h: Hora) {
-    console.log(h);
-    var body = {
-        IdHora: h.IdHora,
+    
+
+    var body = {        
+        Idhora:h.Idhora,
         IdTarea: h.IdTarea,            
         Descripcion: h.Descripcion,
         CantidadHoras: h.CantidadHoras,
@@ -144,7 +146,7 @@ export class HorasService {
       .post(this.url + 'EditarHoras', body, { headers: headers })
       .map((resp: any) => {
         
-        console.log(resp);
+        
         return resp;
       })
       .catch(this.handleError);

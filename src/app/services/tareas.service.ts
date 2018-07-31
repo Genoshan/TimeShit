@@ -67,7 +67,7 @@ export class TareasService {
 
   //crear tarea
   crearTareas(t: Tarea) {
-    console.log(t);
+
 
     //    let body:any = JSON.stringify({ t });
 
@@ -89,7 +89,7 @@ export class TareasService {
       .post(this.url + 'CrearTarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
-        console.log(resp);
+        
         return resp;
       })
       .catch(this.handleError);
@@ -116,7 +116,7 @@ export class TareasService {
       .post(this.url + 'EditarTarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
-        console.log(resp);
+        
         return resp;
       })
       .catch(this.handleError);

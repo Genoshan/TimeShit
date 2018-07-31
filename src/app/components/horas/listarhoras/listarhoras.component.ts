@@ -20,7 +20,7 @@ export class ListarhorasComponent implements OnInit {
   loading:boolean;
 
    hora:Hora = {
-    IdHora:0,
+    Idhora:0,
     Descripcion: "" ,
     CantidadHoras: 0,
     Fecha:new Date(Date.now()),

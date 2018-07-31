@@ -38,7 +38,7 @@ export class HorasComponent implements OnInit {
   }
 
   hora:Hora={    
-    IdHora:0,
+    Idhora:0,
     Descripcion:"",
     CantidadHoras:0,
     Fecha:new Date(Date.now()),
@@ -104,8 +104,8 @@ CargarHoras(){
     //creando
     if (this.id=="nueva")
     {
-      console.log(this.hora);
-      this.hs.CargarHoras(this.hora, this.user.ci)
+      
+      this.hs.CargarHoras(this.hora, this.user["CI"])
       .subscribe(        
       correcto => { 
         if(correcto)
@@ -124,9 +124,8 @@ CargarHoras(){
   else
   {
 
-    //actualizando
-    console.log(this.hora);
-    this.hs.editarHoras(this.hora)   
+    //actualizando    
+    this.hs.editarHoras(this.hora)  
     .subscribe(        
       correcto => { 
         if(correcto)

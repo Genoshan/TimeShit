@@ -48,7 +48,7 @@ export class ProyectosComponent implements OnInit {
   
     //LISTA PROYECTOS DEL USUARIO DESDE API
     this.user=JSON.parse(localStorage.getItem('usuario'));
-    console.log(this.user);
+
 
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO    
     this.pservice.getProyectosUsuario(this.user["CI"])
