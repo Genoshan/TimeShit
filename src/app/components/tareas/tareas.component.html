@@ -62,13 +62,12 @@
                                 </button>
 
                                 <!-- Editar Tarea proyectos[k].IdProyecto -->
-
                                 <button [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
                                     <i class="fa fa-pencil-square" aria-hidden="true"></i>
                                 </button>
 
                                 <!-- Borrar Tarea -->
-                                <button (click)="borrarTarea(k)" type="button" class="btn btn-outline-danger">
+                                <button (click)="borrarTarea(tareas[k].IdTarea)" type="button" class="btn btn-outline-danger">
                                     <i class="fa fa-times" aria-hidden="true"></i>
                                 </button>
 

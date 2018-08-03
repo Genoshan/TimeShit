@@ -1,3 +1,4 @@
+import { HttpModule } from '@angular/http';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -52,6 +53,30 @@ buscar(termino: string) {
   this.loading = true;
   this.tareas=this.tservice.getTareasxTermino(termino);
   
+}
+
+borrarTarea(k: string) {  
+  console.log(k);
+  this.tservice.eliminarTarea(k)
+  .subscribe(        
+    correcto => { 
+      if(correcto)
+      {
+        console.log(correcto);
+        //recargo las tareas        
+        window.location.reload();
+
+        //console.log(this.tareas);
+      }
+      else{
+        this.status = 'error';
+        //alert('El usuario no esta');
+      }
+  },(error) => {
+    this.status = 'error';
+    console.log(error);                    
+    } 
+  )  
 }
   ngOnInit() {
 

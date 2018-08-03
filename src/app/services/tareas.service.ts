@@ -95,6 +95,7 @@ export class TareasService {
       .catch(this.handleError);
   }
 
+//editarTarea
   editarTarea(t: Tarea) {
     //let headers = new Headers();
 
@@ -105,7 +106,7 @@ export class TareasService {
       Descripcion: t.Descripcion,
       FechaInicio: t.FechaInicio,
       FechaFIn: t.FechaFIn
-    };
+    };   
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -114,6 +115,35 @@ export class TareasService {
 
     return this._http
       .post(this.url + 'EditarTarea', body, { headers: headers })
+      .map((resp: any) => {
+        //swal('Tarea Actualizada', t.Nombre, 'success');
+        
+        return resp;
+      })
+      .catch(this.handleError);
+  }
+
+  //eliminarTarea
+  eliminarTarea(k: string) {
+    console.log(k);
+    //let headers = new Headers();
+    var body = {
+      IdTarea: k,
+      IdProyecto: 0,
+      Nombre: "",
+      Descripcion: "",
+      FechaInicio: Date.now(),
+      FechaFIn: Date.now()
+    };   
+
+    console.log(body);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'EliminarTarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
         
