@@ -64,10 +64,31 @@ export class ListarhorasComponent implements OnInit {
     this.horas=this.hservice.getHorasxTermino(termino);    
   }
 
-  ngOnInit() {
-    
-         //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
-         this.tarea = this.tservice.getTarea(this.id);      
+  borrarHora(k: Number) {
+    this.loading = true;
+    this.hservice.eliminarHora(k)
+         .subscribe(        
+         correcto => { 
+           if(correcto)
+           {            
+            //vuelvo a cargar la lista            
+            this.listarHorasdeTarea();                 
+           }
+           else{            
+             this.status = 'error';            
+           }
+       },(error) => {
+         this.status = 'error';
+         console.log(error);                    
+         } 
+       )
+       
+  }
+
+  listarHorasdeTarea(){
+
+    //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS      
+    this.tarea = this.tservice.getTarea(this.id);      
 
     //almaceno en localstorage para poder acceder desde una tarea nueva    
     localStorage.setItem('tarea',JSON.stringify(this.tarea));          
@@ -76,18 +97,28 @@ export class ListarhorasComponent implements OnInit {
          .subscribe(        
          correcto => { 
            if(correcto)
-           {             
+           {
+            //vacio la lista de horas y la vuelvo a cargar
+            this.horas = null;               
              this.horas = correcto;             
            }
            else{
-             this.status = 'error';            
+             this.status = 'error';                         
            }
        },(error) => {
          this.status = 'error';
          console.log(error);                    
          } 
-       )            
-       
+       )
+
+
+  }
+
+  ngOnInit() {
+
+    //se realizó refactory de cargar la lista de horas en un metodo independiente que se pueda llamar 
+    //desde cualquier parte del codigo de la clase.
+    this.listarHorasdeTarea();
   }
 
 }

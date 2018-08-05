@@ -55,7 +55,7 @@ buscar(termino: string) {
   
 }
 
-borrarTarea(k: string) {  
+borrarTarea(k: Number) {  
   console.log(k);
   this.tservice.eliminarTarea(k)
   .subscribe(        
@@ -64,7 +64,7 @@ borrarTarea(k: string) {
       {
         console.log(correcto);
         //recargo las tareas        
-        window.location.reload();
+        
 
         //console.log(this.tareas);
       }
@@ -78,33 +78,40 @@ borrarTarea(k: string) {
     } 
   )  
 }
+
+listarTareasDeProyecto(){
+
+//OBTENGO EL PROYECTO
+this.proyecto=this.pservice.getProyecto(this.id);
+
+//almaceno en localstorage para poder acceder desde una tarea nueva    
+localStorage.setItem('proyecto',JSON.stringify(this.proyecto)); 
+
+//OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
+ this.tservice.getTareasDeProyecto(this.id)
+ .subscribe(        
+ correcto => { 
+   if(correcto)
+   {
+     //vacio las tareas y las vuelvo a cargar.
+     this.tareas = null;
+     this.tareas = correcto;
+     //console.log(this.tareas);
+   }
+   else{
+     this.status = 'error';
+     //alert('El usuario no esta');
+   }
+},(error) => {
+ this.status = 'error';
+ console.log(error);                    
+ } 
+)
+}
+
   ngOnInit() {
 
-    //OBTENGO EL PROYECTO
-    this.proyecto=this.pservice.getProyecto(this.id);
-
-    //almaceno en localstorage para poder acceder desde una tarea nueva    
-    localStorage.setItem('proyecto',JSON.stringify(this.proyecto)); 
-
-    //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
-     this.tservice.getTareasDeProyecto(this.id)
-     .subscribe(        
-     correcto => { 
-       if(correcto)
-       {
-         //this.proyectos = JSON.parse(correcto.proyectos);
-         this.tareas = correcto;
-         //console.log(this.tareas);
-       }
-       else{
-         this.status = 'error';
-         //alert('El usuario no esta');
-       }
-   },(error) => {
-     this.status = 'error';
-     console.log(error);                    
-     } 
-   )
+    this.listarTareasDeProyecto();
   }
 
 }

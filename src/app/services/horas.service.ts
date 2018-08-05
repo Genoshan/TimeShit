@@ -1,3 +1,4 @@
+import { KeysPipe } from './../pipes/keys.pipe';
 import "rxjs/Rx";
 import { Injectable } from "@angular/core";
 import {
@@ -82,18 +83,7 @@ export class HorasService {
     );
   }
 
-    //MANEJADOR DE ERRORES DE SERVICIO
-    private handleError(error: any) {
-      let errMsg = error.message
-        ? error.message
-        : error.status
-          ? `${error.status} - ${error.statusText}`
-          : "Server error";
-      return Observable.throw(error);
-    }
-
-
-    //crear tarea
+   //crear tarea
     
     CargarHoras(h: Hora, ci:string) {
     
@@ -151,4 +141,38 @@ export class HorasService {
       })
       .catch(this.handleError);
   }
+
+  //eliminar hora
+  eliminarHora(k: Number) {
+    console.log(k);
+    
+    var body =         
+        k      
+    ;
+    
+    console.log(body);
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'EliminarHora', body, { headers: headers })
+      .map(res => res.json())
+      
+      .catch(this.handleError);
+  }
+
+      //MANEJADOR DE ERRORES DE SERVICIO
+      private handleError(error: any) {
+        let errMsg = error.message
+          ? error.message
+          : error.status
+            ? `${error.status} - ${error.statusText}`
+            : "Server error";
+        return Observable.throw(error);
+      }
+  
+
 }

@@ -68,8 +68,7 @@ export class TareasService {
   //crear tarea
   crearTareas(t: Tarea) {
 
-
-    //    let body:any = JSON.stringify({ t });
+    //let body:any = JSON.stringify({ t });
 
     var body = {
       IdTarea: t.IdTarea,
@@ -88,8 +87,7 @@ export class TareasService {
     return this._http
       .post(this.url + 'CrearTarea', body, { headers: headers })
       .map((resp: any) => {
-        //swal('Tarea Actualizada', t.Nombre, 'success');
-        
+        //swal('Tarea Actualizada', t.Nombre, 'success');        
         return resp;
       })
       .catch(this.handleError);
@@ -98,7 +96,6 @@ export class TareasService {
 //editarTarea
   editarTarea(t: Tarea) {
     //let headers = new Headers();
-
     var body = {
       IdTarea: t.IdTarea,
       IdProyecto: t.IdProyecto,
@@ -124,17 +121,11 @@ export class TareasService {
   }
 
   //eliminarTarea
-  eliminarTarea(k: string) {
+  eliminarTarea(k: Number) {
     console.log(k);
     //let headers = new Headers();
-    var body = {
-      IdTarea: k,
-      IdProyecto: 0,
-      Nombre: "",
-      Descripcion: "",
-      FechaInicio: Date.now(),
-      FechaFIn: Date.now()
-    };   
+    var body = k
+    ;   
 
     console.log(body);
     let headers = new Headers();
