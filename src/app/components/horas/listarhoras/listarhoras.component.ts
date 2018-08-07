@@ -71,7 +71,8 @@ export class ListarhorasComponent implements OnInit {
          correcto => { 
            if(correcto)
            {            
-            //vuelvo a cargar la lista            
+            //vuelvo a cargar la lista
+            this.horas = null;              
             this.listarHorasdeTarea();                 
            }
            else{            

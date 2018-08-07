@@ -10,7 +10,13 @@
                 <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary ">
                     <fa name="plus"></fa>Nueva Tarea
                 </button>
+
+                <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-outline-success ">
+                    <fa name="plus"></fa>Horas
+                </button>
+
                 <hr>
+
 
                 <div class="input-group">
                     <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar tareas">
@@ -57,7 +63,7 @@
 
 
                                 <!-- Agregar Horas -->
-                                <button [routerLink]="['/horas',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
+                                <button [routerLink]="['/horas/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success">
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                 </button>
 
