@@ -249,7 +249,7 @@ CargarHoras(){
     }
   else
   {
-    if(this.router.url == '/horas/nueva/'+this.id){
+    if(this.router.url == '/horas/tarea/'+this.id){
       //cargando una hora nueva desde boton + de tareas
       this.hs.CargarHoras(this.hora, this.user["CI"])
       .subscribe(        
@@ -268,7 +268,29 @@ CargarHoras(){
     )
     }
     else{
-    //actualizando    
+      if(this.router.url == '/horas/proyecto/'+this.id){
+        //cargando una hora nueva desde boton + de tareas
+      this.hs.CargarHoras(this.hora, this.user["CI"])
+      .subscribe(        
+      correcto => { 
+        if(correcto)
+        {          
+          this.hora = correcto;          
+        }
+        else{
+          this.status = 'error';          
+        }
+      },(error) => {
+        this.status = 'error';
+        console.log(error);                    
+      } 
+    )
+      }
+      else{
+      
+
+      
+    //actualizando una hora    
     this.hs.editarHoras(this.hora)  
     .subscribe(        
       correcto => { 
@@ -288,6 +310,7 @@ CargarHoras(){
       } 
     )    
   }
+}
 }
 }
 
