@@ -148,18 +148,16 @@ getHora(){
             //console.log(this.tareas);
           }
           else{
-            this.status = 'error';
-            //alert('El usuario no esta');
+            this.status = 'error';            
           }
         },(error) => {
         this.status = 'error';
         console.log(error);                    
         })
 
-        //OBTENGO LA TAREA      
+      //OBTENGO LA TAREA      
       this.hora.IdTarea = this.tarea.IdTarea;           
       this.tarea.IdProyecto = this.proyecto.IdProyecto;
-      this.hora.IdTarea = this.tarea.IdTarea;
 
       }
       else {
@@ -181,8 +179,7 @@ getHora(){
             //console.log(this.tareas);
           }
           else{
-            this.status = 'error';
-            //alert('El usuario no esta');
+            this.status = 'error';            
           }
         },(error) => {
         this.status = 'error';
@@ -191,8 +188,7 @@ getHora(){
 
         //OBTENGO LA TAREA      
       this.hora.IdTarea = this.tarea.IdTarea;           
-      this.tarea.IdProyecto = this.proyecto.IdProyecto;
-      this.hora.IdTarea = this.tarea.IdTarea;
+      this.tarea.IdProyecto = this.proyecto.IdProyecto;      
 
       }
       else {
@@ -200,7 +196,7 @@ getHora(){
         //CARGANDO HORAS DESDE PROYECTOS BOTON GRANDE+  
         if (this.router.url == '/horas/proyecto/nueva'){
 
-         //listo todos los proyectos del usuario
+         //listo todos los proyectos del usuario -- 
          //en base al proyecto seleccionado, listar las tareas de ese proyecto
          //TODO
 
@@ -287,7 +283,27 @@ CargarHoras(){
     )
       }
       else{
-      
+            if ((this.router.url == '/horas/proyecto/nueva/'+this.id)&&this.id!='nueva')
+            {
+              //cargando horas desde un proyecto dado boton + de un proyecto
+              //cargando una hora nueva desde boton + de tareas
+      this.hs.CargarHoras(this.hora, this.user["CI"])
+      .subscribe(        
+      correcto => { 
+        if(correcto)
+        {          
+          this.hora = correcto;          
+        }
+        else{
+          this.status = 'error';          
+        }
+      },(error) => {
+        this.status = 'error';
+        console.log(error);                    
+      } 
+    )
+  }
+            else {
 
       
     //actualizando una hora    
@@ -310,6 +326,7 @@ CargarHoras(){
       } 
     )    
   }
+}
 }
 }
 }
