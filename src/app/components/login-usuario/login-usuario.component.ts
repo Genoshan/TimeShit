@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../interfaces/usuario';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -40,13 +41,38 @@ export class LoginUsuarioComponent implements OnInit {
     this.pservice.login(loginForm.value.email,loginForm.value.pass)
       .subscribe(        
       correcto => { 
-        if(correcto)this.router.navigate(['/proyectos'])
+        if(correcto)
+        {
+          swal({
+            position: 'center',
+            type: 'success',
+            title: 'Bienvenido',
+            showConfirmButton: false,
+            timer: 1000
+          });
+          this.router.navigate(['/proyectos']);
+        }
+
         else{
-          this.status = 'error';
+          this.status = 'error';          
+          swal({
+            position: 'center',
+            type: 'error',
+            title: 'usuario o contraseña incorrectos',
+            showConfirmButton: false,
+            timer: 1000
+          });
           //alert('El usuario no esta');
         }
     },(error) => {
       this.status = 'exception';
+      swal({
+        position: 'center',
+        type: 'error',
+        title: 'Error de Servidor',
+        showConfirmButton: false,
+        timer: 1000
+      });
       
 } 
     )      

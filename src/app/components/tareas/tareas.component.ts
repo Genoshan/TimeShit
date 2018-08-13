@@ -6,6 +6,7 @@ import { Tarea } from '../../interfaces/tarea';
 import { TareasService } from '../../services/tareas.service';
 import { ProyectosService } from '../../services/proyectos.service';
 import { Proyecto } from '../../interfaces/proyecto';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -56,27 +57,75 @@ buscar(termino: string) {
 }
 
 borrarTarea(k: Number) {  
-  console.log(k);
-  this.tservice.eliminarTarea(k)
-  .subscribe(        
-    correcto => { 
-      if(correcto)
-      {
-        console.log(correcto);
-        //recargo las tareas        
-        
 
-        //console.log(this.tareas);
+  console.log('antesdelswal');
+  swal({
+    title: 'La tarea se eliminará, está seguro?',
+    text: "La tarea no se podrá recuperar.",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, confirmo!',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {    
+    if (result.value) {
+      { 
+        //llamo al metodo
+        this.tservice.eliminarTarea(k)
+        .subscribe(        
+          correcto => { 
+            if(correcto)
+            {
+              console.log(correcto);        
+              swal(
+                'Tarea Eliminada',
+                '',
+                'success'
+              );
+
+              //recargo las tareas
+              this.tareas = null;
+              this.listarTareasDeProyecto();
+              //console.log(this.tareas);
+            }
+            else{
+              this.status = 'error';
+              console.log(correcto);              
+              swal(
+                'Error',
+                'No se pudo borrar la tarea',
+                'error'
+              );
+      
+            }
+        },(error) => {
+          this.status = 'error';
+          console.log(error);
+          let MSG = 'No se puede eliminar la tarea.';                    
+          /* swal({
+            position: 'center',
+            type: 'error',
+            title: ''+MSG,
+            showConfirmButton: true,      
+          }); */
+          swal(
+            'Error',
+            ''+MSG,
+            'error'
+          );
+          } 
+        )  
       }
-      else{
-        this.status = 'error';
-        //alert('El usuario no esta');
-      }
-  },(error) => {
-    this.status = 'error';
-    console.log(error);                    
-    } 
-  )  
+    }
+
+    else{
+
+    }
+  });
+  
+
+ 
 }
 
 listarTareasDeProyecto(){
@@ -100,6 +149,7 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
    }
    else{
      this.status = 'error';
+
      //alert('El usuario no esta');
    }
 },(error) => {
