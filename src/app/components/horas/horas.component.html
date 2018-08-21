@@ -9,14 +9,14 @@
         </div>
         <div class="form-group">
             <label for="proyecto">Proyecto</label>
-            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto">
+            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" (change)="onProyectoChange()">
                 <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="tarea">Tarea</label>
-            <select [(ngModel)]="hora.IdTarea" name="IdTarea">
+            <select [(ngModel)]="hora.IdTarea" name="IdTarea" >
                 <option *ngFor="let t of tareas" [ngValue]="t.IdTarea">{{t.Nombre}}</option>
             </select>
         </div>
@@ -39,8 +39,7 @@
             </div>
 
             <button class="btn btn-primary" (click)="CargarHoras()">Guardar</button>
+
         </div>
     </div>
-
-
 </form>
