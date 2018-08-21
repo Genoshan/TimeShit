@@ -14,6 +14,8 @@ import { HorasService } from '../../../services/horas.service';
 })
 export class ListarhorasComponent implements OnInit {
 
+  p: number = 1;
+  
   horas:Hora[] = [];
   
   id: number;

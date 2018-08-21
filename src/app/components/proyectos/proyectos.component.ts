@@ -11,7 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styles: []
 })
 export class ProyectosComponent implements OnInit {
-
+  p: number = 1;
   proyectos:Proyecto[] = [];
   loading:boolean;
 

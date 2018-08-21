@@ -27,7 +27,6 @@ import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 import { TareaComponent } from './components/tarea/tarea.component';
 import { HorasComponent } from './components/horas/horas.component';
-import { CargarhorasComponent } from './components/horas/cargarhoras/cargarhoras.component';
 import { ListarhorasComponent } from './components/horas/listarhoras/listarhoras.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
@@ -65,8 +64,7 @@ import { HorasService } from './services/horas.service';
     TareasComponent,
     TareaComponent,
     HorasComponent,
-    ListarhorasComponent,
-    CargarhorasComponent,
+    ListarhorasComponent,    
     LoginComponent,
     KeysPipe,
     UsuarioComponent,
@@ -104,8 +102,7 @@ import { HorasService } from './services/horas.service';
       { path: 'horas/tarea/:id', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'horas/tarea/:nueva', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'horas/proyecto/:nueva', component: HorasComponent, canActivate: [AuthGuard] },
-      { path: 'horas/proyecto/nueva/:id', component: HorasComponent, canActivate: [AuthGuard] },
-      { path: 'cargarhoras/:id', component: CargarhorasComponent, canActivate: [AuthGuard] },
+      { path: 'horas/proyecto/nueva/:id', component: HorasComponent, canActivate: [AuthGuard] },      
       { path: 'listarhoras/:id', component: ListarhorasComponent, canActivate: [AuthGuard] },
       //{ path: 'login', component: LoginComponent },
       { path: 'login-usuario', component: LoginUsuarioComponent },      

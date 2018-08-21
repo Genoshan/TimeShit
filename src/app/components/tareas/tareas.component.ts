@@ -15,7 +15,7 @@ import swal from 'sweetalert2';
   styles: []
 })
 export class TareasComponent implements OnInit {
-
+  p: number = 1;
   tareas:Tarea[] = [];
   id: number;
   loading:boolean;
