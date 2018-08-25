@@ -15,7 +15,7 @@ const Swal = require('sweetalert2');
 export class ProyectosComponent implements OnInit {
   proyectos: Proyecto[] = [];
   loading: boolean;
-
+  p: number = 1;
   user: Usuario = {
     Nombre: "",
     email: "",

@@ -12,7 +12,7 @@
                     <form>
                         <div class="form-group">
                             <label for="proyecto">Proyecto</label>
-                            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" class="custom-select">
+                            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
                     <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
                 </select>
                             <label for="tarea">Tarea</label>

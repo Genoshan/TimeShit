@@ -136,6 +136,9 @@ export class HorasComponent implements OnInit {
                   //vacio las tareas y las vuelvo a cargar.
                   this.tareas = null;
                   this.tareas = correcto;
+                  //OBTENGO LA TAREA
+                  this.hora.IdTarea = this.tareas[0].IdTarea;
+                  this.tarea.IdProyecto = this.tareas[0].IdProyecto;
                   //console.log(this.tareas);
                 } else {
                   this.status = "error";
@@ -146,10 +149,6 @@ export class HorasComponent implements OnInit {
                 console.log(error);
               }
             );
-
-          //OBTENGO LA TAREA
-          this.hora.IdTarea = this.tarea.IdTarea;
-          this.tarea.IdProyecto = this.proyecto.IdProyecto;
         } else {
           //CARGANDO HORAS DESDE UN PROYECTO dado boton +
           if (
@@ -178,10 +177,6 @@ export class HorasComponent implements OnInit {
                   console.log(error);
                 }
               );
-
-            //OBTENGO LA TAREA
-            this.hora.IdTarea = this.tarea.IdTarea;
-            this.tarea.IdProyecto = this.proyecto.IdProyecto;
           } else {
             //CARGANDO HORAS DESDE PROYECTOS BOTON GRANDE+
             if (this.router.url == "/horas/proyecto/nueva") {
@@ -189,49 +184,46 @@ export class HorasComponent implements OnInit {
               //LISTA PROYECTOS DEL USUARIO DESDE API
               this.user = JSON.parse(localStorage.getItem("usuario"));
               //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
-              this.pr.getProyectosUsuario(this.user["CI"]).subscribe(
-                correcto => {
+              this.pr
+                .getProyectosUsuario(this.user["CI"])
+                .subscribe(correcto => {
                   if (correcto) {
                     //vacio los proyectos y los vuelvo a cargar.
                     this.proyectos = null;
                     this.proyectos = correcto;
-                    console.log(this.proyectos);
-                  } else {
-                    this.status = "error";
-                  }
-                },
-                error => {
-                  this.status = "error";
-                  console.log(error);
-                }
-              );
+                    //para la primer carga queda el primer proyecto seleccionado
+                    this.tarea.IdProyecto = this.proyectos[0].IdProyecto;
 
-              //en base al proyecto seleccionado, listar las tareas de ese proyecto
-              //TODO
-              //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS
-              console.log(this.proyectos);
-              this.ts
-                .getTareasDeProyecto(Number(this.proyecto.IdProyecto))
-                .subscribe(
-                  correcto => {
-                    if (correcto) {
-                      //vacio las tareas y las vuelvo a cargar.
-                      this.tareas = null;
-                      this.tareas = correcto;
-                      //console.log(this.tareas);
-                    } else {
-                      this.status = "error";
-                    }
-                  },
-                  error => {
-                    this.status = "error";
-                    console.log(error);
+                    this.ts
+                      .getTareasDeProyecto(Number(this.tarea.IdProyecto))
+                      .subscribe(
+                        correcto => {
+                          if (correcto) {
+                            //vacio las tareas y las vuelvo a cargar.
+                            this.tareas = null;
+                            this.tareas = correcto;
+                            //selecciono la primer tarea de la lista del proyecto cargado
+                            this.hora.IdTarea = this.tareas[0].IdTarea;
+                            this.tarea.IdProyecto = this.tareas[0].IdProyecto;
+                          } else {
+                            this.status = "error";
+                          }
+                        },
+                        error => {
+                          this.status = "error";
+                          console.log(error);
+                        }
+                      );
+                    //en base al proyecto seleccionado, listar las tareas de ese proyecto
+                    //para esto utilizo el evento onProyectoChange
+                    console.log("antes de cargar las tareas");
+                    //TODO
+                    //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS
+                    /* console.log(this.proyectos); */
+                    console.log(this.proyecto.IdProyecto);
+                    console.log(this.tarea.IdProyecto);
                   }
-                );
-
-              //OBTENGO LA TAREA
-              this.hora.IdTarea = this.tarea.IdTarea;
-              this.tarea.IdProyecto = this.proyecto.IdProyecto;
+                });
             } else {
               //SI ES DESDE HORAS,ES CUANDO ESTOY EDITANDO UNA HORA CARGADA
 
@@ -307,7 +299,7 @@ export class HorasComponent implements OnInit {
           }
         );
       } else {
-        if (this.router.url == "/horas/proyecto/" + this.id) {
+        if (this.router.url == "/horas/proyecto/nueva") {
           //cargando una hora nueva desde boton + de tareas
           this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
             correcto => {
@@ -398,6 +390,36 @@ export class HorasComponent implements OnInit {
       }
     }
   }
+
+  onProyectoChange()
+            {
+              console.log(this.tarea.IdProyecto);
+
+              this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
+                      .subscribe(
+                        correcto => { 
+                          if(correcto)
+                          {
+                            //vacio las tareas y las vuelvo a cargar.
+                            this.tareas = null;
+                            this.tareas = correcto;
+                            //selecciono la primer tarea de la lista del proyecto cargado
+                            this.hora.IdTarea = this.tareas[0].IdTarea;
+                            this.tarea.IdProyecto = this.tareas[0].IdProyecto;
+                            //console.log(this.tareas);
+                          }
+                          else{
+                            this.status = 'error';
+                          }
+                        },(error) => {
+                          this.status = 'error';
+                          console.log(error);
+                        })
+
+                    //OBTENGO LA TAREA
+                    //this.hora.IdTarea = this.tarea.IdTarea;
+                    //this.tarea.IdProyecto = this.proyecto.IdProyecto;
+            }
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ngOnInit() {
