@@ -1,87 +1,68 @@
 <navbar></navbar>
-
-<div>
-
-    <div class="row animated fadeIn fast">
-        <div class="col-xs-12">
-            <div class="table-responsive">
-
-                <h1>PROYECTOS</h1>
-
-                <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">
-                    <fa name="plus"></fa>Nuevo Proyecto
-                </button>
-                <button [routerLink]="['/horas/proyecto','nueva']" type="button" class="btn btn-outline-success ">
-                    <fa name="plus"></fa>Horas
-                </button>
-
-                <hr>
-
-                <div class="input-group">
-                    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar proyectos">
-                    <div class="input-group-addon">
-                        <button type="button" class="btn btn-outline-primary">
-                            <fa name="search"></fa>
+<div class="container">
+    <div class="animated fadeIn fast">
+        <div class="card">
+            <div class="card-header">
+                PROYECTOS
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">
+                            <fa name="plus"></fa>Nuevo Proyecto
                         </button>
                     </div>
-                </div>
-
-                <!-- Tabla principal de Proyectos  -->
-
-                <br>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12" id="todays-table">
-
-                            <table class="table">
-                                <thead class="thead-default">
-                                    <tr>
-                                        <!-- <th>Id</th> -->
-                                        <th>Codigo</th>
-                                        <th>Nombre</th>
-                                        <th>Fecha Inicio</th>
-                                        <th class="text-center">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- <tr *ngFor="let k of proyectos | keys; let i = index "> -->
-                                    <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:5,currentPage: p} ">
-                                        <!-- <td>{{ proyectos[k].IdProyecto }}</td> -->
-                                        <td>{{ proyectos[k].CodigoProyecto }}</td>
-                                        <td>{{ proyectos[k].Nombre }}</td>
-                                        <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
-
-                                        <td class="text-right w120">
-
-                                            <!-- Editar Proyecto -->
-                                            <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button" class="btn btn-outline-primary btn-responsive  ">
-                                                Editar
-                                                <fa name="edit"></fa>
-                                            </button>
-                                            <!-- Lista de Tareas -->
-                                            <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-primary  ">
-                                                Tareas
-                                                <fa name="calendar"></fa>
-                                            </button>
-                                            <!-- Agregar Horas -->
-                                            <button [routerLink]="['/horas/proyecto/nueva',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-success  ">
-                                                Horas
-                                                <fa name="plus"></fa>
-                                            </button>
-                                        </td>
-                                    </tr>
-                            </table>
-
+                    <div class="col-lg-2">
+                        <button [routerLink]="['/horas/proyecto','nueva']" type="button" class="btn btn-outline-success">
+                            <fa name="plus"></fa>Horas
+                        </button>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar proyectos">
+                            <div class="input-group-addon">
+                                <button type="button" class="btn btn-outline-primary">
+                                        <fa name="search"></fa>
+                                    </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
+                <table class="table table-hover margin-top">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Fecha Inicio</th>
+                            <th class="text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:5,currentPage: p} ">
+                            <td>{{ proyectos[k].CodigoProyecto }}</td>
+                            <td>{{ proyectos[k].Nombre }}</td>
+                            <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
+                            <td class="text-right">
+                                <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button" class="btn btn-outline-primary btn-responsive  ">
+                                                            Editar
+                                                            <fa name="edit"></fa>
+                                                        </button>
+                                <!-- Lista de Tareas -->
+                                <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-primary  ">
+                                                            Tareas
+                                                            <fa name="calendar"></fa>
+                                                        </button>
+                                <!-- Agregar Horas -->
+                                <button [routerLink]="['/horas/proyecto/nueva',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-success  ">
+                                                            Horas
+                                                            <fa name="plus"></fa>
+                                                        </button>
+                            </td>
+                        </tr>
+                </table>
+                <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
             </div>
-
         </div>
     </div>
-
 </div>
-
-<pagination-controls (pageChange)=" p =$event"> </pagination-controls>

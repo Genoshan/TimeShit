@@ -22,7 +22,7 @@ export class HorasService {
   private url: string;
 
   private user: Usuario = {
-    nombre: "",
+    Nombre: "",
     email: "",
     //password: string;
     img: "",

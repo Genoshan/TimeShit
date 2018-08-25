@@ -1,6 +1,6 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
+//import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from './interfaces/usuario';
@@ -10,17 +10,17 @@ import { Usuario } from './interfaces/usuario';
 export class AuthService {
   
   user1$:Usuario={
-    nombre: "",
+    Nombre: "",
     email: "",
     //password: string;
     img: "",
     ci: ""
   }
   
-  user$: Observable <firebase.User>;
+  //user$: Observable <firebase.User>;
 
   constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute) { 
-    this.user$ = afAuth.authState;
+    //this.user$ = afAuth.authState;
     this.user1$ = JSON.parse(localStorage.getItem('usuario'));
 
   }

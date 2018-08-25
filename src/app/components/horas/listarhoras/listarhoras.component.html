@@ -1,35 +1,31 @@
 <navbar></navbar>
-
-<div>
-    <div class="row animated fadeIn fast">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <h5> {{ tarea.Nombre }}</h5>
-                <h1>HORAS </h1>
-
-
-                <button [routerLink]="['/horas','nueva']" type="button" class="btn btn-primary ">
-                  <fa name="plus"></fa>Agregar Horas: 
-              </button>
-                <hr>
-
-                <div class="input-group">
-                    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control col-md-6" placeholder="Buscar Horas">
-                    <div class="input-group-addon">
-                        <button type="button" class="btn btn-outline-primary">
-                          <fa name="search"></fa>
-                      </button>
+<div class="container">
+    <div class="animated fadeIn fast">
+        <div class="card">
+            <div class="card-header">
+                Horas de la tarea: <b> {{ tarea.Nombre }} </b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button [routerLink]="['/horas','nueva']" type="button" class="btn btn-primary ">
+            <fa name="plus"></fa>Agregar Horas: 
+        </button>
+                    </div>
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar Horas">
+                            <div class="input-group-addon">
+                                <button type="button" class="btn btn-outline-primary">
+                      <fa name="search"></fa>
+                  </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <hr>
-
-                <!-- Tabla principal de horas  -->
-
-                <br>
-
-                <table class="table">
-                    <thead class="thead-default">
+                <table class="table table-hover margin-top">
+                    <thead>
                         <tr>
                             <!-- <th>#</th> -->
                             <th>Horas</th>
@@ -40,36 +36,27 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr *ngFor="let k of horas | keys | paginate:{itemsPerPage:5,currentPage: p}">
-
                             <!-- <td>{{ horas[k].id }}</td> -->
                             <td>{{ horas[k].CantidadHoras }}</td>
                             <td>{{ horas[k].Descripcion }}</td>
                             <td>{{ horas[k].Fecha | date: "dd-MM-yyyy" }}</td>
                             <td>{{ tarea.Nombre }}</td>
-
-                            <td class="text-right w120">
-
-                                <!--  Agregar Horas
-                                <button [routerLink]="['/horas',horas[k].IdTarea]" type="button" class="btn btn-outline-success">
-                                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                              </button> -->
-
+                            <td class="text-right">
                                 <!-- Editar Hora -->
-
-                                <button [routerLink]="['/horas',horas[k].Idhora]" type="button" class="btn btn-outline-success">
-                                  <i class="fa fa-pencil-square" aria-hidden="true"></i>
-                              </button>
-
+                                <button [routerLink]="['/horas',horas[k].Idhora]" type="button" class="btn btn-outline-primary">
+                                    Editar
+                                    <fa name="edit"></fa>
+                                          </button>
                                 <!-- Borrar Tarea -->
                                 <button (click)="borrarHora(horas[k].Idhora)" type="button" class="btn btn-outline-danger">
-                                  <i class="fa fa-times" aria-hidden="true"></i>
-                              </button>
-
+                                                Eliminar
+                                              <i class="fa fa-times" aria-hidden="true"></i>
+                                          </button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
             </div>
-            <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
+        </div>

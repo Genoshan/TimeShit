@@ -5,3 +5,15 @@
 body {
     padding-top: 70px;
 }
+
+.margin-bot {
+    margin-bottom: 20px;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.pading {
+    padding: 5%;
+}

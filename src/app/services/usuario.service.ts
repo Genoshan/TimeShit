@@ -19,7 +19,7 @@ export class UsuarioService {
   pass: string;
 
   private Usuario: {
-    nombre: string;
+    Nombre: string;
     email: string;
     //password: string,
     img: string;

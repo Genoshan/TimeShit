@@ -5,8 +5,8 @@ import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+//import { NgbModule} from  '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { RouterModule} from '@angular/router';
 
 import { AngularFireModule} from 'angularfire2';
@@ -54,7 +54,8 @@ import { UsuarioService } from './services/usuario.service';
 import { HttpModule } from '@angular/http';
 import { HorasService } from './services/horas.service';
 
-
+//NUEVOS
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { HorasService } from './services/horas.service';
   exports: [ AppComponent ],
 
   imports: [
+    FormsModule,
     BrowserModule,    
     BrowserAnimationsModule,
     OwlDateTimeModule, 

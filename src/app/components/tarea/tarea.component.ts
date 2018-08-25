@@ -1,158 +1,161 @@
-import { TareasService } from './../../services/tareas.service';
-import { ProyectosService } from '../../services/proyectos.service';
-import { Component, OnInit } from '@angular/core';
-import { NgDatepickerModule } from 'ng2-datepicker';
-import { Tarea } from '../../interfaces/tarea';
-import { Proyecto } from './../../interfaces/proyecto';
-import { DatepickerOptions } from 'ng2-datepicker';
-import * as frLocale from 'date-fns/locale/fr';
-import { ActivatedRoute } from '@angular/router';
-import { Usuario } from '../../interfaces/usuario';
+import { TareasService } from "./../../services/tareas.service";
+import { ProyectosService } from "../../services/proyectos.service";
+import { Component, OnInit } from "@angular/core";
+import { NgDatepickerModule } from "ng2-datepicker";
+import { Tarea } from "../../interfaces/tarea";
+import { Proyecto } from "./../../interfaces/proyecto";
+import { DatepickerOptions } from "ng2-datepicker";
+import * as frLocale from "date-fns/locale/fr";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Usuario } from "../../interfaces/usuario";
 
-
+declare var require: any;
+const Swal = require("sweetalert2");
 
 @Component({
-  selector: 'app-tarea',
-  templateUrl: './tarea.component.html',
+  selector: "app-tarea",
+  templateUrl: "./tarea.component.html",
   styles: []
 })
 export class TareaComponent implements OnInit {
-  
   options: DatepickerOptions = {
     minYear: 1970,
     maxYear: 2030,
-    displayFormat: 'MMM D[,] YYYY',
-    barTitleFormat: 'MMMM YYYY',
-    dayNamesFormat: 'dd',
+    displayFormat: "MMM D[,] YYYY",
+    barTitleFormat: "MMMM YYYY",
+    dayNamesFormat: "dd",
     firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
     locale: frLocale,
     minDate: new Date(Date.now()), // Minimal selectable date
-    maxDate: new Date(Date.now()),  // Maximal selectable date
-    barTitleIfEmpty: 'Click to select a date'
+    maxDate: new Date(Date.now()), // Maximal selectable date
+    barTitleIfEmpty: "Click to select a date"
   };
 
-  /*****ATRIBUTOS******/  
+  /*****ATRIBUTOS******/
 
-  nuevo:boolean=false;
-  id:string;
-  proyectos:Proyecto[] = [];
+  nuevo: boolean = false;
+  id: string;
+  proyectos: Proyecto[] = [];
 
-   tarea:Tarea = {
-
+  tarea: Tarea = {
     IdTarea: 0,
     Nombre: "",
     Descripcion: "",
-    FechaInicio:new Date(Date.now()),
+    FechaInicio: new Date(Date.now()),
     FechaFIn: new Date(Date.now()),
-    IdProyecto:0  
-  }
+    IdProyecto: 0
+  };
 
   user: Usuario = {
-    nombre: "",
+    Nombre: "",
     email: "",
     //password: string;
     img: "",
     ci: ""
-  }
+  };
 
-  proyecto:Proyecto = {
-    Nombre:"",
-    FechaInicio:new Date(Date.now()),
-    Estado:true,
-    codigoProyecto:"",    
-    IdProyecto: 0,
-  }
+  proyecto: Proyecto = {
+    Nombre: "",
+    FechaInicio: new Date(Date.now()),
+    Estado: true,
+    codigoProyecto: "",
+    IdProyecto: 0
+  };
 
-  status:string;
- 
+  status: string;
 
-/********CONSTRUCTOR******/
+  /********CONSTRUCTOR******/
 
-constructor(private ts:TareasService,private pr:ProyectosService,
-  private activatedRoute:ActivatedRoute){
-  this.activatedRoute.params
-    .subscribe(parametros => {        
-      this.id = parametros['id'];
-    } )
+  constructor(
+    private ts: TareasService,
+    private pr: ProyectosService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
+    this.activatedRoute.params.subscribe(parametros => {
+      this.id = parametros["id"];
+    });
 
     this.options = new NgDatepickerModule();
-}
+  }
 
-/*****OPERACIONES*****/
+  /*****OPERACIONES*****/
 
-getTarea(){
-      if (this.id=="nueva")
-      {
-          //console.log(this.proyecto);
-          this.tarea.IdProyecto = this.proyecto.IdProyecto;
-      }
-      else{
-
-        this.tarea=this.ts.getTarea(Number(this.id));
-        //OBTENGO EL PROYECTO DE LA TAREA SELECCIONADA
-        this.proyecto=this.pr.getProyecto(this.tarea.IdProyecto);
-
-      }        
+  getTarea() {
+    if (this.id == "nueva") {
+      //console.log(this.proyecto);
+      this.tarea.IdProyecto = this.proyecto.IdProyecto;
+    } else {
+      this.tarea = this.ts.getTarea(Number(this.id));
+      //OBTENGO EL PROYECTO DE LA TAREA SELECCIONADA
+      this.proyecto = this.pr.getProyecto(this.tarea.IdProyecto);
     }
-
-  crearTareas(){
-  if (this.id=="nueva")
-  {
-    // insertando
-    
-    this.ts.crearTareas(this.tarea)
-    .subscribe(        
-      correcto => { 
-        if(correcto)
-        {
-          //this.proyectos = JSON.parse(correcto.proyectos);
-          this.tarea = correcto;
-          //console.log(this.tareas);
-        }
-        else{
-          this.status = 'error';
-          //alert('El usuario no esta');
-        }
-    },(error) => {
-      this.status = 'error';
-      console.log(error);                    
-      } 
-    )
   }
-  else
-  {
-    //actualizando
-    
-    this.ts.editarTarea(this.tarea)   
-    .subscribe(        
-      correcto => { 
-        if(correcto)
-        {
-          //this.proyectos = JSON.parse(correcto.proyectos);
-          this.tarea = correcto;
-          //console.log(this.tareas);
+
+  crearTareas() {
+    if (this.id == "nueva") {
+      // insertando
+
+      this.ts.crearTareas(this.tarea).subscribe(
+        correcto => {
+          if (correcto) {
+            const toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+            toast({
+              type: "success",
+              title: "Tarea creada Correctamente"
+            });
+            this.router.navigate([`/tareas/${this.proyecto.IdProyecto}`]);
+            this.tarea = correcto;
+          } else {
+            this.status = "error";
+          }
+        },
+        error => {
+          this.status = "error";
+          console.log(error);
         }
-        else{
-          this.status = 'error';
-          //alert('El usuario no esta');
+      );
+    } else {
+      //actualizando
+
+      this.ts.editarTarea(this.tarea).subscribe(
+        correcto => {
+          if (correcto) {
+            const toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000
+            });
+            toast({
+              type: "success",
+              title: "Tarea modificada Correctamente"
+            });
+            this.router.navigate([`/tareas/${this.proyecto.IdProyecto}`]);
+            this.tarea = correcto;
+          } else {
+            this.status = "error";
+          }
+        },
+        error => {
+          this.status = "error";
+          console.log(error);
         }
-    },(error) => {
-      this.status = 'error';
-      console.log(error);                    
-      } 
-    )
-               
+      );
+    }
   }
-}
 
-/**** CARGA INICIAL DEL COMPONENTE *****/
-ngOnInit() {
-     
-  this.user=JSON.parse(localStorage.getItem('usuario'));
-  this.proyecto = JSON.parse(localStorage.getItem('proyecto'));  
-  //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA  
-  this.getTarea();    
-  this.proyectos.push(this.proyecto);
-}
-
+  /**** CARGA INICIAL DEL COMPONENTE *****/
+  ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem("usuario"));
+    this.proyecto = JSON.parse(localStorage.getItem("proyecto"));
+    //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA
+    this.getTarea();
+    this.proyectos.push(this.proyecto);
+  }
 }
