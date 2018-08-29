@@ -12,6 +12,7 @@ import { TareasService } from "../../services/tareas.service";
 import { ProyectosService } from "../../services/proyectos.service";
 import { HorasService } from "../../services/horas.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import swal from "sweetalert2";
 
 declare var require: any;
 const Swal = require("sweetalert2");
@@ -146,6 +147,12 @@ export class HorasComponent implements OnInit {
               },
               error => {
                 this.status = "error";
+                swal(
+                  'Error',
+                  ''+error,
+                  'error'
+                );
+      
                 console.log(error);
               }
             );
@@ -176,8 +183,13 @@ export class HorasComponent implements OnInit {
                   }
                 },
                 error => {
-                  this.status = "error";
+                  this.status = "error";                  
                   console.log(error);
+                  swal(
+                    'Error',
+                    ''+error,
+                    'error'
+                  );        
                 }
               );
           } else {
@@ -215,6 +227,11 @@ export class HorasComponent implements OnInit {
                         error => {
                           this.status = "error";
                           console.log(error);
+                          swal(
+                            'Error',
+                            ''+error,
+                            'error'
+                          );                
                         }
                       );
                     //en base al proyecto seleccionado, listar las tareas de ese proyecto
@@ -225,6 +242,15 @@ export class HorasComponent implements OnInit {
                     /* console.log(this.proyectos); */
                     console.log(this.proyecto.IdProyecto);
                     console.log(this.tarea.IdProyecto);
+                  }
+                  error => {
+                    this.status = "error";
+                    console.log(error);
+                    swal(
+                      'Error',
+                      ''+error,
+                      'error'
+                    );                
                   }
                 });
             } else {
@@ -272,6 +298,12 @@ export class HorasComponent implements OnInit {
         error => {
           this.status = "error";
           console.log(error);
+          swal(
+            'Error',
+            ''+error,
+            'error'
+          );
+          
         }
       );
     } else {
@@ -299,6 +331,11 @@ export class HorasComponent implements OnInit {
           error => {
             this.status = "error";
             console.log(error);
+            swal(
+              'Error',
+              ''+error,
+              'error'
+            );
           }
         );
       } else {
@@ -326,6 +363,11 @@ export class HorasComponent implements OnInit {
             error => {
               this.status = "error";
               console.log(error);
+              swal(
+                'Error',
+                ''+error,
+                'error'
+              );
             }
           );
         } else {
@@ -357,6 +399,11 @@ export class HorasComponent implements OnInit {
               error => {
                 this.status = "error";
                 console.log(error);
+                swal(
+                  'Error',
+                  ''+error,
+                  'error'
+                );
               }
             );
           } else {
@@ -386,6 +433,11 @@ export class HorasComponent implements OnInit {
               error => {
                 this.status = "error";
                 console.log(error);
+                swal(
+                  'Error',
+                  ''+error,
+                  'error'
+                );
               }
             );
           }
@@ -415,8 +467,13 @@ export class HorasComponent implements OnInit {
                             this.status = 'error';
                           }
                         },(error) => {
-                          this.status = 'error';
+                          this.status = "error";
                           console.log(error);
+                          swal(
+                            'Error',
+                            ''+error,
+                            'error'
+                          );
                         })
 
                     //OBTENGO LA TAREA

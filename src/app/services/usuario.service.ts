@@ -61,9 +61,14 @@ export class UsuarioService {
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO  
-  private handleError(error:any)
-  { 
-    let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    return Observable.throw(error);
-  } 
+  private handleError(error: any) {
+    
+    let error1 = error.json();    
+    let errMsg = error1["ExceptionMessage"]
+      ? error1["ExceptionMessage"]
+      : error.status
+        ? `${error.status} - ${error.statusText}`
+        : "Server error";
+    return Observable.throw(errMsg);
+  }
 }

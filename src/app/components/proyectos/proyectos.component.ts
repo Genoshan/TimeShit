@@ -3,6 +3,7 @@ import { Proyecto } from "./../../interfaces/proyecto";
 import { Usuario } from "../../interfaces/usuario";
 import { Component, OnInit } from "@angular/core";
 import { NgxPaginationModule } from "ngx-pagination";
+import swal from "sweetalert2";
 //import { PaginationModule } from 'ngx-pagination-bootstrap';
 
 declare var require: any;
@@ -57,6 +58,11 @@ export class ProyectosComponent implements OnInit {
       error => {
         this.status = "error";
         console.log(error);
+        swal(
+          'Error',
+          ''+error,
+          'error'
+        );
       }
     );
   }

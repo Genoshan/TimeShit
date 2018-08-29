@@ -6,6 +6,7 @@ import { TareasService } from '../../../services/tareas.service';
 import { ProyectosService } from '../../../services/proyectos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HorasService } from '../../../services/horas.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listarhoras',
@@ -79,8 +80,13 @@ export class ListarhorasComponent implements OnInit {
              this.status = 'error';            
            }
        },(error) => {
-         this.status = 'error';
-         console.log(error);                    
+        this.status = "error";
+        console.log(error);
+        swal(
+          'Error',
+          ''+error,
+          'error'
+        );                 
          } 
        )
        
@@ -107,8 +113,13 @@ export class ListarhorasComponent implements OnInit {
              this.status = 'error';                         
            }
        },(error) => {
-         this.status = 'error';
-         console.log(error);                    
+        this.status = "error";
+        console.log(error);
+        swal(
+          'Error',
+          ''+error,
+          'error'
+        );                    
          } 
        )
 

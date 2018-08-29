@@ -111,7 +111,7 @@ borrarTarea(k: Number) {
           }); */
           swal(
             'Error',
-            ''+MSG,
+            ''+error,
             'error'
           );
           } 
@@ -153,8 +153,13 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
      //alert('El usuario no esta');
    }
 },(error) => {
- this.status = 'error';
- console.log(error);                    
+  this.status = "error";
+  console.log(error);
+  swal(
+    'Error',
+    ''+error,
+    'error'
+  );                 
  } 
 )
 }

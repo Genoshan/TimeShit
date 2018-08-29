@@ -8,6 +8,7 @@ import { DatepickerOptions } from "ng2-datepicker";
 import * as frLocale from "date-fns/locale/fr";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Usuario } from "../../interfaces/usuario";
+import swal from "sweetalert2";
 
 declare var require: any;
 const Swal = require("sweetalert2");
@@ -118,6 +119,11 @@ export class TareaComponent implements OnInit {
         error => {
           this.status = "error";
           console.log(error);
+          swal(
+            'Error',
+            ''+error,
+            'error'
+          );
         }
       );
     } else {
@@ -145,6 +151,11 @@ export class TareaComponent implements OnInit {
         error => {
           this.status = "error";
           console.log(error);
+          swal(
+            'Error',
+            ''+error,
+            'error'
+          );
         }
       );
     }

@@ -71,6 +71,7 @@ export class LoginUsuarioComponent implements OnInit {
         }
       },
       error => {
+        
         this.status = "exception";
         swal({
           position: "center",

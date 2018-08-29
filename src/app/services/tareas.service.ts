@@ -137,16 +137,18 @@ export class TareasService {
       .post(this.url + 'EliminarTarea', body, { headers: headers })
       .map((resp: any) => {
         //swal('Tarea Actualizada', t.Nombre, 'success');
-        
-        return resp;
+        //console.log(resp);
+        return resp;        
       })
       .catch(this.handleError);
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO
   private handleError(error: any) {
-    let errMsg = error.message
-      ? error.message
+    
+    let error1 = error.json();    
+    let errMsg = error1["ExceptionMessage"]
+      ? error1["ExceptionMessage"]
       : error.status
         ? `${error.status} - ${error.statusText}`
         : "Server error";
