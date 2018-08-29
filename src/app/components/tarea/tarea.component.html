@@ -1,38 +1,37 @@
 <navbar></navbar>
-<!-- <h3>TAREA <small>{{tarea.nombre}}...</small></h3> -->
-
-<h3>TAREA <small>tarea</small></h3>
-<form>
-    <div class="form-group">
-        <label for="title">Tarea</label>
-        <!-- <input id="title" type="text" class="form-control"> -->
-        <input [(ngModel)]="tarea.Nombre" name="Nombre" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Tarea">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    CREAR UNA NUEVA TAREA
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">TAREA</h5>
+                    <form>
+                        <div class="form-group">
+                            <label>Nombre de la Tarea</label>
+                            <input [(ngModel)]="tarea.Nombre" name="Nombre" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Tarea">
+                            <label>Descripcion de la tarea:</label>
+                            <textarea [(ngModel)]="tarea.Descripcion" name="Descripcion" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Descripcion de Tarea"></textarea>
+                            <label>Proyecto</label>
+                            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" class="custom-select">
+                                <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
+                              </select>
+                            <label>Fecha de Inicio</label>
+                            <div class="input-group">
+                                <input placeholder="Fecha de Inicio" class="form-control" type="text" onfocus="(this.type='date')" [ngModel]="tarea.FechaInicio | date: 'yyyy-MM-dd'" name="FechaInicio" (ngModelChange)="tarea.FechaInicio=$event">
+                            </div>
+                            <label>Fecha de Fin</label>
+                            <div class="input-group">
+                                <input placeholder="Fecha de Fin" class="form-control" type="text" onfocus="(this.type='date')" [ngModel]="tarea.FechaFIn | date: 'yyyy-MM-dd'" name="FechaFIn" (ngModelChange)="tarea.FechaFIn=$event">
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-block" (click)="crearTareas()"> Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="comment">Descripcion de la tarea:</label>
-        <textarea [(ngModel)]="tarea.Descripcion" name="Descripcion" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Descripcion de Tarea"></textarea>
-        <!-- <textarea class="form-control" rows="5" id="comment"></textarea> -->
-    </div>
-    <div class="form-group">
-        <label for="proyecto">Proyecto</label>
-        <!-- <select id="proyecto" class="form-control">
-        <option value=""></option> -->
-        <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto">
-            <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-          </select>
-    </div>
-
-    <!-- class="sr-only" for="inlineFormInputGroup" -->
-    <label for="comment">Fecha de Inicio</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <input placeholder="Fecha de Inicio" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="tarea.FechaInicio | date: 'yyyy-MM-dd'" name="FechaInicio" (ngModelChange)="tarea.FechaInicio=$event">
-    </div>
-
-    <!-- class="sr-only" for="inlineFormInputGroup" -->
-    <label for="comment">Fecha de Fin</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <input placeholder="Fecha de Fin" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="tarea.FechaFIn | date: 'yyyy-MM-dd'" name="FechaFIn" (ngModelChange)="tarea.FechaFIn=$event">
-    </div>
-
-    <button class="btn btn-primary" (click)="crearTareas()"> Guardar</button>
-</form>
+</div>

@@ -1,45 +1,37 @@
 <navbar></navbar>
-<form>
-    <div class="form-group">
-        <!-- <label for="title">Nombre</label>
-    <input  [(ngModel)]="proyecto.project_code" name="code" id="title" type="text" class="form-control"> -->
-
-        <div class="form-group col-md-6">
-            <h3>HORA</h3>
-        </div>
-        <div class="form-group">
-            <label for="proyecto">Proyecto</label>
-            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" (change)="onProyectoChange()">
-                <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="tarea">Tarea</label>
-            <select [(ngModel)]="hora.IdTarea" name="IdTarea" >
-                <option *ngFor="let t of tareas" [ngValue]="t.IdTarea">{{t.Nombre}}</option>
-            </select>
-        </div>
-
-        <div class="col-md-6">
-            <label for="horas">Cantidad de Horas</label>
-            <input [(ngModel)]="hora.CantidadHoras" name="CantidadHoras" id="CantidadHoras" type="number" class="form-control">
-            <br>
-
-            <label for="horas">Descripcion</label>
-            <!-- <input  [(ngModel)]="hora.Descripcion" name="Descripcion" id="Descripcion" type="text" class="form-control"> -->
-
-            <textarea [(ngModel)]="hora.Descripcion" name="Descripcion" id="Descripcion" type="text" class="form-control"></textarea>
-            <br>
-
-            <!-- class="sr-only" for="inlineFormInputGroup" -->
-            <label for="comment">Fecha</label>
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <input placeholder="Fecha" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="hora.Fecha | date: 'yyyy-MM-dd'" name="Fecha" (ngModelChange)="hora.Fecha=$event">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    CARGA DE HORAS
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">HORA</h5>
+                    <form>
+                        <div class="form-group">
+                            <label for="proyecto">Proyecto</label>
+                            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
+                    <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
+                </select>
+                            <label for="tarea">Tarea</label>
+                            <select [(ngModel)]="hora.IdTarea" name="IdTarea" class="custom-select">
+                    <option *ngFor="let t of tareas" [ngValue]="t.IdTarea">{{t.Nombre}}</option>
+                </select>
+                            <label for="horas">Cantidad de Horas</label>
+                            <input [(ngModel)]="hora.CantidadHoras" name="CantidadHoras" id="CantidadHoras" type="number" class="form-control">
+                            <label for="horas">Descripcion</label>
+                            <textarea [(ngModel)]="hora.Descripcion" name="Descripcion" id="Descripcion" type="text" class="form-control"></textarea>
+                            <label for="comment">Fecha</label>
+                            <div class="input-group">
+                                <input placeholder="Fecha" class="form-control" type="text" onfocus="(this.type='date')" [ngModel]="hora.Fecha | date: 'yyyy-MM-dd'" name="Fecha" (ngModelChange)="hora.Fecha=$event">
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-block" (click)="CargarHoras()">Guardar</button>
+                    </form>
+                </div>
             </div>
-
-            <button class="btn btn-primary" (click)="CargarHoras()">Guardar</button>
-
         </div>
     </div>
-</form>
+</div>

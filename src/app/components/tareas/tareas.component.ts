@@ -19,7 +19,7 @@ export class TareasComponent implements OnInit {
   tareas:Tarea[] = [];
   id: number;
   loading:boolean;
-  
+  p: number = 1;
   proyecto:Proyecto = {
 
     Nombre:"",

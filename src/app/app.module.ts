@@ -5,8 +5,8 @@ import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+//import { NgbModule} from  '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { RouterModule} from '@angular/router';
 
 import { AngularFireModule} from 'angularfire2';
@@ -53,7 +53,8 @@ import { UsuarioService } from './services/usuario.service';
 import { HttpModule } from '@angular/http';
 import { HorasService } from './services/horas.service';
 
-
+//NUEVOS
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { HorasService } from './services/horas.service';
     TareasComponent,
     TareaComponent,
     HorasComponent,
-    ListarhorasComponent,    
+    ListarhorasComponent,
     LoginComponent,
     KeysPipe,
     UsuarioComponent,
@@ -76,6 +77,7 @@ import { HorasService } from './services/horas.service';
   exports: [ AppComponent ],
 
   imports: [
+    FormsModule,
     BrowserModule,    
     BrowserAnimationsModule,
     OwlDateTimeModule, 
@@ -102,7 +104,7 @@ import { HorasService } from './services/horas.service';
       { path: 'horas/tarea/:id', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'horas/tarea/:nueva', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'horas/proyecto/:nueva', component: HorasComponent, canActivate: [AuthGuard] },
-      { path: 'horas/proyecto/nueva/:id', component: HorasComponent, canActivate: [AuthGuard] },      
+      { path: 'horas/proyecto/nueva/:id', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'listarhoras/:id', component: ListarhorasComponent, canActivate: [AuthGuard] },
       //{ path: 'login', component: LoginComponent },
       { path: 'login-usuario', component: LoginUsuarioComponent },      
