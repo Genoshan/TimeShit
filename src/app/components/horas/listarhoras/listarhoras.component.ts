@@ -67,29 +67,56 @@ export class ListarhorasComponent implements OnInit {
 
   borrarHora(k: Number) {
     this.loading = true;
-    this.hservice.eliminarHora(k)
-         .subscribe(        
-         correcto => { 
-           if(correcto)
-           {            
-            //vuelvo a cargar la lista
-            this.horas = null;              
-            this.listarHorasdeTarea();                 
-           }
-           else{            
-             this.status = 'error';            
-           }
-       },(error) => {
-        this.status = "error";
-        console.log(error);
-        swal(
-          'Error',
-          ''+error,
-          'error'
-        );                 
-         } 
-       )
-       
+    swal({
+      title: 'La hora cargada se eliminará, está seguro?',
+      text: "La hora no se podrá recuperar.",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, confirmo!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        {
+          //Llamo al metodo
+          this.hservice.eliminarHora(k)
+            .subscribe(
+              correcto => {
+                if (correcto) {
+                  console.log(correcto);
+                  swal(
+                    'Hora Eliminada',
+                    '',
+                    'success'
+                  );
+                  //recargo las horas
+                  this.horas = null;
+                  this.listarHorasdeTarea();
+                }
+                else {
+                  this.status = 'error';
+                  swal(
+                    'Error',
+                    'No se pudo borrar la hora',
+                    'error'
+                  );
+                }
+              }, (error) => {
+                this.status = "error";
+                console.log(error);
+                let MSG = 'No se puede eliminar la hora.';
+                swal(
+                  'Error',
+                  '' + error,
+                  'error'
+                );
+              }
+            )
+
+        }
+      }
+    });
   }
 
   listarHorasdeTarea(){
