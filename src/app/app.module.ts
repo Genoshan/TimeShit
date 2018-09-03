@@ -22,6 +22,7 @@ import { NgDatepickerModule } from 'ng2-datepicker';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { TareasComponent } from './components/tareas/tareas.component';
@@ -56,6 +57,7 @@ import { HorasService } from './services/horas.service';
 //NUEVOS
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +71,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     LoginComponent,
     KeysPipe,
     UsuarioComponent,
-    LoginUsuarioComponent
+    LoginUsuarioComponent,
+    FooterComponent
     
     
   ],

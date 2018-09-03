@@ -1,6 +1,8 @@
 <navbar></navbar>
 <div class="container">
     <div class="animated fadeIn fast">
+
+        <div class="row">
         <div class="card">
             <div class="card-header">
                 PROYECTOS
@@ -39,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:5,currentPage: p} ">
+                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:8,currentPage: p} ">
                             <td>{{ proyectos[k].CodigoProyecto }}</td>
                             <td>{{ proyectos[k].Nombre }}</td>
                             <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
@@ -65,4 +67,8 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
+<app-footer></app-footer>
+
+
