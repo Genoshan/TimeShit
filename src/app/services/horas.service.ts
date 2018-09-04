@@ -75,6 +75,27 @@ export class HorasService {
       .catch(this.handleError);
   }
 
+  ListarHorasMensualesDeUsuario(ci:string){   
+    
+    var body = ci;    
+
+    
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .get(this.url + 'ListarHorasMensualesDeUsuario',body)
+      .map(res => res.json())
+      
+      .catch(this.handleError); 
+
+  }
+
 
   //BUSCADOR DE HORAS
   getHorasxTermino(termino: string) {

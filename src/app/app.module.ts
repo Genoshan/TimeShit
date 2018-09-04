@@ -32,6 +32,7 @@ import { ListarhorasComponent } from './components/horas/listarhoras/listarhoras
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth-guard.service';
 import { KeysPipe } from './pipes/keys.pipe';
+import { HorasefectivasComponent } from './components/horasefectivas/horasefectivas.component';
 
 //Font Awesome- Iconos
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -58,6 +59,7 @@ import { HorasService } from './services/horas.service';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +74,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     KeysPipe,
     UsuarioComponent,
     LoginUsuarioComponent,
-    FooterComponent
+    FooterComponent,
+    HorasefectivasComponent
     
     
   ],
@@ -109,7 +112,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
       { path: 'horas/proyecto/:nueva', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'horas/proyecto/nueva/:id', component: HorasComponent, canActivate: [AuthGuard] },
       { path: 'listarhoras/:id', component: ListarhorasComponent, canActivate: [AuthGuard] },
-      //{ path: 'login', component: LoginComponent },
+      { path: 'horasefectivas', component: HorasefectivasComponent, canActivate: [AuthGuard] },
       { path: 'login-usuario', component: LoginUsuarioComponent },      
       { path: '', redirectTo: '/login-usuario', pathMatch: 'full'},
     ]),

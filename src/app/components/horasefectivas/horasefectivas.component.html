@@ -1,0 +1,52 @@
+<navbar></navbar>
+<div class="container">
+    <div class="animated fadeIn fast">
+
+        <div class="row">
+        <div class="card">
+            <div class="card-header">
+                LISTADO DE HORAS EFECTIVAS
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">                          
+                          <i class="fa fa-print fa-5x" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar proyectos">
+                            <div class="input-group-addon">
+                                <button type="button" class="btn btn-outline-primary">
+                                        <fa name="search"></fa>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover margin-top">
+                    <thead>
+                        <tr>
+                            <th>Proyecto</th>
+                            <th>Tarea</th>
+                            <th>Horas</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:8,currentPage: p} ">
+                            <td>{{ proyectos[k].CodigoProyecto }}</td>
+                            <td>{{ proyectos[k].Nombre }}</td>
+                            <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
+                        </tr>
+                </table>
+                <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<app-footer></app-footer>
+
+
