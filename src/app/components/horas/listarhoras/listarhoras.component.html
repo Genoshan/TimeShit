@@ -6,10 +6,11 @@
                 Horas de la tarea: <b> {{ tarea.Nombre }} </b>
             </div>
             <div class="card-body">
+                    <button  type="button" class="btn btn-outline-primary btn-responsive pull-right" (click)="backClicked()"> < Volver </button>
                 <div class="row">
                     <div class="col-lg-2">
-                        <button [routerLink]="['/horas','nueva']" type="button" class="btn btn-primary ">
-            <fa name="plus"></fa>Agregar Horas: 
+                        <button [routerLink]="['/horas','nueva']" type="button" class="btn btn-outline-success">
+            <fa name="plus"></fa>Horas
         </button>
                     </div>
                     <div class="col-lg-4"></div>
@@ -44,7 +45,7 @@
                             <td>{{ tarea.Nombre }}</td>
                             <td class="text-right">
                                 <!-- Editar Hora -->
-                                <button [routerLink]="['/horas',horas[k].Idhora]" type="button" class="btn btn-outline-primary">
+                                <button [routerLink]="['/horas',horas[k].Idhora]" type="button" class="btn btn-outline-success">
                                     Editar
                                     <fa name="edit"></fa>
                                           </button>

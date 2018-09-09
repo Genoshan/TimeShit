@@ -15,6 +15,11 @@ import { jsonEval } from "@firebase/util";
 import { Tarea } from "../interfaces/tarea";
 import { Usuario } from "../interfaces/usuario";
 
+//Para Hacer Catch de errores
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 @Injectable()
 export class HorasService {
   //ATRIBUTOS
@@ -77,20 +82,23 @@ export class HorasService {
 
   ListarHorasMensualesDeUsuario(ci:string){   
     
-    var body = ci;    
-
+    var body = ci;  
     
+    console.log(body);
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
     
 
     let options = new RequestOptions({ headers: headers });
 
     return this._http
       .get(this.url + 'ListarHorasMensualesDeUsuario',body)
-      .map(res => res.json())
+      .map(res => {
+        res.json();
+        console.log(res);
+      }
+    )      
       
       .catch(this.handleError); 
 

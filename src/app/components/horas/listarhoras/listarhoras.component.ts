@@ -8,6 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HorasService } from '../../../services/horas.service';
 import swal from 'sweetalert2';
 
+import {Location} from '@angular/common';
+
 @Component({
   selector: 'app-listarhoras',
   templateUrl: './listarhoras.component.html',
@@ -51,13 +53,23 @@ export class ListarhorasComponent implements OnInit {
 
   constructor(private tservice: TareasService,private pservice: ProyectosService, private hservice: HorasService,
     private router:Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private _location: Location) {
       this.route.params
       .subscribe( parametros =>{
         this.id = parametros['id']            
   });
 
   }
+
+
+  //OPERACIONES
+
+    //Ir Atras
+backClicked() {
+  this._location.back();
+}
+
 
 
   buscar(termino: string) {

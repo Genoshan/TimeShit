@@ -46,17 +46,18 @@
                             <td>{{ proyectos[k].Nombre }}</td>
                             <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
                             <td class="text-right">
-                                <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button" class="btn btn-outline-primary btn-responsive  ">
+                                 <!-- Editar Proyecto -->
+                                <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button" class="btn btn-primary btn-responsive " data-toggle="tooltip" data-placement="top" title="Editar Proyecto">
                                                             Editar
                                                             <fa name="edit"></fa>
                                                         </button>
                                 <!-- Lista de Tareas -->
-                                <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-primary  ">
+                                <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Listar Tareas">
                                                             Tareas
                                                             <fa name="calendar"></fa>
                                                         </button>
                                 <!-- Agregar Horas -->
-                                <button [routerLink]="['/horas/proyecto/nueva',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-success  ">
+                                <button [routerLink]="['/horas/proyecto/nueva',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Agregar Horas" >
                                                             Horas
                                                             <fa name="plus"></fa>
                                                         </button>

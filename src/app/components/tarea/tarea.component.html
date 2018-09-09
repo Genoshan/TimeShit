@@ -3,11 +3,12 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
-            <div class="card">
+            <div class="card">                    
                 <div class="card-header">
-                    CREAR UNA NUEVA TAREA
-                </div>
+                    CREAR UNA NUEVA TAREA                        
+                </div>                
                 <div class="card-body">
+                        <button  type="button" class="btn btn-outline-primary btn-responsive pull-right" (click)="backClicked()"> < Volver </button>
                     <h5 class="card-title">TAREA</h5>
                     <form>
                         <div class="form-group">
@@ -28,7 +29,7 @@
                                 <input placeholder="Fecha de Fin" class="form-control" type="text" onfocus="(this.type='date')" [ngModel]="tarea.FechaFIn | date: 'yyyy-MM-dd'" name="FechaFIn" (ngModelChange)="tarea.FechaFIn=$event">
                             </div>
                         </div>
-                        <button class="btn btn-outline-primary btn-block" (click)="crearTareas()"> Guardar</button>
+                        <button class="btn btn-outline-primary btn-block" (click)="crearTareas()"> Guardar</button>                        
                     </form>
                 </div>
             </div>

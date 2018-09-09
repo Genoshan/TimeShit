@@ -6,63 +6,69 @@
                 Tareas del Proyecto: <b> {{ proyecto.Nombre }} </b>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary">
-                            <fa name="plus"></fa>Nueva Tarea
-                        </button>
-                    </div>
-                    <div class="col-lg-2">
-                        <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-outline-success">
-                            <fa name="plus"></fa>Horas
-                        </button>
-                    </div>
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-6">
-                        <div class="input-group">
-                            <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar tareas">
-                            <div class="input-group-addon">
-                                <button type="button" class="btn btn-outline-primary">
-                                                    <fa name="search"></fa>
-                                                </button>
+                <button type="button" class="btn btn-outline-primary btn-responsive pull-right" (click)="backClicked()"> <
+                        Volver </button>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary">
+                                    <fa name="plus"></fa>Nueva Tarea
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-outline-success">
+                                    <fa name="plus"></fa>Horas
+                                </button>
+                            </div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar tareas">
+                                    <div class="input-group-addon">
+                                        <button type="button" class="btn btn-outline-primary">
+                                            <fa name="search"></fa>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <table class="table table-hover margin-top">
-                    <thead>
-                        <tr>
-                            <th>Tarea</th>
-                            <th>Fecha Inicio</th>
-                            <th class="text-center">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let k of tareas | keys | paginate:{itemsPerPage:5,currentPage: p}">
-                            <td>{{ tareas[k].Nombre }}</td>
-                            <td>{{ tareas[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
-                            <td class="text-right">
-                                <!-- Listar  Horas -->
-                                <button id="listarHoras" [routerLink]="['/listarhoras',tareas[k].IdTarea]" type="button" class="btn btn-outline-success btn-sm pading" data-content="Popover with data-trigger" rel="popover" data-placement="bottom" data-original-title="Title" data-trigger="hover">
-                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                </button>
-                                <!-- Agregar Horas -->
-                                <button id="agregarHoras" [routerLink]="['/horas/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success btn-sm pading">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </button>
-                                <!-- Editar Tarea proyectos[k].IdProyecto -->
-                                <button id="editarTarea" [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success btn-sm pading">
-                                                    <i class="fa fa-pencil-square" aria-hidden="true"></i>
-                                                </button>
-                                <!-- Borrar Tarea -->
-                                <button id="borrarTarea" (click)="borrarTarea(tareas[k].IdTarea)" type="button" class="btn btn-outline-danger btn-sm pading">
-                                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
+                        <table class="table table-hover margin-top">
+                            <thead>
+                                <tr>
+                                    <th>Tarea</th>
+                                    <th>Fecha Inicio</th>
+                                    <th class="text-center">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let k of tareas | keys | paginate:{itemsPerPage:5,currentPage: p}">
+                                    <td>{{ tareas[k].Nombre }}</td>
+                                    <td>{{ tareas[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
+                                    <td class="text-right">
+
+                                        <!-- Editar Tarea proyectos[k].IdProyecto -->
+                                        <button id="editarTarea" [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-primary btn-sm pading" data-toggle="tooltip" data-placement="top" title="Editar Tarea">
+                                            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                        </button>
+                                        <!-- Listar  Horas -->
+                                        <button id="listarHoras" [routerLink]="['/listarhoras',tareas[k].IdTarea]" type="button" class="btn btn-success btn-sm pading"
+                                            data-content="Popover with data-trigger" rel="popover" data-placement="bottom" data-original-title="Title"
+                                            data-trigger="hover" data-toggle="tooltip" data-placement="top" title="Listar Horas">
+                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                        </button>
+                                        <!-- Agregar Horas -->
+                                        <button id="agregarHoras" [routerLink]="['/horas/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success btn-sm pading" data-toggle="tooltip" data-placement="top" title="Agregar Hora">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </button>
+
+                                        <!-- Borrar Tarea -->
+                                        <button id="borrarTarea" (click)="borrarTarea(tareas[k].IdTarea)" type="button" class="btn btn-outline-danger btn-sm pading" data-toggle="tooltip" data-placement="top" title="Eliminar Tarea">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
             </div>
         </div>
 

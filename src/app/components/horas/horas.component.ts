@@ -14,6 +14,8 @@ import { HorasService } from "../../services/horas.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import swal from "sweetalert2";
 
+import {Location} from '@angular/common';
+
 declare var require: any;
 const Swal = require("sweetalert2");
 @Component({
@@ -69,7 +71,8 @@ export class HorasComponent implements OnInit {
     private pr: ProyectosService,
     private hs: HorasService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _location: Location
   ) {
     this.activatedRoute.params.subscribe(parametros => {
       this.id = parametros["id"];
@@ -77,6 +80,12 @@ export class HorasComponent implements OnInit {
   }
 
   /*****OPERACIONES*****/
+
+  //Ir Atras
+backClicked() {
+  this._location.back();
+}
+
 
   getHora() {
     //FLUJO NORMAL: LLEGO NAVEGANDO DESDE PROYECTO Y DE UNA TAREA Y VEO LAS HORAS CARGADAS y cargo una nueva

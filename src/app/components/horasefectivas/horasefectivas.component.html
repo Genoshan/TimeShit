@@ -8,6 +8,7 @@
                 LISTADO DE HORAS EFECTIVAS
             </div>
             <div class="card-body">
+                    <button  type="button" class="btn btn-outline-primary btn-responsive pull-right" routerLink="/proyectos"> < Volver </button>
                 <div class="row">
                     <div class="col-lg-2">
                         <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">                          
@@ -29,16 +30,16 @@
                 <table class="table table-hover margin-top">
                     <thead>
                         <tr>
-                            <th>Proyecto</th>
-                            <th>Tarea</th>
-                            <th>Horas</th>                            
+                            <th>Descripcion</th>
+                            <th>CantidadHoras</th>
+                            <th>Fecha</th>                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:8,currentPage: p} ">
-                            <td>{{ proyectos[k].CodigoProyecto }}</td>
-                            <td>{{ proyectos[k].Nombre }}</td>
-                            <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
+                        <tr *ngFor="let k of horas | keys | paginate:{itemsPerPage:8,currentPage: p} ">
+                            <td>{{ horas[k].Descripcion }}</td>
+                            <td>{{ horas[k].CantidadHoras }}</td>
+                            <td>{{ horas[k].Fecha | date: "dd-MM-yyyy" }}</td>
                         </tr>
                 </table>
                 <pagination-controls (pageChange)=" p =$event"> </pagination-controls>

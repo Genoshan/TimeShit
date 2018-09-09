@@ -13,6 +13,11 @@ import { IfObservable } from "rxjs/observable/IfObservable";
 import { Usuario } from "../interfaces/usuario";
 import { Proyecto } from "./../interfaces/proyecto";
 
+//Para Hacer Catch de errores
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 @Injectable()
 export class ProyectosService {
   private Proyecto: {

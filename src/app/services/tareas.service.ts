@@ -9,7 +9,11 @@ import {
 } from "@angular/http";
 import { Tarea } from "../interfaces/tarea";
 import { Observable } from "rxjs/Rx";
-import { jsonEval } from "@firebase/util";
+
+//Para Hacer Catch de errores
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class TareasService {

@@ -9,6 +9,9 @@ import { Proyecto } from '../../interfaces/proyecto';
 import swal from 'sweetalert2';
 
 
+import {Location} from '@angular/common';
+
+
 @Component({
   selector: 'app-tareas',
   templateUrl: './tareas.component.html',
@@ -42,12 +45,18 @@ export class TareasComponent implements OnInit {
 
   constructor(private tservice: TareasService,private pservice: ProyectosService,
               private router:Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private _location: Location) {
                  
     this.route.params
     .subscribe( parametros =>{
       this.id = parametros['id']            
 } );
+}
+
+//Ir Atras
+backClicked() {
+  this._location.back();
 }
 
 buscar(termino: string) {

@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Usuario } from "../../interfaces/usuario";
 import swal from "sweetalert2";
 
+import {Location} from '@angular/common';
+
 declare var require: any;
 const Swal = require("sweetalert2");
 
@@ -71,7 +73,8 @@ export class TareaComponent implements OnInit {
     private ts: TareasService,
     private pr: ProyectosService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _location: Location
   ) {
     this.activatedRoute.params.subscribe(parametros => {
       this.id = parametros["id"];
@@ -79,6 +82,11 @@ export class TareaComponent implements OnInit {
 
     this.options = new NgDatepickerModule();
   }
+
+//Ir Atras
+  backClicked() {
+    this._location.back();
+}
 
   /*****OPERACIONES*****/
 
