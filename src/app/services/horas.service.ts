@@ -10,6 +10,7 @@ import {
 } from "@angular/http";
 
 import { Hora } from './../interfaces/hora';
+import { Horaefectiva } from './../interfaces/horaefectiva';
 import { Observable } from "rxjs/Rx";
 import { jsonEval } from "@firebase/util";
 import { Tarea } from "../interfaces/tarea";
@@ -20,10 +21,14 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+
 @Injectable()
 export class HorasService {
   //ATRIBUTOS
   private horas: Hora[]=[];
+
+  private horasefectivas: Horaefectiva[]=[];
+  
   private url: string;
 
   private user: Usuario = {
@@ -86,6 +91,7 @@ export class HorasService {
     
     console.log(body);
 
+    let params = JSON.stringify({ pCI: ci });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     
@@ -93,14 +99,19 @@ export class HorasService {
     let options = new RequestOptions({ headers: headers });
 
     return this._http
-      .get(this.url + 'ListarHorasMensualesDeUsuario',body)
-      .map(res => {
-        res.json();
+      .get(this.url + "ListarHorasMensualesDeUsuario?pDocumento=" + ci + "", params)
+      .map((res: any) => {
         console.log(res);
-      }
-    )      
-      
-      .catch(this.handleError); 
+        this.horasefectivas = res.json();
+        console.log(this.horasefectivas);
+
+        if (this.horasefectivas.length > 0) {
+          return this.horasefectivas;
+        } else {
+          return false;
+        }
+      })
+      .catch(this.handleError);
 
   }
 

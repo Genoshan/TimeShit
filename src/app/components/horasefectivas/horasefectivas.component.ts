@@ -7,6 +7,8 @@ import swal from "sweetalert2";
 import { Hora } from "../../interfaces/hora";
 
 import {Location} from '@angular/common';
+import { Tarea } from "../../interfaces/tarea";
+import { Horaefectiva } from "../../interfaces/horaefectiva";
 
 
 @Component({
@@ -16,9 +18,9 @@ import {Location} from '@angular/common';
 })
 export class HorasefectivasComponent implements OnInit {
 
-  proyectos: Proyecto[] = [];
+  proyectos: Proyecto[] = [];  
 
-  listahoras: HorasefectivasComponent[] = [];
+  horasefectivas: Horaefectiva[] = [];
 
   loading: boolean;
   p: number = 1;
@@ -38,6 +40,14 @@ export class HorasefectivasComponent implements OnInit {
     IdProyecto: 0
   };
 
+  tarea: Tarea = {
+    IdTarea: 0,
+    Nombre: "",  
+    Descripcion: "",
+    FechaInicio: new Date(Date.now()),
+    FechaFIn: new Date(Date.now()),
+    IdProyecto: 0  
+  }
 
   hora:Hora = {
     Idhora:0,
@@ -64,17 +74,16 @@ backClicked() {
 }
 
   ngOnInit() {
-    //LISTA PROYECTOS DEL USUARIO DESDE API
+    //LISTA HORAS EFECTIVAS DEL USUARIO DESDE API
     this.user = JSON.parse(localStorage.getItem("usuario"));
-
-    console.log(this.user);
-    //console.log(correcto);
-
 
     this.hservice.ListarHorasMensualesDeUsuario(this.user["CI"]).subscribe(
       correcto => {
         if (correcto) {
-          this.listahoras = correcto;
+          this.horasefectivas = correcto;
+          
+          
+          console.log(this.horasefectivas);
 
         } else {
           this.status = "error";

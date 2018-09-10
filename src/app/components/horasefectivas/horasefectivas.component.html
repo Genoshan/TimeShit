@@ -4,9 +4,9 @@
 
         <div class="row">
         <div class="card">
-            <div class="card-header">
-                LISTADO DE HORAS EFECTIVAS
-            </div>
+                <div class="card-header text-center">
+                        <h2><b>HORAS EFECTIVAS</b></h2>
+                    </div>
             <div class="card-body">
                     <button  type="button" class="btn btn-outline-primary btn-responsive pull-right" routerLink="/proyectos"> < Volver </button>
                 <div class="row">
@@ -30,16 +30,22 @@
                 <table class="table table-hover margin-top">
                     <thead>
                         <tr>
-                            <th>Descripcion</th>
-                            <th>CantidadHoras</th>
+                            <th>Proyecto</th>
+                            <th>Horas</th>
                             <th>Fecha</th>                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let k of horas | keys | paginate:{itemsPerPage:8,currentPage: p} ">
-                            <td>{{ horas[k].Descripcion }}</td>
-                            <td>{{ horas[k].CantidadHoras }}</td>
-                            <td>{{ horas[k].Fecha | date: "dd-MM-yyyy" }}</td>
+
+                            <!-- <tr *ngFor="let k of horasefectivas | keys | paginate:{itemsPerPage:8,currentPage: p} "> -->
+
+                        
+                        <tr *ngFor="let k of horasefectivas | keys">
+                            <td>{{ horasefectivas[k].oProyecto.Nombre }}</td>
+                            <td *ngFor="let hora of horasefectivas.oHora | keys">
+                                    <td>{{ hora.CantidadHoras }}</td>
+                                    <td>{{ hora.Fecha | date: "dd-MM-yyyy" }}</td>  
+                              
                         </tr>
                 </table>
                 <pagination-controls (pageChange)=" p =$event"> </pagination-controls>

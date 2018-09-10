@@ -6,6 +6,8 @@ import * as frLocale from 'date-fns/locale/fr';
 import { ProyectosService } from '../../services/proyectos.service';
 import { Router,ActivatedRoute } from '@angular/router';
 
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-proyecto',
@@ -31,7 +33,8 @@ export class ProyectoComponent implements OnInit{
   /********CONSTRUCTOR******/
 
   constructor(private pr:ProyectosService,
-    private activatedRoute:ActivatedRoute){
+    private activatedRoute:ActivatedRoute,
+    private _location: Location){
     this.activatedRoute.params
       .subscribe(parametros => {        
         this.id = parametros['id'];
@@ -39,6 +42,11 @@ export class ProyectoComponent implements OnInit{
   }
 
   /*****OPERACIONES*****/
+
+  //Ir Atras
+backClicked() {
+  this._location.back();
+}
 
   getProyecto(){
         if (this.id=="nuevo")

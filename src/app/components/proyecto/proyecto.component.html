@@ -1,53 +1,72 @@
-<navbar></navbar>
+<!-- <navbar></navbar>
 <h3>PROYECTO</h3>
-
 
 <form class="form-inline">
     <label class="sr-only" for="inlineFormInput">Nombre</label>
 
     <button [routerLink]="['/proyectos']" type="button" class="btn btn-outline-primary btn-responsive"> < </button>
 
-    <input [(ngModel)]="proyecto.Nombre" name="Nombre" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Proyecto">
+            <input [(ngModel)]="proyecto.Nombre" name="Nombre" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Proyecto">
 
-    <label class="sr-only" for="inlineFormInputGroup">Fecha de Inicio</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <input placeholder="Fecha de Inicio" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'" name="FechaInicio" (ngModelChange)="proyecto.FechaInicio=$event">
-
-
-
-        <!-- <input type="date" class="form-control col-sm-11" id="inlineFormInputGroup" name="createDate" [(ngModel)]="proyecto.fechaInicio"> -->
-    </div>
-
-    <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-        <label class="form-check-label">
-      <input [(ngModel)]="proyecto.Estado" name="estado" class="form-check-input" type="checkbox" > Activo
-    </label>
-    </div>
-
-    <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
-    <button class="btn btn-danger">Eliminar</button>
-
-</form>
+            <label class="sr-only" for="inlineFormInputGroup">Fecha de Inicio</label>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <input placeholder="Fecha de Inicio" class="form-control col-sm-11" type="text" onfocus="(this.type='date')" [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'"
+                    name="FechaInicio" (ngModelChange)="proyecto.FechaInicio=$event">
 
 
 
 
-<!-- Combo de Empresa -->
-<!-- <div class="form-group">
-        <label for="Empresa">Empresa</label>
-        <select id="Empresa" class="form-control">
-          <option value="Empresa1">Empresa1</option>
-          <option value="Empresa2">Empresa2</option>
-          <option value="Empresa3">Empresa3</option>
-        </select>  
-    </div> -->
+            </div>
+
+            <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                <label class="form-check-label">
+                    <input [(ngModel)]="proyecto.Estado" name="estado" class="form-check-input" type="checkbox"> Activo
+                </label>
+            </div>
+
+            <button class="btn btn-primary" (click)="crearProyectos()">Guardar</button>
+            <button class="btn btn-danger">Eliminar</button>
+
+</form> -->
 
 
-<!-- Campo Horas Planificadas -->
-<!-- <label for="plannedhs">Horas Planificadas</label>
+<navbar></navbar>
+<div class="container">
     <div class="row">
-        <div class="form-group col-lg-1">            
-            <input  [(ngModel)]="proyecto.planned_hours" name="planned_hours" id="planned_hours" type="number" class="form-control">
-              <hr>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header text-center">
+                        <p *ngIf="proyecto.Nombre ==''"><b> NUEVO </b></p>
+                     <b> {{ proyecto.Nombre }} </b>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-primary btn-responsive pull-right" (click)="backClicked()"> <
+                            Volver </button>
+                            <h5 class="card-title">PROYECTO</h5>
+                            <form>
+                                <div class="form-group">
+                                    <label for="proyecto">Nombre</label>
+                                    <input [(ngModel)]="proyecto.Nombre" name="Nombre" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Proyecto">
+                                    <label for="comment">Fecha</label>
+                                    <div class="input-group">
+                                        <input placeholder="Fecha" class="form-control" type="text" onfocus="(this.type='date')" [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'"
+                                            name="Fecha" (ngModelChange)="proyecto.FechaInicioa=$event">
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-check">
+                                    <input [(ngModel)]="proyecto.Estado" name="estado" class="form-check-input" type="checkbox">                                    Activo
+                                </div>
+
+
+
+
+
+                                <button class="btn btn-outline-primary btn-block" (click)="crearProyectos()">Guardar</button>
+                            </form>
+                </div>
+            </div>
         </div>
-    </div>    -->
+    </div>
+</div>
