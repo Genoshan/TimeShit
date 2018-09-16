@@ -10,11 +10,11 @@
             <div class="card-body">
                     <button  type="button" class="btn btn-outline-primary btn-responsive pull-right" routerLink="/proyectos"> < Volver </button>
                 <div class="row">
-                    <div class="col-lg-2">
+                    <!-- <div class="col-lg-2">
                         <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-primary ">                          
                           <i class="fa fa-print fa-5x" aria-hidden="true"></i>
                         </button>
-                    </div>
+                    </div> -->
                     <div class="col-lg-2"></div>
                     <div class="col-lg-6">
                         <div class="input-group">
@@ -30,10 +30,12 @@
                 <table class="table table-hover margin-top">
                     <thead>
                         <tr>
+                            <th>Fecha</th>
                             <th>Proyecto</th>
                             <th>Tarea</th>
-                            <th>Fecha</th>
                             <th>Horas</th>
+                            
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -42,14 +44,14 @@
 
 
                         <tr *ngFor="let k of horasefectivas | keys | paginate:{itemsPerPage:8,currentPage: p} ">
+                            <td>{{ horasefectivas[k].oHora.Fecha | date: "E,dd-MM-yyyy" }}</td>
                             <td>{{ horasefectivas[k].oProyecto.Nombre }}</td>
                             <td>{{ horasefectivas[k].oTarea.Nombre }}</td>
-                            <td>{{ horasefectivas[k].oHora.Fecha | date: "dd-MM-yyyy" }}</td>
                             <td>{{ horasefectivas[k].oHora.CantidadHoras }}</td>
                             <!-- <td *ngFor="let hora of horasefectivas.oHora | keys">
-                                    <td>{{ hora.CantidadHoras }}</td>
-                                    <td>{{ hora.Fecha | date: "dd-MM-yyyy" }}</td>   -->
-
+                                                            <td>{{ hora.CantidadHoras }}</td>
+                                                            <td>{{ hora.Fecha | date: "dd-MM-yyyy" }}</td>   -->
+                        
                         </tr>
                 </table>
                 <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
