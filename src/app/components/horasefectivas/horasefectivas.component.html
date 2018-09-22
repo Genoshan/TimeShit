@@ -27,45 +27,40 @@
                         </div>
                     </div>
                 </div>
-
+                
+                <div class="table-responsive">                        
                 <table class="table table-hover margin-top"
-                *ngFor="let p of result | keys | paginate:{itemsPerPage:8,currentPage: p} ">
-                    <thead>
-                        <tr >
-                            <th>Fecha: {{result[p].name | date: "EEEE, dd-MM-yyyy" }}</th>
-                        </tr>
+                *ngFor="let p of result | keys | paginate:{itemsPerPage:5,currentPage: p} ">
+                <thead> 
+                        <th colspan="3" class="text-center"><button class="btn btn-success btn-responsive">{{result[p].name | date: "EEEE, dd-MM-yyyy" }}</button></th>
+                        
+                        <!-- <th><span class="badge badge-pill badge-info">Total de Horas</span></th> -->
+
+                        <th>
+                        <button type="button" class="btn btn-primary">
+                                Total de Horas <span class="badge badge-light">{{ result[p].total }}</span>
+                                <span class="sr-only">unread messages</span>
+                              </button>
+                            </th>
+
+                        
                     </thead>
                     <tbody>
                             <th>Proyecto</th>
                             <th>Tarea</th>
-                            <th>Cantidad de Horas</th>
+                            <th>Horas</th>
 
                             <tr *ngFor="let v of result[p].values | keys">                            
                             <td>{{ result[p].values[v].oProyecto.Nombre }}</td>
                             <td>{{ result[p].values[v].oTarea.Nombre }}</td>
-                            <td>{{ result[p].values[v].oHora.CantidadHoras }}</td>                        
+                            <td>{{ result[p].values[v].oHora.CantidadHoras }}</td>                               
                         </tr>
                 </table>
                 <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
+            </div>
             
         </div>
     </div>
     </div>
 </div>
 <app-footer></app-footer>
-
-
-
-<hr>
-
-
-
-     
-
-
-                                <!-- <tr *ngFor="let k of horasefectivas | keys | paginate:{itemsPerPage:8,currentPage: p} ">
-                            <td>{{ horasefectivas[k].oHora.Fecha | date: "EEEE,dd-MM-yyyy" }}</td>
-                            <td>{{ horasefectivas[k].oProyecto.Nombre }}</td>
-                            <td>{{ horasefectivas[k].oTarea.Nombre }}</td>
-                            <td>{{ horasefectivas[k].oHora.CantidadHoras }}</td>                        
-                        </tr>  -->

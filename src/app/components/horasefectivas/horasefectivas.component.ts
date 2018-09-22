@@ -24,7 +24,7 @@ export class HorasefectivasComponent implements OnInit {
   name = Date;
   fecha : any;
 
-  prueba :any;
+  total:number = 0;
 
   horasefectivas: Horaefectiva[] = [];
 
@@ -93,7 +93,10 @@ ngOnInit() {
         Fechas.forEach(f =>                    
           this.result.push({
             name: f,
-            values: this.horasefectivas.filter(i => i.oHora.Fecha === f)       
+            values: this.horasefectivas.filter(i => i.oHora.Fecha === f),
+            total:  this.horasefectivas.filter(i => i.oHora.Fecha === f)
+              .reduce(function (acc, obj) { return acc + obj.oHora.CantidadHoras; }, 0)
+
           }
 
           ),console.log(this.result)),      
