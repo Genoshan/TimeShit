@@ -57,6 +57,8 @@ import { HorasService } from './services/horas.service';
 
 //NUEVOS
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { GroupByPipe } from './pipes/group-by.pipe';
+import { AccordionModule } from 'ngx-accordion';
 
 
 
@@ -75,7 +77,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     UsuarioComponent,
     LoginUsuarioComponent,
     FooterComponent,
-    HorasefectivasComponent
+    HorasefectivasComponent,
+    GroupByPipe
     
     
   ],
@@ -99,6 +102,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     NgxPaginationModule,
     PaginationModule,
     HttpModule,
+    AccordionModule,
     RouterModule.forRoot([
       //Protejo las rutas con el metodo canActivate del AuthGuard Service
       { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuard] },

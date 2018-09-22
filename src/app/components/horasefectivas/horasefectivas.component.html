@@ -27,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+
                 <table class="table table-hover margin-top">
                     <thead>
                         <tr>
@@ -40,11 +41,8 @@
                     </thead>
                     <tbody>
 
-                            <!-- <tr *ngFor="let k of horasefectivas | keys | paginate:{itemsPerPage:8,currentPage: p} "> -->
-
-
                         <tr *ngFor="let k of horasefectivas | keys | paginate:{itemsPerPage:8,currentPage: p} ">
-                            <td>{{ horasefectivas[k].oHora.Fecha | date: "E,dd-MM-yyyy" }}</td>
+                            <td>{{ horasefectivas[k].oHora.Fecha | date: "EEEE,dd-MM-yyyy" }}</td>
                             <td>{{ horasefectivas[k].oProyecto.Nombre }}</td>
                             <td>{{ horasefectivas[k].oTarea.Nombre }}</td>
                             <td>{{ horasefectivas[k].oHora.CantidadHoras }}</td>
@@ -55,7 +53,7 @@
                         </tr>
                 </table>
                 <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
-            </div>
+            
         </div>
     </div>
     </div>
@@ -63,3 +61,29 @@
 <app-footer></app-footer>
 
 
+
+<hr>
+
+
+<div *ngFor="let p of result | keys">
+        <table>
+
+             <tr>
+                    <th>Dia</th>
+               <td colspan="2">{{result[p].name | date: "EEEE, dd-MM-yyyy" }}</td>               
+             </tr>
+             <tr>
+                    <!-- <th>Proyecto</th>
+                    <th>Tarea</th> -->
+                    <th>Horas</th>
+                   </tr>
+             <tr *ngFor="let v of result[p].values | keys">
+                <td>{{ result[p].values[v].oProyecto.Nombre }}</td>
+                <td>{{ result[p].values[v].oTarea.Nombre }}</td>
+                <td>{{ result[p].values[v].oHora.CantidadHoras }}</td>
+             </tr>
+             <ng-container>
+           </ng-container>
+        </table>
+     <div>
+     

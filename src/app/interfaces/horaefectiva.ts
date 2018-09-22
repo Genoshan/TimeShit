@@ -3,7 +3,7 @@ import { Tarea } from "./tarea";
 import { Hora } from "./hora";
 
 export interface Horaefectiva {
-    oHora: Hora[];
+    oHora: Hora;
     oProyecto: Proyecto;
     oTarea: Tarea;
 
