@@ -25,12 +25,28 @@ export class UsuarioService {
 
   private Usuario: {
     Nombre: string;
-    email: string;
+    Email: string;
     //password: string,
-    img: string;
-    ci: number;
+    Img: string;
+    CI: number;
   };
   private url: string;
+
+  //nuevo objeto para manejar retornos
+  private retorno = {
+    "RetornoCorrecto": "S",
+    "Retorno": {
+        "Nombre": null,
+        "Email": null,
+        "Img": null,
+        "CI": null
+    },
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+  }
+};
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
@@ -50,16 +66,37 @@ export class UsuarioService {
       )
       .map((res: any) => { 
                 
-         this.Usuario = res.json();
-                  
-          if (this.Usuario["Nombre"]!=null)
-          {            
-            localStorage.setItem('usuario',JSON.stringify(this.Usuario));
-            return true;
-          }
-        else {          
-          return false;
-        }
+
+        /*FORMA ANTERIOR de obtener el retorno (el usuario)*/
+        this.Usuario = res.json();
+         if (this.Usuario["Nombre"]!=null)
+           {            
+             localStorage.setItem('usuario',JSON.stringify(this.Usuario));
+             return true;
+           }
+         else{          
+             return false;
+           }
+
+
+        /*NUEVA FORMA DE OBTENER RETORNOS*/
+        //obtengo el retorno con la  nueva forma
+        //  this.retorno = res.json();
+        
+        //  //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        //  if (this.retorno.RetornoCorrecto==="S")
+        //  {
+        //    this.Usuario = this.retorno.Retorno;
+        //    if (this.Usuario["Nombre"]!=null)
+        //   {            
+        //     localStorage.setItem('usuario',JSON.stringify(this.Usuario));
+        //     return this.retorno.RetornoCorrecto;
+        //   }
+        //  }
+        // else {
+
+        //   return this.retorno.Errores;
+        // }//fin nueva forma
         
       })
       .catch(this.handleError); 

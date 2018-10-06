@@ -46,29 +46,57 @@ export class LoginUsuarioComponent implements OnInit {
 
     this.pservice.login(loginForm.value.email, loginForm.value.pass).subscribe(
       correcto => {
+
         if (correcto) {
           //console.log(JSON.parse(localStorage.getItem("usuario")));
           swal({
-            position: "center",
-            type: "success",
-            title: `Bienvenido : ${
-              JSON.parse(localStorage.getItem("usuario"))["Nombre"]
-            }`,
-            showConfirmButton: false,
-            timer: 2000
-          });
-          this.router.navigate(["/proyectos"]);
-        } else {
-          this.status = "error";
-          swal({
-            position: "center",
-            type: "error",
-            title: "usuario o contraseña incorrectos",
-            showConfirmButton: false,
-            timer: 1000
-          });
-          //alert('El usuario no esta');
-        }
+               position: "center",
+               type: "success",
+               title: `Bienvenido : ${
+                 JSON.parse(localStorage.getItem("usuario"))["Nombre"]
+               }`,
+               showConfirmButton: false,
+               timer: 2000
+             });
+             this.router.navigate(["/proyectos"]);
+           } else {
+             this.status = "error";
+             swal({
+               position: "center",
+               type: "error",
+               title: "Error al iniciar sesión",             
+               text: "usuario o contraseña incorrectos",
+               showConfirmButton: false,
+               timer: 1750
+             });
+
+
+
+        /*PARA USAR CON LA NUEVA FORMA DE RETORNO */
+        // if (correcto ==="S") {
+        //   //console.log(JSON.parse(localStorage.getItem("usuario")));
+        //   swal({
+        //     position: "center",
+        //     type: "success",
+        //     title: `Bienvenido : ${
+        //       JSON.parse(localStorage.getItem("usuario"))["Nombre"]
+        //     }`,
+        //     showConfirmButton: false,
+        //     timer: 2000
+        //   });
+        //   this.router.navigate(["/proyectos"]);
+        // } else {
+        //   this.status = "error";
+        //   swal({
+        //     position: "center",
+        //     type: "error",
+        //     title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,             
+        //     text: correcto.Descripcion,
+        //     showConfirmButton: false,
+        //     timer: 1500
+        //   });
+          
+         }
       },
       error => {
         

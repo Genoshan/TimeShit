@@ -37,9 +37,7 @@ export class ProyectosService {
 
   private proyectos: Proyecto[] = [];
 
-  private url: string;
-
-  //METODOS
+  private url: string; 
 
   private proyectosxtermino: Proyecto[] = [
     {
@@ -51,10 +49,13 @@ export class ProyectosService {
     }
   ];
 
+
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
     this.url = "http://localhost:88/api/";
   }
+
+  //METODOS
 
   getProyectos() {
     return this.proyectos;

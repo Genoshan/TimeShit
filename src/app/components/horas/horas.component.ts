@@ -21,7 +21,7 @@ const Swal = require("sweetalert2");
 @Component({
   selector: "app-horas",
   templateUrl: "./horas.component.html",
-  styles: []
+  styleUrls: ['./horas.component.css']
 })
 export class HorasComponent implements OnInit {
   /*****ATRIBUTOS******/

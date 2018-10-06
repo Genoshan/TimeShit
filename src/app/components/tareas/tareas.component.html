@@ -1,96 +1,97 @@
 <navbar></navbar>
-<div class="container">
-    <div class="animated fadeIn fast">
-        <div class="card">
-            <div class="card-header text-center">
-                <h2><b>Tareas del Proyecto: {{ proyecto.Nombre }} </b></h2>
-            </div>
-            <div class="card-body">
-                <button type="button" class="btn btn-outline-primary btn-responsive pull-right" (click)="backClicked()"> <
-                        Volver </button>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary">
+
+<body>
+        <div class="container-fluid">
+            <div class="table-wrapper">
+                <div class="table-title">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <h2><b>Tareas del Proyecto: {{ proyecto.Nombre }}</b></h2>
+                        </div>
+    
+                    </div>
+    
+                    <div class="clearfix">
+
+                            <div class="hint-text">Mostrando <b>5</b> de <b>25</b> entradas</div>
+                            <ul class="pagination">
+            
+                                    <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
+                            </ul>
+                            <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar proyectos">
+                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+
+                            <button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
+                                <fa name="arrow-left"></fa>
+                             </button>
+                        
+
+                                <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-primary btn-lg">
+
                                     <fa name="plus"></fa>Nueva Tarea
                                 </button>
-                            </div>
-                            <div class="col-lg-2">
-                                <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-outline-success">
+
+
+                                <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-outline-success btn-lg">
                                     <fa name="plus"></fa>Horas
-                                </button>
-                            </div>
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar tareas">
-                                    <div class="input-group-addon">
-                                        <button type="button" class="btn btn-outline-primary">
-                                            <fa name="search"></fa>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                                </button>       
+                                
+
                         </div>
-                        <table class="table table-hover margin-top">
-                            <thead>
+                    </div>                
+
+                <table class="table table-striped table-hover">   
+    
+                        <thead>
                                 <tr>
                                     <th>Tarea</th>
                                     <th>Fecha Inicio</th>
                                     <th class="text-center">Opciones</th>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let k of tareas | keys | paginate:{itemsPerPage:5,currentPage: p}">
+                        </thead>
+                    <tbody>
+<tr *ngFor="let k of tareas | keys | paginate:{itemsPerPage:5,currentPage: p}">
                                     <td>{{ tareas[k].Nombre }}</td>
                                     <td>{{ tareas[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
-                                    <td class="text-right">
-
+                                    <td class="text-center">
                                         <!-- Editar Tarea proyectos[k].IdProyecto -->
-                                        <button id="editarTarea" [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-primary btn-sm pading" data-toggle="tooltip" data-placement="top" title="Editar Tarea">
-                                            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                        <button id="editarTarea" [routerLink]="['/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Editar Tarea">
+                                            <fa name="edit"></fa>
                                         </button>
                                         <!-- Listar  Horas -->
-                                        <button id="listarHoras" [routerLink]="['/listarhoras',tareas[k].IdTarea]" type="button" class="btn btn-success btn-sm pading"
+                                        <button id="listarHoras" [routerLink]="['/listarhoras',tareas[k].IdTarea]" type="button" class="btn btn-success btn-sm"
                                             data-content="Popover with data-trigger" rel="popover" data-placement="bottom" data-original-title="Title"
                                             data-trigger="hover" data-toggle="tooltip" data-placement="top" title="Listar Horas">
-                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            <fa name="clock-o"></fa>                                            
                                         </button>
                                         <!-- Agregar Horas -->
-                                        <button id="agregarHoras" [routerLink]="['/horas/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success btn-sm pading" data-toggle="tooltip" data-placement="top" title="Agregar Hora">
-                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        <button id="agregarHoras" [routerLink]="['/horas/tarea',tareas[k].IdTarea]" type="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Agregar Hora">
+                                            <fa name="plus"></fa>
                                         </button>
-
                                         <!-- Borrar Tarea -->
-                                        <button id="borrarTarea" (click)="borrarTarea(tareas[k].IdTarea)" type="button" class="btn btn-outline-danger btn-sm pading" data-toggle="tooltip" data-placement="top" title="Eliminar Tarea">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        <button id="borrarTarea" (click)="borrarTarea(tareas[k].IdTarea)" type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar Tarea">
+                                                <fa name="window-close"></fa>        
                                         </button>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                        <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
-            </div>
-        </div>
+                    </tbody>
+                </table>            
 
-        <script>
-            //listar horas
-            $('#listarHoras').popover();
-            $('#listarHoras').popover({
-                trigger: "hover"
-            });
-            //agregar horas
-            $('#agregarHoras').popover();
-            $('#agregarHoras').popover({
-                trigger: "hover"
-            });
-            //editar tarea
-            $('#editarTarea').popover();
-            $('#editarTarea').popover({
-                trigger: "hover"
-            });
-            //borrar tarea
-            $('#borrarTarea').popover();
-            $('#borrarTarea').popover({
-                trigger: "hover"
-            });
-        </script>
+            </div>
+    
+    
+    
+        </div>
+    </body>
+
+
+
+
+        <app-footer></app-footer>
+

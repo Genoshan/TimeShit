@@ -11,9 +11,14 @@ const Swal = require('sweetalert2');
 @Component({
   selector: "app-proyectos",
   templateUrl: "./proyectos.component.html",
-  styles: []
+  styleUrls: ['./proyectos.component.css']
 })
 export class ProyectosComponent implements OnInit {
+
+  result: any[];
+
+
+
   proyectos: Proyecto[] = [];
   loading: boolean;
   p: number = 1;
@@ -36,6 +41,8 @@ export class ProyectosComponent implements OnInit {
   status: string;
 
   constructor(private pservice: ProyectosService) {}
+
+
 
   buscar(termino: string) {
     this.loading = true;

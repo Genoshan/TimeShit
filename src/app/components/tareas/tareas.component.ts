@@ -15,7 +15,7 @@ import {Location} from '@angular/common';
 @Component({
   selector: 'app-tareas',
   templateUrl: './tareas.component.html',
-  styles: []
+  styleUrls: ['./tareas.component.css']
 })
 export class TareasComponent implements OnInit {
   

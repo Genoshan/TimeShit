@@ -7,7 +7,7 @@ import { Router } from "../../../../node_modules/@angular/router";
 @Component({
   selector: "navbar",
   templateUrl: "./navbar.component.html",
-  styles: []
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   user1: Usuario = {
