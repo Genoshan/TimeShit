@@ -12,6 +12,7 @@ import { Tarea } from "../../interfaces/tarea";
 
 
 
+
 @Component({
   selector: 'app-horasefectivas',
   templateUrl: './horasefectivas.component.html',
@@ -22,9 +23,9 @@ export class HorasefectivasComponent implements OnInit {
   proyectos: Proyecto[] = [];
   result: any[];
   name = Date;
-  fecha : any;
+  fecha: any;
 
-  total:number = 0;
+  total: number = 0;
 
   horasefectivas: Horaefectiva[] = [];
 
@@ -78,46 +79,47 @@ export class HorasefectivasComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
-ngOnInit() {
-  //LISTA HORAS EFECTIVAS DEL USUARIO DESDE API
-  this.user = JSON.parse(localStorage.getItem("usuario"));
+  ngOnInit() {
+    //LISTA HORAS EFECTIVAS DEL USUARIO DESDE API
+    this.user = JSON.parse(localStorage.getItem("usuario"));
 
-  this.hservice.ListarHorasMensualesDeUsuario(this.user["CI"]).subscribe(
-    correcto => {
-      if (correcto) {
-        this.horasefectivas = correcto;
-
-        var Fechas = new Set(this.horasefectivas.map(item => item.oHora.Fecha))
+    this.hservice.ListarHorasMensualesDeUsuario(this.user["CI"]).subscribe(
+      correcto => {
+        if (correcto) {
+          //obtengo las horas efectivas
+          this.horasefectivas = correcto;
+          //Agrupo Por Fecha y retorno una coleccion ordenada de Fecha, HorasEfectivas y Total de Hs 
+          var Fechas = new Set(this.horasefectivas.map(item => item.oHora.Fecha))
           this.result = [];
           console.log(Fechas);
-        Fechas.forEach(f =>                    
-          this.result.push({
-            name: f,
-            values: this.horasefectivas.filter(i => i.oHora.Fecha === f),
-            total:  this.horasefectivas.filter(i => i.oHora.Fecha === f)
-              .reduce(function (acc, obj) { return acc + obj.oHora.CantidadHoras; }, 0)
+          Fechas.forEach(f =>
+            this.result.push({
+              name: f,
+              values: this.horasefectivas.filter(i => i.oHora.Fecha === f),
+              total: this.horasefectivas.filter(i => i.oHora.Fecha === f)
+                .reduce(function (acc, obj) { return acc + obj.oHora.CantidadHoras; }, 0)
 
-          }
+            }
 
-          ),console.log(this.result)),      
-          console.log(Fechas);
-        console.log(this.horasefectivas);
+            ), console.log(this.result)),
+            console.log(Fechas);
+          console.log(this.horasefectivas);
 
-      } else {
+        } else {
+          this.status = "error";
+        }
+      },
+      error => {
         this.status = "error";
+        console.log(error);
+        swal(
+          'Error',
+          '' + error,
+          'error'
+        );
       }
-    },
-    error => {
-      this.status = "error";
-      console.log(error);
-      swal(
-        'Error',
-        '' + error,
-        'error'
-      );
-    }
-  );
-}
+    );
+  }
 }
 
 

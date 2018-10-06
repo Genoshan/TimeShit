@@ -28,7 +28,7 @@
                 
                 <div class="table-responsive">                        
                 <table class="table table-hover margin-top"
-                *ngFor="let p of result | keys | paginate:{itemsPerPage:5,currentPage: p} ">
+                *ngFor="let p of result | keys | paginate:{itemsPerPage:7,currentPage: p} ">
                 <thead> 
                         <th colspan="3" class="text-center"><button class="btn btn-success btn-responsive">{{result[p].name | date: "EEEE, dd-MM-yyyy" }}</button></th>                       
                         
