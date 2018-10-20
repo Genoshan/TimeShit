@@ -79,6 +79,13 @@ export class HorasefectivasComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
+
+  
+  toggleSection(i) {
+    this.result[i].open = !this.result[i].open;
+  }
+
+
   ngOnInit() {
     //LISTA HORAS EFECTIVAS DEL USUARIO DESDE API
     this.user = JSON.parse(localStorage.getItem("usuario"));

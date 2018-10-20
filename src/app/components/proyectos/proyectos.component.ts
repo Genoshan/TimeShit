@@ -4,6 +4,7 @@ import { Usuario } from "../../interfaces/usuario";
 import { Component, OnInit } from "@angular/core";
 import { NgxPaginationModule } from "ngx-pagination";
 import swal from "sweetalert2";
+import { UsuarioService } from "../../services/usuario.service";
 //import { PaginationModule } from 'ngx-pagination-bootstrap';
 
 declare var require: any;
@@ -22,7 +23,16 @@ export class ProyectosComponent implements OnInit {
   proyectos: Proyecto[] = [];
   loading: boolean;
   p: number = 1;
+
   user: Usuario = {
+    Nombre: "",
+    email: "",
+    //password: string;
+    img: "",
+    ci: ""
+  };
+
+  useraasignar: Usuario = {
     Nombre: "",
     email: "",
     //password: string;
@@ -40,7 +50,8 @@ export class ProyectosComponent implements OnInit {
 
   status: string;
 
-  constructor(private pservice: ProyectosService) {}
+  constructor(private pservice: ProyectosService,
+    private uservice: UsuarioService) {}
 
 
 
@@ -49,7 +60,39 @@ export class ProyectosComponent implements OnInit {
     this.proyectos = this.pservice.getProyectoxTermino(termino);
   }
 
+  asignarUsuarios(){    
+    //tengo un usuario   
+    //tengo un proyecto
+    //llamo al servicio y le paso usuario y proyecto
+
+    this.uservice.asignarUsuarios(this.proyecto,this.useraasignar).subscribe(
+      correcto => {
+        if (correcto) {
+          //console.log(JSON.parse(localStorage.getItem("usuario")));
+          swal({
+               position: "center",
+               type: "success",
+               title: `Usuario asignado!`,
+               showConfirmButton: false,
+               timer: 2000
+             });             
+           } else {
+             this.status = "error";
+             swal({
+               position: "center",
+               type: "error",
+               title: "Error al asignar",             
+               text: "usuario o contraseña incorrectos",
+               showConfirmButton: false,
+               timer: 1750
+             });
+      }})
+    
+    
+  }
+
   ngOnInit() {
+
     //LISTA PROYECTOS DEL USUARIO DESDE API
     this.user = JSON.parse(localStorage.getItem("usuario"));
 
@@ -58,6 +101,8 @@ export class ProyectosComponent implements OnInit {
       correcto => {
         if (correcto) {
           this.proyectos = correcto;
+          //Para que cargue el primer elemento del combo
+          this.proyecto = this.proyectos[0];
         } else {
           this.status = "error";
         }

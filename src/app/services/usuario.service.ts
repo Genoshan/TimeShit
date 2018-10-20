@@ -16,6 +16,7 @@ import { IfObservable } from "rxjs/observable/IfObservable";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { Proyecto } from "../interfaces/proyecto";
 
 
 @Injectable()
@@ -52,6 +53,35 @@ export class UsuarioService {
     //esto tiene que estar en un GLOBAL
     this.url = "http://localhost:88/api/";
   }
+
+
+
+  //editarTarea
+  asignarUsuarios(p: Proyecto, u: Usuario) {
+    
+    var body = {
+      
+      pIdProyecto: p.IdProyecto,
+      pDocumento: u.ci
+    };   
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'Usuario', body, { headers: headers })
+      .map((resp: any) => {
+        return resp;
+      })
+      .catch(this.handleError);
+  }
+
+
+
+
+
 
   login(email: string, pass: string) {
     let params = JSON.stringify({ pUsuario: email, pClave: pass });
