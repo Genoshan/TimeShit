@@ -22,12 +22,12 @@
 
 
             <div id="accordion">
-                <div class="card" [attr.id]="'accordion_' + i" *ngFor="let p of result | keys | paginate:{itemsPerPage:31,currentPage: p} ; let i = index">
-                    <div class="card-header" id="headingOne">
+                <div  [attr.id]="'accordion_' + i" *ngFor="let p of result | keys | paginate:{itemsPerPage:31,currentPage: p} ; let i = index">
+                    <div  id="headingOne">
                         <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" [attr.data-parent]="'#accordion_' + i"
+                            <button class="btn btn-block btn-outline-primary" data-toggle="collapse" [attr.data-parent]="'#accordion_' + i"
                                 [attr.href]="'#collapseOne_' + i" aria-expanded="true" aria-controls="collapseOne">
-                                {{result[p].name | date: "EEEE, dd-MM-yyyy" }} | Total de Horas: {{ result[p].total }}
+                                {{result[p].name | date: "EEEE, dd-MM-yyyy" }} | Horas: <span class="badge badge-success">{{ result[p].total }}</span> 
                             </button>
                         </h5>
                     </div>
