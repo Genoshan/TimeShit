@@ -22,59 +22,47 @@
 
 
             <div id="accordion">
-                <div  [attr.id]="'accordion_' + i" *ngFor="let p of result | keys | paginate:{itemsPerPage:31,currentPage: p} ; let i = index">
-                    <div  id="headingOne">
+                <div [attr.id]="'accordion_' + i" *ngFor="let p of result | keys | paginate:{itemsPerPage:31,currentPage: p} ; let i = index">
+                    <div id="headingOne">
                         <h5 class="mb-0">
                             <button class="btn btn-block btn-outline-primary" data-toggle="collapse" [attr.data-parent]="'#accordion_' + i"
                                 [attr.href]="'#collapseOne_' + i" aria-expanded="true" aria-controls="collapseOne">
-                                {{result[p].name | date: "EEEE, dd-MM-yyyy" }} | Horas: <span class="badge badge-success">{{ result[p].total }}</span> 
+                                {{result[p].name | date: "EEEE, dd-MM-yyyy" }} | Horas: <span class="badge badge-success">{{
+                                    result[p].total }}</span>
                             </button>
                         </h5>
                     </div>
 
                     <div [attr.id]="'collapseOne_' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    
-                                    <!-- <div class="card-body"> -->
 
-                                        <div class="container-fluid">
-                                                    <table class="table-responsive table-hover">
+                        <!-- <div class="card-body"> -->
 
-                                                        <thead>
-                                                                <tr>
-                                                                    <th>Proyecto</th>
-                                                                    <th>Tarea</th>
-                                                                    <th>Horas</th>
-                                                                </tr>
-                                                            </thead>
+                        <div class="container-fluid">
+                            <div class="table responsive">
+                            <table class="table table-hover">
+
+                                <thead>
+                                    <tr>
+                                        <th>Proyecto</th>
+                                        <th>Tarea</th>
+                                        <th>Horas</th>
+                                    </tr>
+                                </thead>
 
 
-                                                            <!-- <div class="container" *ngFor="let v of result[p].values | keys">
-                                                                    <div class="row">
-                                                                      <div class="col-4">
-                                                                            {{ result[p].values[v].oProyecto.Nombre }}
-                                                                      </div>
-                                                                      <div class="col-4">
-                                                                            {{ result[p].values[v].oTarea.Nombre }}
-                                                                      </div>
-                                                                      <div class="col-4">
-                                                                            {{ result[p].values[v].oHora.CantidadHoras }}
-                                                                      </div>
-                                                                    </div>
-                                                                  </div> -->
+                                <tbody>
+                                    <tr *ngFor="let v of result[p].values | keys">
+                                        <td>{{ result[p].values[v].oProyecto.Nombre }}</td>
+                                        <td>{{ result[p].values[v].oTarea.Nombre }}</td>
+                                        <td>{{ result[p].values[v].oHora.CantidadHoras }}</td>
+                                    </tr>
+                                </tbody>
 
-                                                            <tbody>
-                                                                    <tr *ngFor="let v of result[p].values | keys">
-                                                                        <td>{{ result[p].values[v].oProyecto.Nombre }}</td>
-                                                                        <td>{{ result[p].values[v].oTarea.Nombre }}</td>
-                                                                        <td>{{ result[p].values[v].oHora.CantidadHoras }}</td>
-                                                                    </tr>
-                                                                </tbody>
+                            </table>
+                        </div>
+                        
+                        </div>
 
-                                                            </table>                                                
-                                        </div>
-                    
-                                    <!-- </div>                                 -->
-                    
                     </div>
                 </div>
             </div>

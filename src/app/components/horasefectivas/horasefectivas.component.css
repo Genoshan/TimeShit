@@ -7,10 +7,17 @@ body {
     padding:0px;
     width: 100% !important;
 }
+
+.table .table-hover{
+    padding-top: 5px;
+}
+
 .table-wrapper {
     background: #fff;
     padding: 0px;
     margin: 0px;
+    margin-left: -15px;
+    margin-right: -15px;
     border-radius: 3px;
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
@@ -19,9 +26,16 @@ body {
     background: #435d7d;
     color: #fff;
     padding: 16px 30px;
-    margin: -20px -50px 30px;
-    border-radius: 3px 3px 0 0;
+    /*margin: -20px -50px 30px;*/
+    border-radius: 3px 3px 0 0;    
 }
+
+
+.table-responsive {
+    overflow-x: inherit;
+ }
+
+
 .table-title h2 {
     margin: 5px 0 0;
     font-size: 24px;
@@ -133,6 +147,13 @@ table.table .avatar {
     margin-top: 10px;
     font-size: 13px;
 }    
+
+
+.btn-outline-primary{
+    margin-top: 5px;
+    margin-bottom:5px;
+    margin-left: 5px;    
+}
 
 
 

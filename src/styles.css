@@ -2,8 +2,10 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+
 body {
-    padding-top: 70px;
+    padding-top: 55px;
+    min-width: 768px;
 }
 .margin-bot {
     margin-bottom: 20px;
@@ -11,9 +13,5 @@ body {
 
 .margin-top {
     margin-top: 20px;
-}
-
-.pading {
-    padding: 5%;
 }
 
