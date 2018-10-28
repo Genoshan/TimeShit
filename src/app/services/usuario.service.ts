@@ -32,9 +32,10 @@ export class UsuarioService {
     CI: number;
   };
   private url: string;
+  listausuariosaasignar:Usuario[]= [];
 
   //nuevo objeto para manejar retornos
-  private retorno = {
+  private retornoLogin = {
     "RetornoCorrecto": "S",
     "Retorno": {
         "Nombre": null,
@@ -49,14 +50,22 @@ export class UsuarioService {
   }
 };
 
+private retornoAsignarUsuarioAProyecto = {
+  "RetornoCorrecto": "S",
+  "Retorno": false,
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+  }
+};
+
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
     this.url = "http://localhost:88/api/";
   }
 
-
-
-  //editarTarea
+  //Asignar Usuarios a Proyectos
   asignarUsuarios(p: Proyecto, u: Usuario) {
     
     var body = {
@@ -71,17 +80,57 @@ export class UsuarioService {
     let options = new RequestOptions({ headers: headers });
 
     return this._http
-      .post(this.url + 'Usuario', body, { headers: headers })
+      .post(this.url + 'AsignarUsusarioAProyecto', body, { headers: headers })
       .map((resp: any) => {
-        return resp;
+        this.retornoAsignarUsuarioAProyecto = resp.json();        
+
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+
+        if (this.retornoAsignarUsuarioAProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoAsignarUsuarioAProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoAsignarUsuarioAProyecto.Errores;          
+        }//fin nueva forma
+
+        //forma vieja
+        //return resp;
+
       })
       .catch(this.handleError);
   }
 
+  getUsuariosNoAsignadosDeProyecto(proyecto: Proyecto){
 
+    let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto });
 
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
 
+    return this._http
+      .get(
+        this.url + "ListarUsuariosNoAsignadosDeProyecto?pIdProyecto=" + proyecto.IdProyecto+"",
+        params
+      )
+      .map((res: any) => {        
+        
+         this.listausuariosaasignar = res.json();
+                  
+          if (this.listausuariosaasignar.length>0)
+          {            
+            return this.listausuariosaasignar;
+          }
+        else {
+          
+          return false;
+        }
+        
+      })
+      .catch(this.handleError); 
 
+}
 
   login(email: string, pass: string) {
     let params = JSON.stringify({ pUsuario: email, pClave: pass });
@@ -94,39 +143,38 @@ export class UsuarioService {
         this.url + "LoginUsuario?pUsuario=" + email + "&pClave=" + pass,
         params
       )
-      .map((res: any) => { 
-                
+      .map((res: any) => {                 
 
         /*FORMA ANTERIOR de obtener el retorno (el usuario)*/
-        this.Usuario = res.json();
-         if (this.Usuario["Nombre"]!=null)
-           {            
-             localStorage.setItem('usuario',JSON.stringify(this.Usuario));
-             return true;
-           }
-         else{          
-             return false;
-           }
+        // this.Usuario = res.json();
+        //  if (this.Usuario["Nombre"]!=null)
+        //    {            
+        //      localStorage.setItem('usuario',JSON.stringify(this.Usuario));
+        //      return true;
+        //    }
+        //  else{          
+        //      return false;
+        //    }
 
 
         /*NUEVA FORMA DE OBTENER RETORNOS*/
         //obtengo el retorno con la  nueva forma
-        //  this.retorno = res.json();
+          this.retornoLogin = res.json();
         
-        //  //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
-        //  if (this.retorno.RetornoCorrecto==="S")
-        //  {
-        //    this.Usuario = this.retorno.Retorno;
-        //    if (this.Usuario["Nombre"]!=null)
-        //   {            
-        //     localStorage.setItem('usuario',JSON.stringify(this.Usuario));
-        //     return this.retorno.RetornoCorrecto;
-        //   }
-        //  }
-        // else {
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+         if (this.retornoLogin.RetornoCorrecto==="S")
+         {
+           this.Usuario = this.retornoLogin.Retorno;
+           if (this.Usuario["Nombre"]!=null)
+          {            
+            localStorage.setItem('usuario',JSON.stringify(this.Usuario));
+            return this.retornoLogin.RetornoCorrecto;
+          }
+         }
+        else {
 
-        //   return this.retorno.Errores;
-        // }//fin nueva forma
+          return this.retornoLogin.Errores;
+        }//fin nueva forma
         
       })
       .catch(this.handleError); 

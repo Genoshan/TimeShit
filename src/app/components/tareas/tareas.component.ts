@@ -28,7 +28,7 @@ export class TareasComponent implements OnInit {
     Nombre:"",
     FechaInicio:new Date(Date.now()),
     Estado:true,
-    codigoProyecto:"",    
+    CodigoProyecto:"",    
     IdProyecto: 0,
   }
 

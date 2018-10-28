@@ -44,7 +44,7 @@ export class ProyectosComponent implements OnInit {
     Nombre: "",
     FechaInicio: new Date(Date.now()),
     Estado: true,
-    codigoProyecto: "",
+    CodigoProyecto: "",
     IdProyecto: 0
   };
 
@@ -52,8 +52,6 @@ export class ProyectosComponent implements OnInit {
 
   constructor(private pservice: ProyectosService,
     private uservice: UsuarioService) {}
-
-
 
   buscar(termino: string) {
     this.loading = true;
@@ -99,12 +97,27 @@ export class ProyectosComponent implements OnInit {
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
     this.pservice.getProyectosUsuario(this.user["CI"]).subscribe(
       correcto => {
-        if (correcto) {
-          this.proyectos = correcto;
-          //Para que cargue el primer elemento del combo
-          this.proyecto = this.proyectos[0];
-        } else {
+        if(correcto.RetornoCorrecto==="S")
+            { 
+              if(correcto.Retorno.length>0){
+                //console.log(correcto);
+                this.proyectos = correcto.Retorno;                      
+              }
+        // if (correcto) {
+        //   this.proyectos = correcto;
+        //   //Para que cargue el primer elemento del combo
+        //   //this.proyecto = this.proyectos[0];
+        }         
+        else {
           this.status = "error";
+          swal({
+            position: "center",
+            type: "error",
+            title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,             
+            text: correcto.Descripcion,
+            showConfirmButton: false,
+            timer: 1500
+          });
         }
       },
       error => {

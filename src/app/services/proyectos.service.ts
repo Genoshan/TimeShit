@@ -24,7 +24,7 @@ export class ProyectosService {
     IdProyecto: number;
     FechaInicio: Date;
     Estado: boolean;
-    codigoProyecto: string;
+    CodigoProyecto: string;
   };
 
   private Usuario: {
@@ -45,9 +45,27 @@ export class ProyectosService {
       FechaInicio: new Date(Date.now()),
       Estado: false,
       Nombre: "",
-      codigoProyecto: ""
+      CodigoProyecto: ""
     }
   ];
+
+  private retornoListarProyectosDeUsuario=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        IdProyecto: 0,
+        Nombre: "",
+        FechaInicio: new Date(Date.now()),
+        Estado: true,
+        CodigoProyecto: ""
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
 
 
   constructor(private _http: Http) {
@@ -72,13 +90,38 @@ export class ProyectosService {
     return this._http
       .get(this.url + "ListarProyectosDeUsuario?pDocumento=" + ci + "", params)
       .map((res: any) => {
-        this.proyectos = res.json();
 
-        if (this.proyectos.length > 0) {
-          return this.proyectos;
-        } else {
-          return false;
+        this.retornoListarProyectosDeUsuario = res.json();
+        //console.log(this.retornoListarProyectosDeUsuario);
+        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListarProyectosDeUsuario.RetornoCorrecto==="S")
+        {
+          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          if (this.retornoListarProyectosDeUsuario.Retorno.length>0)
+          {
+            
+            this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+            return this.retornoListarProyectosDeUsuario;            
+          }
+          else {
+            return false;
+          }
         }
+        else
+        {
+          return this.retornoListarProyectosDeUsuario.Errores;
+        }//fin nueva forma
+
+        // this.proyectos = res.json();
+
+        // if (this.proyectos.length > 0) {
+        //   return this.proyectos;
+        // } else {
+        //   return false;
+        // }
       })
       .catch(this.handleError);
   }
