@@ -107,7 +107,7 @@ export class TareaComponent implements OnInit {
 
       this.ts.crearTareas(this.tarea).subscribe(
         correcto => {
-          if (correcto) {
+          if (correcto.RetornoCorrecto==="S") {
             const toast = Swal.mixin({
               toast: true,
               position: "top-end",
@@ -119,14 +119,23 @@ export class TareaComponent implements OnInit {
               title: "Tarea creada Correctamente"
             });
             this.router.navigate([`/tareas/${this.proyecto.IdProyecto}`]);
-            this.tarea = correcto;
-          } else {
+            this.tarea = correcto.Retorno;
+          } 
+          else {            
             this.status = "error";
+            swal({
+              position: "center",
+              type: "error",
+              title: correcto.Mensaje,             
+              text: correcto.Descripcion,
+              showConfirmButton: false,
+              timer: 2000
+            });
           }
         },
         error => {
           this.status = "error";
-          console.log(error);
+          //console.log(error);
           swal(
             'Error',
             ''+error,
@@ -139,7 +148,7 @@ export class TareaComponent implements OnInit {
 
       this.ts.editarTarea(this.tarea).subscribe(
         correcto => {
-          if (correcto) {
+          if (correcto.RetornoCorrecto==="S") {
             const toast = Swal.mixin({
               toast: true,
               position: "top-end",
@@ -151,14 +160,23 @@ export class TareaComponent implements OnInit {
               title: "Tarea modificada Correctamente"
             });
             this.router.navigate([`/tareas/${this.proyecto.IdProyecto}`]);
-            this.tarea = correcto;
+            this.tarea = correcto.Retorno;
           } else {
+            //this.status = "error";
             this.status = "error";
+            swal({
+              position: "center",
+              type: "error",
+              title: correcto.Mensaje,             
+              text: correcto.Descripcion,
+              showConfirmButton: false,
+              timer: 2000
+            });
           }
         },
         error => {
           this.status = "error";
-          console.log(error);
+          //console.log(error);
           swal(
             'Error',
             ''+error,

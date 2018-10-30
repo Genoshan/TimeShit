@@ -67,7 +67,7 @@ buscar(termino: string) {
 
 borrarTarea(k: Number) {  
 
-  console.log('antesdelswal');
+  //console.log('antesdelswal');
   swal({
     title: 'La tarea se eliminará, está seguro?',
     text: "La tarea no se podrá recuperar.",
@@ -84,9 +84,9 @@ borrarTarea(k: Number) {
         this.tservice.eliminarTarea(k)
         .subscribe(        
           correcto => { 
-            if(correcto)
+            if(correcto.RetornoCorrecto==="S")
             {
-              console.log(correcto);        
+              //console.log(correcto);        
               swal(
                 'Tarea Eliminada',
                 '',
@@ -100,7 +100,7 @@ borrarTarea(k: Number) {
             }
             else{
               this.status = 'error';
-              console.log(correcto);              
+              //console.log(correcto);              
               swal(
                 'Error',
                 'No se pudo borrar la tarea',
@@ -110,7 +110,7 @@ borrarTarea(k: Number) {
             }
         },(error) => {
           this.status = 'error';
-          console.log(error);
+          //console.log(error);
           let MSG = 'No se puede eliminar la tarea.';                    
           /* swal({
             position: 'center',
@@ -149,21 +149,40 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
  this.tservice.getTareasDeProyecto(this.id)
  .subscribe(        
  correcto => { 
-   if(correcto)
-   {
-     //vacio las tareas y las vuelvo a cargar.
-     this.tareas = null;
-     this.tareas = correcto;
-     //console.log(this.tareas);
-   }
-   else{
-     this.status = 'error';
+  if(correcto.RetornoCorrecto==="S")
+  { 
+    if(correcto.Retorno.length>0){
+      //console.log(correcto);
+      this.tareas = null;
+      this.tareas = correcto.Retorno;                      
+    }
+}         
+else {
+this.status = "error";
+swal({
+  position: "center",
+  type: "error",
+  title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,             
+  text: correcto.Descripcion,
+  showConfirmButton: false,
+  timer: 2000
+});
+}
+  //  if(correcto)
+  //  {
+  //    //vacio las tareas y las vuelvo a cargar.
+  //    this.tareas = null;
+  //    this.tareas = correcto;
+  //    //console.log(this.tareas);
+  //  }
+  //  else{
+  //    this.status = 'error';
 
-     //alert('El usuario no esta');
-   }
+  //    //alert('El usuario no esta');
+  //  }
 },(error) => {
   this.status = "error";
-  console.log(error);
+  //console.log(error);
   swal(
     'Error',
     ''+error,

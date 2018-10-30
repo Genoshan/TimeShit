@@ -70,18 +70,23 @@ private retornoAsignarUsuarioAProyecto = {
     
     var body = {
       
-      pIdProyecto: p.IdProyecto,
-      pDocumento: u.ci
+      pDocumento: u.ci,
+      pIdProyecto: p.IdProyecto
+      
     };   
 
+    let params = JSON.stringify({ pDocumento: u.ci, pIdProyecto: p.IdProyecto });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     let options = new RequestOptions({ headers: headers });
 
     return this._http
-      .post(this.url + 'AsignarUsusarioAProyecto', body, { headers: headers })
+      .post(
+        this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + u.ci+"&pIdProyecto=" + p.IdProyecto, params)
+        //this.url + 'AsignarUsusarioAProyecto', body, { headers: headers })
       .map((resp: any) => {
+        //console.log(resp);
         this.retornoAsignarUsuarioAProyecto = resp.json();        
 
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables

@@ -65,7 +65,7 @@ export class ProyectosComponent implements OnInit {
 
     this.uservice.asignarUsuarios(this.proyecto,this.useraasignar).subscribe(
       correcto => {
-        if (correcto) {
+        if (correcto==="S") {
           //console.log(JSON.parse(localStorage.getItem("usuario")));
           swal({
                position: "center",
@@ -79,10 +79,10 @@ export class ProyectosComponent implements OnInit {
              swal({
                position: "center",
                type: "error",
-               title: "Error al asignar",             
-               text: "usuario o contraseña incorrectos",
+               title: correcto.Mensaje,             
+               text: correcto.Descripcion,
                showConfirmButton: false,
-               timer: 1750
+               timer: 2000
              });
       }})
     
@@ -116,13 +116,13 @@ export class ProyectosComponent implements OnInit {
             title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,             
             text: correcto.Descripcion,
             showConfirmButton: false,
-            timer: 1500
+            timer: 2000
           });
         }
       },
       error => {
         this.status = "error";
-        console.log(error);
+        //console.log(error);
         swal(
           'Error',
           ''+error,
