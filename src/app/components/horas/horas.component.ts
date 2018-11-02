@@ -14,7 +14,7 @@ import { HorasService } from "../../services/horas.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import swal from "sweetalert2";
 
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 declare var require: any;
 const Swal = require("sweetalert2");
@@ -82,9 +82,9 @@ export class HorasComponent implements OnInit {
   /*****OPERACIONES*****/
 
   //Ir Atras
-backClicked() {
-  this._location.back();
-}
+  backClicked() {
+    this._location.back();
+  }
 
 
   getHora() {
@@ -142,27 +142,39 @@ backClicked() {
             .getTareasDeProyecto(Number(this.proyecto.IdProyecto))
             .subscribe(
               correcto => {
-                if (correcto) {
-                  //vacio las tareas y las vuelvo a cargar.
-                  this.tareas = null;
-                  this.tareas = correcto;
-                  //OBTENGO LA TAREA
-                  this.hora.IdTarea = this.tareas[0].IdTarea;
-                  this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-                  //console.log(this.tareas);
-                } else {
+                if (correcto.RetornoCorrecto === "S") {
+
+                  if (correcto.Retorno.length >= 0) {
+
+                    //vacio las tareas y las vuelvo a cargar.
+                    this.tareas = null;
+                    this.tareas = correcto.Retorno;
+                    //OBTENGO LA TAREA
+                    this.hora.IdTarea = this.tareas[0].IdTarea;
+                    this.tarea.IdProyecto = this.tareas[0].IdProyecto;
+                    //console.log(this.tareas);     
+                  }
+                }
+                else {
                   this.status = "error";
+                  swal({
+                    position: "center",
+                    type: "error",
+                    title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,
+                    text: correcto.Descripcion,
+                    showConfirmButton: false,
+                    timer: 2000
+                  });
                 }
               },
               error => {
                 this.status = "error";
                 swal(
                   'Error',
-                  ''+error,
+                  '' + error,
                   'error'
                 );
-      
-                console.log(error);
+                //console.log(error);
               }
             );
         } else {
@@ -179,26 +191,39 @@ backClicked() {
               .getTareasDeProyecto(Number(this.proyecto.IdProyecto))
               .subscribe(
                 correcto => {
-                  if (correcto) {
-                    //vacio las tareas y las vuelvo a cargar.
-                    this.tareas = null;
-                    this.tareas = correcto;
-                    //OBTENGO LA TAREA      
-                    this.hora.IdTarea = this.tareas[0].IdTarea;
-                    this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-                    //console.log(this.tareas);
-                  } else {
+                  if (correcto.RetornoCorrecto === "S") {
+
+                    if (correcto.Retorno.length >= 0) {
+                      //vacio las tareas y las vuelvo a cargar.
+                      this.tareas = null;
+                      this.tareas = correcto.Retorno;
+                      //OBTENGO LA TAREA      
+                      this.hora.IdTarea = this.tareas[0].IdTarea;
+                      this.tarea.IdProyecto = this.tareas[0].IdProyecto;
+                      //console.log(this.tareas);     
+                    }
+
+                  }
+                  else {
                     this.status = "error";
+                    swal({
+                      position: "center",
+                      type: "error",
+                      title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,
+                      text: correcto.Descripcion,
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
                   }
                 },
                 error => {
-                  this.status = "error";                  
-                  console.log(error);
+                  this.status = "error";
+                  //console.log(error);
                   swal(
                     'Error',
-                    ''+error,
+                    '' + error,
                     'error'
-                  );        
+                  );
                 }
               );
           } else {
@@ -211,55 +236,73 @@ backClicked() {
               this.pr
                 .getProyectosUsuario(this.user["CI"])
                 .subscribe(correcto => {
-                  if (correcto) {
-                    //vacio los proyectos y los vuelvo a cargar.
-                    this.proyectos = null;
-                    this.proyectos = correcto;
-                    //para la primer carga queda el primer proyecto seleccionado
-                    this.tarea.IdProyecto = this.proyectos[0].IdProyecto;
+                  if (correcto.RetornoCorrecto === "S") {
+                    if (correcto.Retorno.length >= 0) {
 
-                    this.ts
-                      .getTareasDeProyecto(Number(this.tarea.IdProyecto))
-                      .subscribe(
-                        correcto => {
-                          if (correcto) {
-                            //vacio las tareas y las vuelvo a cargar.
-                            this.tareas = null;
-                            this.tareas = correcto;
-                            //selecciono la primer tarea de la lista del proyecto cargado
-                            this.hora.IdTarea = this.tareas[0].IdTarea;
-                            this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-                          } else {
+                      //vacio los proyectos y los vuelvo a cargar.
+                      this.proyectos = null;
+                      this.proyectos = correcto.Retorno;
+                      //para la primer carga queda el primer proyecto seleccionado
+                      this.tarea.IdProyecto = this.proyectos[0].IdProyecto;
+
+                      //Obtengo las tareas para el proyecto seleccionado
+                      this.ts
+                        .getTareasDeProyecto(Number(this.tarea.IdProyecto))
+                        .subscribe(
+                          correcto => {
+                            if (correcto.RetornoCorrecto === "S") {
+                              if (correcto.Retorno.length >= 0) {
+                                //vacio las tareas y las vuelvo a cargar.
+                                this.tareas = null;
+                                this.tareas = correcto.Retorno;
+                                //selecciono la primer tarea de la lista del proyecto cargado
+                                this.hora.IdTarea = this.tareas[0].IdTarea;
+                                this.tarea.IdProyecto = this.tareas[0].IdProyecto;
+                              }
+
+                            }
+                            else {
+                              this.status = "error";
+                              swal({
+                                position: "center",
+                                type: "error",
+                                title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,
+                                text: correcto.Descripcion,
+                                showConfirmButton: false,
+                                timer: 3000
+                              });
+                            }
+                          },
+                          error => {
                             this.status = "error";
+                            //console.log(error);
+                            swal(
+                              'Error',
+                              '' + error,
+                              'error'
+                            );
                           }
-                        },
-                        error => {
-                          this.status = "error";
-                          console.log(error);
-                          swal(
-                            'Error',
-                            ''+error,
-                            'error'
-                          );                
-                        }
-                      );
-                    //en base al proyecto seleccionado, listar las tareas de ese proyecto
-                    //para esto utilizo el evento onProyectoChange
-                    console.log("antes de cargar las tareas");
-                    //TODO
-                    //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS
-                    /* console.log(this.proyectos); */
-                    console.log(this.proyecto.IdProyecto);
-                    console.log(this.tarea.IdProyecto);
+                        );
+                    } //aqui finaliza listar tareas de proyecto
+                  }
+                  else {
+                    swal({
+                      position: "center",
+                      type: "error",
+                      title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,
+                      text: correcto.Descripcion,
+                      showConfirmButton: false,
+                      timer: 2000
+                    });
                   }
                   error => {
                     this.status = "error";
                     console.log(error);
                     swal(
                       'Error',
-                      ''+error,
+                      '' + error,
                       'error'
-                    );                
+                    );
                   }
                 });
             } else {
@@ -287,7 +330,7 @@ backClicked() {
     if (this.id == "nueva") {
       this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
         correcto => {
-          if (correcto) {
+          if (correcto.RetornoCorrecto==="S") {
             const toast = Swal.mixin({
               toast: true,
               position: "top-end",
@@ -302,17 +345,25 @@ backClicked() {
             this.hora = correcto;
           } else {
             this.status = "error";
+            swal({
+              position: "center",
+              type: "error",
+              title: correcto.Mensaje,             
+              text: correcto.Descripcion,
+              showConfirmButton: false,
+              timer: 3000
+            });
           }
         },
         error => {
           this.status = "error";
-          console.log(error);
+          //console.log(error);
           swal(
             'Error',
-            ''+error,
+            '' + error,
             'error'
           );
-          
+
         }
       );
     } else {
@@ -320,7 +371,7 @@ backClicked() {
         //cargando una hora nueva desde boton + de tareas
         this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
           correcto => {
-            if (correcto) {
+            if (correcto.RetornoCorrecto==="S") {
               const toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -332,17 +383,26 @@ backClicked() {
                 title: "Hora cargada Correctamente"
               });
               this.router.navigate([`/listarhoras/${this.hora.IdTarea}`]);
-              this.hora = correcto;
+              this.hora = correcto.Retorno;
             } else {
               this.status = "error";
+              swal({
+                position: "center",
+                type: "error",
+                title: correcto.Mensaje,             
+                text: correcto.Descripcion,
+                showConfirmButton: false,
+                timer: 3000
+              });
             }
           },
           error => {
             this.status = "error";
-            console.log(error);
+
+            //console.log(error);
             swal(
               'Error',
-              ''+error,
+              '' + error,
               'error'
             );
           }
@@ -352,7 +412,7 @@ backClicked() {
           //cargando una hora nueva desde boton + de tareas
           this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
             correcto => {
-              if (correcto) {
+              if (correcto.RetornoCorrecto==="S") {
                 const toast = Swal.mixin({
                   toast: true,
                   position: "top-end",
@@ -364,17 +424,25 @@ backClicked() {
                   title: "Hora cargada Correctamente"
                 });
                 this.router.navigate([`/listarhoras/${this.hora.IdTarea}`]);
-                this.hora = correcto;
+                this.hora = correcto.Retorno;
               } else {
                 this.status = "error";
+                swal({
+                  position: "center",
+                  type: "error",
+                  title: correcto.Mensaje,             
+                  text: correcto.Descripcion,
+                  showConfirmButton: false,
+                  timer: 3000
+                });
               }
             },
             error => {
               this.status = "error";
-              console.log(error);
+              //console.log(error);
               swal(
                 'Error',
-                ''+error,
+                '' + error,
                 'error'
               );
             }
@@ -388,7 +456,7 @@ backClicked() {
             //cargando una hora nueva desde boton + de tareas
             this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
               correcto => {
-                if (correcto) {
+                if (correcto.RetornoCorrecto==="S") {
                   const toast = Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -400,17 +468,25 @@ backClicked() {
                     title: "Hora cargada Correctamente"
                   });
                   this.router.navigate([`/listarhoras/${this.hora.IdTarea}`]);
-                  this.hora = correcto;
+                  this.hora = correcto.Retorno;
                 } else {
                   this.status = "error";
+                  swal({
+                    position: "center",
+                    type: "error",
+                    title: correcto.Mensaje,             
+                    text: correcto.Descripcion,
+                    showConfirmButton: false,
+                    timer: 2000
+                  });
                 }
               },
               error => {
                 this.status = "error";
-                console.log(error);
+                //console.log(error);
                 swal(
                   'Error',
-                  ''+error,
+                  '' + error,
                   'error'
                 );
               }
@@ -419,7 +495,7 @@ backClicked() {
             //actualizando una hora
             this.hs.editarHoras(this.hora).subscribe(
               correcto => {
-                if (correcto) {
+                if (correcto.RetornoCorrecto==="S") {
                   //this.proyectos = JSON.parse(correcto.proyectos);
                   const toast = Swal.mixin({
                     toast: true,
@@ -432,19 +508,28 @@ backClicked() {
                     title: "Hora modificada Correctamente"
                   });
                   this.router.navigate([`/listarhoras/${this.hora.IdTarea}`]);
-                  this.hora = correcto;
+                  
+                  //this.hora = correcto.Retorno;
                   //console.log(this.tareas);
                 } else {
                   this.status = "error";
+                  swal({
+                    position: "center",
+                    type: "error",
+                    title: correcto.Mensaje,             
+                    text: correcto.Descripcion,
+                    showConfirmButton: false,
+                    timer: 2000
+                  });
                   //alert('El usuario no esta');
                 }
               },
               error => {
                 this.status = "error";
-                console.log(error);
+                //console.log(error);
                 swal(
                   'Error',
-                  ''+error,
+                  '' + error,
                   'error'
                 );
               }
@@ -455,40 +540,49 @@ backClicked() {
     }
   }
 
-  onProyectoChange()
-            {
-              console.log(this.tarea.IdProyecto);
+  onProyectoChange() {
+    //console.log(this.tarea.IdProyecto);
 
-              this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
-                      .subscribe(
-                        correcto => { 
-                          if(correcto)
-                          {
-                            //vacio las tareas y las vuelvo a cargar.
-                            this.tareas = null;
-                            this.tareas = correcto;
-                            //selecciono la primer tarea de la lista del proyecto cargado
-                            this.hora.IdTarea = this.tareas[0].IdTarea;
-                            this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-                            //console.log(this.tareas);
-                          }
-                          else{
-                            this.status = 'error';
-                          }
-                        },(error) => {
-                          this.status = "error";
-                          console.log(error);
-                          swal(
-                            'Error',
-                            ''+error,
-                            'error'
-                          );
-                        })
+    this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
+      .subscribe(
+        correcto => {
+          if (correcto.RetornoCorrecto==="S") {
 
-                    //OBTENGO LA TAREA
-                    //this.hora.IdTarea = this.tarea.IdTarea;
-                    //this.tarea.IdProyecto = this.proyecto.IdProyecto;
+            if(correcto.Retorno.length>=0){
+              //vacio las tareas y las vuelvo a cargar.
+            this.tareas = null;
+            this.tareas = correcto.Retorno;
+            //selecciono la primer tarea de la lista del proyecto cargado
+            this.hora.IdTarea = this.tareas[0].IdTarea;
+            this.tarea.IdProyecto = this.tareas[0].IdProyecto;
+            //console.log(this.tareas);
             }
+          }
+          else {
+            this.status = 'error';
+            swal({
+              position: "center",
+              type: "error",
+              title: correcto.Mensaje,             
+              text: correcto.Descripcion,
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+        }, (error) => {
+          this.status = "error";
+          //console.log(error);
+          swal(
+            'Error',
+            '' + error,
+            'error'
+          );
+        })
+
+    //OBTENGO LA TAREA
+    //this.hora.IdTarea = this.tarea.IdTarea;
+    //this.tarea.IdProyecto = this.proyecto.IdProyecto;
+  }
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ngOnInit() {

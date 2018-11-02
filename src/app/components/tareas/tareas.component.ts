@@ -101,11 +101,19 @@ borrarTarea(k: Number) {
             else{
               this.status = 'error';
               //console.log(correcto);              
-              swal(
-                'Error',
-                'No se pudo borrar la tarea',
-                'error'
-              );
+              // swal(
+              //   'Error',
+              //   'No se pudo borrar la tarea',
+              //   'error'
+              // );
+              swal({
+                position: "center",
+                type: "error",
+                title: correcto.Mensaje,             
+                text: correcto.Descripcion,
+                showConfirmButton: false,
+                timer: 3000
+              });
       
             }
         },(error) => {
@@ -151,7 +159,7 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
  correcto => { 
   if(correcto.RetornoCorrecto==="S")
   { 
-    if(correcto.Retorno.length>0){
+    if(correcto.Retorno.length>=0){
       //console.log(correcto);
       this.tareas = null;
       this.tareas = correcto.Retorno;                      
@@ -167,19 +175,7 @@ swal({
   showConfirmButton: false,
   timer: 2000
 });
-}
-  //  if(correcto)
-  //  {
-  //    //vacio las tareas y las vuelvo a cargar.
-  //    this.tareas = null;
-  //    this.tareas = correcto;
-  //    //console.log(this.tareas);
-  //  }
-  //  else{
-  //    this.status = 'error';
-
-  //    //alert('El usuario no esta');
-  //  }
+}  
 },(error) => {
   this.status = "error";
   //console.log(error);

@@ -196,7 +196,7 @@ export class HorasService {
     
     var body = ci;  
     
-    console.log(body);
+    //console.log(body);
 
     let params = JSON.stringify({ pCI: ci });
     let headers = new Headers();
@@ -222,9 +222,9 @@ export class HorasService {
 
             return this.retornoListadoHorasEfectivas;            
           }
-          else {
-            return false;
-          }
+          // else {
+          //   return this.retornoListadoHorasEfectivas;
+          // }
         }
         else
         {
@@ -255,10 +255,8 @@ export class HorasService {
 
    //crear tarea
     
-    CargarHoras(h: Hora, ci:string) {
-    
-    //    let body:any = JSON.stringify({ t });    
-    
+    CargarHoras(h: Hora, ci:string) {    
+        
     var body = {
       "<pHoras>k__BackingField" : {
         IdHora:h.Idhora,
@@ -279,11 +277,11 @@ export class HorasService {
       .post(this.url + 'CargarHorasATarea', body, { headers: headers })
       .map((resp: any) => {
         this.retornoCrearHora = resp.json();
-        console.log(this.retornoCrearHora);        
+        //console.log(this.retornoCrearHora);        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoCrearHora.RetornoCorrecto==="S")
         {
-          return this.retornoCrearHora.RetornoCorrecto;
+          return this.retornoCrearHora;
         }
         else 
         {
@@ -320,10 +318,12 @@ export class HorasService {
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoEditarHora.RetornoCorrecto==="S")
         {
-          return this.retornoEditarHora.RetornoCorrecto;
+          //console.log(resp.json());
+          return this.retornoEditarHora;
         }
         else 
         {
+          //console.log(resp.json());
           return this.retornoEditarHora.Errores;          
         }//fin nueva forma
         
@@ -334,13 +334,13 @@ export class HorasService {
 
   //eliminar hora
   eliminarHora(k: Number) {
-    console.log(k);
+    //console.log(k);
     
     var body =         
         k      
     ;
     
-    console.log(body);
+    //console.log(body);
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

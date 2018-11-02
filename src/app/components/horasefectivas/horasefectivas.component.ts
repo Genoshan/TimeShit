@@ -92,13 +92,16 @@ export class HorasefectivasComponent implements OnInit {
 
     this.hservice.ListarHorasMensualesDeUsuario(this.user["CI"]).subscribe(
       correcto => {
-        if (correcto) {
+        if(correcto.RetornoCorrecto==="S")
+        {
+        if (correcto.Retorno.length>0) 
+        {
           //obtengo las horas efectivas
-          this.horasefectivas = correcto;
+          this.horasefectivas = correcto.Retorno;
           //Agrupo Por Fecha y retorno una coleccion ordenada de Fecha, HorasEfectivas y Total de Hs 
           var Fechas = new Set(this.horasefectivas.map(item => item.oHora.Fecha))
           this.result = [];
-          console.log(Fechas);
+          //console.log(Fechas);
           Fechas.forEach(f =>
             this.result.push({
               name: f,
@@ -107,18 +110,25 @@ export class HorasefectivasComponent implements OnInit {
                 .reduce(function (acc, obj) { return acc + obj.oHora.CantidadHoras; }, 0)
 
             }
+            ))
 
-            ), console.log(this.result)),
-            console.log(Fechas);
-          console.log(this.horasefectivas);
-
-        } else {
-          this.status = "error";
-        }
-      },
+        }         
+      }
+    else
+    {
+      swal({
+        position: "center",
+        type: "error",
+        title: correcto.Mensaje,             
+        text: correcto.Descripcion,
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+    },
       error => {
         this.status = "error";
-        console.log(error);
+        //console.log(error);
         swal(
           'Error',
           '' + error,
