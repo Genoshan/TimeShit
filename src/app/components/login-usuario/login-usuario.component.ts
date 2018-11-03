@@ -93,7 +93,7 @@ export class LoginUsuarioComponent implements OnInit {
             title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,             
             text: correcto.Descripcion,
             showConfirmButton: false,
-            timer: 1500
+            timer: 3000
           });
           
          }
@@ -106,7 +106,7 @@ export class LoginUsuarioComponent implements OnInit {
           type: "error",
           title: "Error de Servidor",
           showConfirmButton: false,
-          timer: 1000
+          timer: 3000
         });
       }
     );

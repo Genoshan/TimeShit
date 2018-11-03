@@ -134,7 +134,8 @@ export class HorasService {
   };
 
   constructor(private _http: Http) {
-    this.url = "http://localhost:88/api/";
+    //this.url = "http://localhost:88/api/";
+    this.url = "https://timesheetrestapi.azurewebsites.net/api/";
    }
 
   getHoras(key$: number) {}
