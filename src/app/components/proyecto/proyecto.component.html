@@ -30,7 +30,7 @@
 </form> -->
 
 
-<navbar></navbar>
+<!-- <navbar></navbar>
 <body>
 
         <button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
@@ -77,4 +77,61 @@
 
 
 
+<app-footer></app-footer> -->
+
+
+<navbar></navbar>
+
+<body>
+
+    <button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
+        <fa name="arrow-left"></fa>
+    </button>
+     
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12">
+                <form class="card w-100 card-block bg-faded">
+                    <legend class="m-b-1 text-center text-info"> <strong>
+
+                            <p *ngIf="proyecto.Nombre ==''"><b> NUEVO PROYECTO </b></p>
+                            <b> {{ proyecto.Nombre }} </b>
+
+                        </strong></legend>
+
+
+                    <div class="form-group input-group">
+                        <span class="has-float-label">
+                            <input [(ngModel)]="proyecto.Nombre" name="Nombre" id="Nombre" type="text" class="form-control">
+                            <label for="first">Nombre</label>
+                        </span>
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="has-float-label">
+                            <input [(ngModel)]="proyecto.CodigoProyecto" name="CodigoProyecto" id="CodigoProyecto" type="text"
+                                class="form-control">
+                            <label for="second">Codigo Proyecto</label>
+                        </span>
+                    </div>
+
+                    <div class="form-group input-group">
+                        <span class="has-float-label">
+                            <input placeholder="FechaInicio" class="form-control" type="text" onfocus="(this.type='date')"
+                                [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'" name="FechaInicio"
+                                (ngModelChange)="proyecto.FechaInicio=$event">
+                            <label for="third">Fecha Inicio</label>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input [(ngModel)]="proyecto.Estado" name="estado" class="form-check-input" type="checkbox">
+                        Activo
+                    </div>
+                    <button class="btn btn-outline-dark btn-block" (click)="crearProyectos()">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
 <app-footer></app-footer>

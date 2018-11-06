@@ -67,11 +67,44 @@ export class ProyectosService {
     }
   };
 
+  private retornoCrearProyecto=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+  private retornoEditarProyecto=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+  private retornoEliminarProyecto=
+  {
+    "RetornoCorrecto": "E",
+    "Retorno": false,
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
-    //this.url = "http://localhost:88/api/";
-    this.url = "https://timesheetrestapi.azurewebsites.net/api/";
+    this.url = "http://localhost:88/api/";
+    //this.url = "https://timesheetrestapi.azurewebsites.net/api/";
   }
 
   //METODOS
@@ -137,21 +170,106 @@ export class ProyectosService {
     );
   }
 
+  //crear proyecto
   crearProyectos(p: Proyecto) {
-    p.IdProyecto = this.proyectos.length + 1;
 
-    this.proyectos.push(p);
+    //let body:any = JSON.stringify({ t });
 
-    //return this.proyectos;
+    var body = {      
+      IdProyecto: p.IdProyecto,
+      Nombre: p.Nombre,
+      CodigoProyecto: p.CodigoProyecto,
+      FechaInicio: p.FechaInicio,
+      Estado: p.Estado
+    };
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'CrearProyecto', body, { headers: headers })
+      .map((resp: any) => {
+        this.retornoCrearProyecto = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoCrearProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoCrearProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoCrearProyecto.Errores;          
+        }//fin nueva forma
+        
+      })
+      .catch(this.handleError);
   }
 
-  editarProyectos(p: Proyecto, id: string) {
-    //Proyecto proy= this.proyectos.find(p;
-    let projectoaux = this.proyectos.find(x => x.IdProyecto == Number(id));
-    let index = this.proyectos.indexOf(projectoaux);
-    this.proyectos[index] = projectoaux;
+//editarTarea
+  editarProyecto(p: Proyecto) {
+    //let headers = new Headers();
+    var body = {      
+      IdProyecto: p.IdProyecto,
+      Nombre: p.Nombre,
+      CodigoProyecto: p.CodigoProyecto,
+      FechaInicio: p.FechaInicio,
+      Estado: p.Estado
+    };   
 
-    //return this.proyectos;
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'EditarProyecto', body, { headers: headers })
+      .map((resp: any) => {
+        
+        this.retornoEditarProyecto = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEditarProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoEditarProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEditarProyecto.Errores;          
+        }//fin nueva forma
+
+      })
+      .catch(this.handleError);
+  }
+
+  //eliminarTarea
+  eliminarProyecto(k: Number) {
+    //console.log(k);
+    //let headers = new Headers();
+    var body = k
+    ;   
+
+    //console.log(body);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'EliminarProyecto', body, { headers: headers })
+      .map((resp: any) => {
+           
+        this.retornoEliminarProyecto = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEliminarProyecto.RetornoCorrecto==="S")
+        {
+          return this.retornoEliminarProyecto.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEliminarProyecto.Errores;          
+        }//fin nueva forma
+      })
+      .catch(this.handleError);
   }
 
   //MANEJADOR DE ERRORES DE SERVICIO

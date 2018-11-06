@@ -62,8 +62,8 @@ private retornoAsignarUsuarioAProyecto = {
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
-    //this.url = "http://localhost:88/api/";
-    this.url = "https://timesheetrestapi.azurewebsites.net/api/";
+    this.url = "http://localhost:88/api/";
+    //this.url = "https://timesheetrestapi.azurewebsites.net/api/";
   }
 
   //Asignar Usuarios a Proyectos
