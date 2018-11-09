@@ -90,6 +90,8 @@
                                 <th>Editar</th>
                                 <th>Listar</th>
                                 <th>Cargar</th>
+                                <th>Eliminar</th>
+
                             </tr>
                         </thead>
                     <tbody>
@@ -121,6 +123,13 @@
                                                             </button>
 
                                                         </td>
+
+                                     <td>
+                                                        <!-- Borrar Proyecto -->
+                                        <button id="borrarProyecto" (click)="borrarProyecto(proyectos[k].IdProyecto)" type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto">
+                                            <fa name="window-close"></fa>        
+                                    </button>
+                                </td>
                                 
                             </tr>
                     </tbody>

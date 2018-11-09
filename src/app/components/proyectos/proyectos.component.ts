@@ -58,6 +58,123 @@ export class ProyectosComponent implements OnInit {
     this.proyectos = this.pservice.getProyectoxTermino(termino);
   }
 
+  borrarProyecto(k: Number) {  
+
+    //console.log('antesdelswal');
+    swal({
+      title: 'El proyecto se eliminará, está seguro?',
+      text: "El proyecto no se podrá recuperar.",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, confirmo!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {    
+      if (result.value) {
+        { 
+          //llamo al metodo
+          this.pservice.eliminarProyecto(k)
+          .subscribe(        
+            correcto => { 
+              if(correcto.RetornoCorrecto==="S")
+              {
+                //console.log(correcto);        
+                swal(
+                  'Proyecto Eliminado',
+                  '',
+                  'success'
+                );
+  
+                //recargo las tareas
+                this.proyectos = null;
+                //this.listarTareasDeProyecto();
+                //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
+    this.pservice.getProyectosUsuario(this.user["CI"]).subscribe(
+      correcto => {
+        if(correcto.RetornoCorrecto==="S")
+            { 
+              if(correcto.Retorno.length>0){
+                //console.log(correcto);
+                this.proyectos = correcto.Retorno;                      
+              }
+        // if (correcto) {
+        //   this.proyectos = correcto;
+        //   //Para que cargue el primer elemento del combo
+        //   //this.proyecto = this.proyectos[0];
+        }         
+        else {
+          this.status = "error";
+          swal({
+            position: "center",
+            type: "error",
+            title: correcto.Mensaje/*"usuario o contraseña incorrectos" */,             
+            text: correcto.Descripcion,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      },
+      error => {
+        this.status = "error";
+        //console.log(error);
+        swal(
+          'Error',
+          ''+error,
+          'error'
+        );
+      }
+    ); 
+                //console.log(this.tareas);
+              }
+              else{
+                this.status = 'error';
+                //console.log(correcto);              
+                // swal(
+                //   'Error',
+                //   'No se pudo borrar la tarea',
+                //   'error'
+                // );
+                swal({
+                  position: "center",
+                  type: "error",
+                  title: correcto.Mensaje,             
+                  text: correcto.Descripcion,
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+        
+              }
+          },(error) => {
+            this.status = 'error';
+            //console.log(error);
+            let MSG = 'No se puede eliminar el proyecto.';                    
+            /* swal({
+              position: 'center',
+              type: 'error',
+              title: ''+MSG,
+              showConfirmButton: true,      
+            }); */
+            swal(
+              'Error',
+              ''+error,
+              'error'
+            );
+            } 
+          )  
+        }
+      }
+  
+      else{
+  
+      }
+    });
+    
+  
+   
+  }
+  
+
   asignarUsuarios(){    
     //tengo un usuario   
     //tengo un proyecto
