@@ -86,7 +86,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   crearProyectos() {
-    if (this.id == "nueva") {
+    if (this.id == "nuevo") {
       // insertando
 
       this.pr.crearProyectos(this.proyecto).subscribe(

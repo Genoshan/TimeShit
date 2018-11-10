@@ -195,7 +195,7 @@ export class ProyectosService {
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoCrearProyecto.RetornoCorrecto==="S")
         {
-          return this.retornoCrearProyecto.RetornoCorrecto;
+          return this.retornoCrearProyecto;
         }
         else 
         {
@@ -225,12 +225,12 @@ export class ProyectosService {
     return this._http
       .post(this.url + 'EditarProyecto', body, { headers: headers })
       .map((resp: any) => {
-        
+        console.log(resp.json());
         this.retornoEditarProyecto = resp.json();        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoEditarProyecto.RetornoCorrecto==="S")
         {
-          return this.retornoEditarProyecto.RetornoCorrecto;
+          return this.retornoEditarProyecto;
         }
         else 
         {
