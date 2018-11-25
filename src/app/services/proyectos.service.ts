@@ -28,11 +28,11 @@ export class ProyectosService {
   };
 
   private Usuario: {
-    nombre: string;
-    email: string;
+    Nombre: string;
+    Email: string;
     //password: string,
-    img: string;
-    ci: number;
+    Img: string;
+    CI: number;
   };
 
   private proyectos: Proyecto[] = [];
@@ -171,17 +171,26 @@ export class ProyectosService {
   }
 
   //crear proyecto
-  crearProyectos(p: Proyecto) {
+  crearProyectos(p: Proyecto, u:Usuario) {
 
     //let body:any = JSON.stringify({ t });
 
-    var body = {      
-      IdProyecto: p.IdProyecto,
+    var body = {
+      oProyecto: {
+        IdProyecto: p.IdProyecto,
       Nombre: p.Nombre,
       CodigoProyecto: p.CodigoProyecto,
       FechaInicio: p.FechaInicio,
-      Estado: p.Estado
+      Estado: p.Estado        
+      },
+      oUsuario: {
+        Nombre: u.Nombre,
+        Email: u.email,
+        Img: u.img,
+        CI: u.ci
+      }
     };
+    console.log(body);
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

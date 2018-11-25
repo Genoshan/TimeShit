@@ -88,8 +88,8 @@ export class ProyectoComponent implements OnInit {
   crearProyectos() {
     if (this.id == "nuevo") {
       // insertando
-
-      this.pr.crearProyectos(this.proyecto).subscribe(
+      console.log(this.user);    
+      this.pr.crearProyectos(this.proyecto,this.user).subscribe(
         correcto => {
           if (correcto.RetornoCorrecto==="S") {
             const toast = Swal.mixin({
@@ -104,6 +104,7 @@ export class ProyectoComponent implements OnInit {
             });
             this.router.navigate([`/proyectos`]);
             this.proyecto = correcto.Retorno;
+
           } 
           else {            
             this.status = "error";
@@ -129,7 +130,7 @@ export class ProyectoComponent implements OnInit {
       );
     } else {
       //actualizando
-
+      console.log("Entro al Editar");
       this.pr.editarProyecto(this.proyecto).subscribe(
         correcto => {
           if (correcto.RetornoCorrecto==="S") {
@@ -173,7 +174,22 @@ export class ProyectoComponent implements OnInit {
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem("usuario"));
+    //this.user = JSON.parse(localStorage.getItem("usuario"));
+    //{"Nombre":"Alex Rostan","Email":"alex.rostan@arkanosoft.com","Img":"","CI":"4377187-2"}
+    this.user.ci = JSON.parse(localStorage.getItem("usuario"))["CI"];
+    this.user.email = JSON.parse(localStorage.getItem("usuario"))["Email"];
+    this.user.img = JSON.parse(localStorage.getItem("usuario"))["Img"];
+    this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
+    
+
+    // private Usuario: {
+    //   Nombre: string;
+    //   Email: string;
+    //   //password: string,
+    //   Img: string;
+    //   CI: number;
+    // };
+
     //this.proyecto = JSON.parse(localStorage.getItem("proyecto"));
     //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA
     this.getProyecto();
