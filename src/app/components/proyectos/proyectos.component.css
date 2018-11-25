@@ -1,0 +1,16 @@
+body{
+    margin: 0px;
+}
+
+#middlebutton{
+    margin: 25px 25px;
+}
+
+
+.table th, .table td{
+    text-align: center;
+}
+
+.btn-lg, .btn-group-lg > .btn {
+    margin-right: 15px;
+}

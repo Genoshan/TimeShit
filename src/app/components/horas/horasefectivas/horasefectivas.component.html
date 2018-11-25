@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm">
+                    <h1><b>HORAS EFECTIVAS</b></h1>
+                </div>
+            </div>
+
+            <div class="clearfix">
+                <div class="hint-text">Mostrando <b>5</b> de <b>25</b> entradas</div>
+                <ul class="pagination">
+                    <pagination-controls (pageChange)=" p =$event"> </pagination-controls>
+                </ul>
+            </div>
+        </div>
+
+
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let p of result | keys | paginate:{itemsPerPage:15,currentPage: p} ; let i = index">
+                <mat-expansion-panel-header>
+                    {{result[p].name | date: "EEEE, dd-MM-yyyy" }} | Horas: <span class="badge badge-success">{{
+                        result[p].total }}</span>
+                </mat-expansion-panel-header>
+
+
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Proyecto</th>
+                            <th>Tarea</th>
+                            <th>Horas</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let v of result[p].values | keys">
+                            <td>{{ result[p].values[v].oProyecto.Nombre }}</td>
+                            <td>{{ result[p].values[v].oTarea.Nombre }}</td>
+                            <td>{{ result[p].values[v].oHora.CantidadHoras }}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+                <h1 class="text-center">
+                        TimeSheet
+                        <small class="text-muted">Bienvenido!</small>
+                      </h1>
+
+                      <img src="assets/Img/Login.png" class="center"style="width:40%">          
+                      
+            
+
+                <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="form-center">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input ngModel name="email" placeholder="Escriba el Email" type="email" #email="ngModel" class="form-control form-control-lg" required/>
+                                <div *ngIf="!email.valid && email.touched" class="alert alert-danger margin-top">
+                                    <div [hidden]="!email.errors.required">
+                                        El Email es obligatorio
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input ngModel name="pass" placeholder="Escriba la Contraseña" type="password" #pass="ngModel" class="form-control form-control-lg" required/>
+                                <div *ngIf="!pass.valid && pass.touched" class="alert alert-danger margin-top">
+                                    <div [hidden]="!pass.errors.required">
+                                        La Contraseña es obligatoria
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="Ingresar" class="btn btn-success btn-lg btn-block" />
+                        </div>
+                    </form>
+                    
+
+        </div>
+    </div>
+</div>
+
+
+
