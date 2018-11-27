@@ -271,7 +271,7 @@ export class ProyectosService {
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoEliminarProyecto.RetornoCorrecto==="S")
         {
-          return this.retornoEliminarProyecto.RetornoCorrecto;
+          return this.retornoEliminarProyecto;
         }
         else 
         {
