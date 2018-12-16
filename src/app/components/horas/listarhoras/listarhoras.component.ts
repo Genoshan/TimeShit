@@ -1,20 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-listarhoras',
-//   templateUrl: './listarhoras.component.html',
-//   styleUrls: ['./listarhoras.component.css']
-// })
-// export class ListarhorasComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
-
 import { Component, OnInit } from '@angular/core';
 import { Hora } from '../../../interfaces/hora';
 import { Proyecto } from '../../../interfaces/proyecto';
@@ -39,8 +22,6 @@ export class ListarhorasComponent implements OnInit {
   id: number;
   loading:boolean;
 
-  itemsPerPage: number = 9;
-
    hora:Hora = {
     Idhora:0,
     Descripcion: "" ,
@@ -54,7 +35,7 @@ export class ListarhorasComponent implements OnInit {
     Nombre:"",
     FechaInicio:new Date(Date.now()),
     Estado:true,
-    codigoProyecto:"",    
+    CodigoProyecto:"",    
     IdProyecto: 0,
   }
 
@@ -114,8 +95,8 @@ backClicked() {
           this.hservice.eliminarHora(k)
             .subscribe(
               correcto => {
-                if (correcto) {
-                  console.log(correcto);
+                if(correcto['RetornoCorrecto']==="S") {
+                  //console.log(correcto);
                   swal(
                     'Hora Eliminada',
                     '',
@@ -127,15 +108,23 @@ backClicked() {
                 }
                 else {
                   this.status = 'error';
-                  swal(
-                    'Error',
-                    'No se pudo borrar la hora',
-                    'error'
-                  );
+                  // swal(
+                  //   'Error',
+                  //   'No se pudo borrar la hora',
+                  //   'error'
+                  // );
+                  swal({
+                    position: "center",
+                    type: "error",
+                    title: correcto['Mensaje'],
+                    text: correcto['Descripcion'],
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
                 }
               }, (error) => {
                 this.status = "error";
-                console.log(error);
+                //console.log(error);
                 let MSG = 'No se puede eliminar la hora.';
                 swal(
                   'Error',
@@ -161,17 +150,28 @@ backClicked() {
          this.hservice.getHorasDeTarea(this.tarea)
          .subscribe(        
          correcto => { 
-           if(correcto)
+          if(correcto['RetornoCorrecto']==="S")
            {
-            //vacio la lista de horas y la vuelvo a cargar
-            this.horas = null;               
-             this.horas = correcto;             
+            if(correcto['Retorno'].length>=0){
+              console.log(correcto);
+              this.horas = null;
+              this.horas = correcto['Retorno'];                     
+            }   
            }
            else{
-             this.status = 'error';                         
+             this.status = 'error';
+             console.log(correcto);
+             swal({
+              position: "center",
+              type: "error",
+              title: correcto['Mensaje'],
+              text: correcto['Descripcion'],
+              showConfirmButton: false,
+              timer: 3000
+            });                         
            }
        },(error) => {
-        this.status = "error";
+        this.status = "error";        
         console.log(error);
         swal(
           'Error',
