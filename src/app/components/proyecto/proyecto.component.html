@@ -12,12 +12,29 @@
                     <b> {{ proyecto.Nombre }} </b>
                   
             </strong></legend>
-              <div class="form-group input-group">
+              <!-- <div class="form-group input-group">
                 <span class="has-float-label">
-                  <input class="form-control" id="first" type="text" placeholder="Proyecto"/>
+                  <input class="form-control" id="first" type="text" placeholder="Proyecto"/>                       
                   <label for="first">Nombre</label>
                 </span>
+              </div> -->
+
+              <div class="form-group input-group">
+                <span class="has-float-label">
+                        <input placeholder="Proyecto" class="form-control" type="text" [ngModel]="proyecto.Nombre"
+                                name="Proyecto" (ngModelChange)="proyecto.Nombre=$event">
+                  <label for="last">Nombre</label>
+                </span>
+              </div>    
+
+              <div class="form-group input-group">
+                <span class="has-float-label">
+                        <input placeholder="CodigoProyecto" class="form-control" type="text" [ngModel]="proyecto.CodigoProyecto"
+                                name="CodigoProyecto" (ngModelChange)="proyecto.CodigoProyecto=$event">
+                  <label for="last">Codigo Proyecto</label>
+                </span>
               </div>
+
               <div class="form-group input-group">
                 <span class="has-float-label">
                         <input placeholder="Fecha" class="form-control" type="text" onfocus="(this.type='date')" [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'"

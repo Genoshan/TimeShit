@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
+<nav  class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
   <a class="navbar-brand" href="/">TimeSheet App</a>
   <div class="navbar-expand mr-auto">
-    <div class="navbar-nav">
+    <div *ngIf="user1" class="navbar-nav">
       <!-- <a class="nav-item nav-link active" routerLink="['/proyectos']" >Proyectos</a>       -->
       <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
 
@@ -16,10 +16,10 @@
 
   
 
-  <div class="navbar-expand ml-auto navbar-nav">
+  <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
-      <div *ngIf="user1"><button class="btn" (click)="logout()">Salir</button></div>
+      <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+      <div ><button class="btn" (click)="logout()">Salir</button></div>
       <!-- <button class="btn btn-dark" (click)="logout()">Logout</button> -->
     </div>
   </div>

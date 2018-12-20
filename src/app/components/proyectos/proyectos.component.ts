@@ -129,6 +129,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgxPaginationModule } from "ngx-pagination";
 import swal from "sweetalert2";
 import { UsuarioService } from "../../services/usuario.service";
+import { Router } from "@angular/router";
 //import { PaginationModule } from 'ngx-pagination-bootstrap';
 
 declare var require: any;
@@ -172,7 +173,7 @@ export class ProyectosComponent implements OnInit {
 
   status: string;
 
-  constructor(private pservice: ProyectosService,
+  constructor(private pservice: ProyectosService,private router: Router,
     private uservice: UsuarioService) {}
 
   buscar(termino: string) {
@@ -322,7 +323,9 @@ export class ProyectosComponent implements OnInit {
       }})
   }
 
-  ngOnInit() {
+  ngOnInit() {      
+
+
 
     //LISTA PROYECTOS DEL USUARIO DESDE API
     this.user = JSON.parse(localStorage.getItem("usuario"));

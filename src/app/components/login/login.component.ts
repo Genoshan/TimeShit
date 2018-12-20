@@ -168,7 +168,8 @@ export class LoginComponent implements OnInit {
 
         /*PARA USAR CON LA NUEVA FORMA DE RETORNO */
         if (correcto ==="S") {
-          //console.log(JSON.parse(localStorage.getItem("usuario")));
+
+          console.log(JSON.parse(localStorage.getItem("usuario")));          
           swal({
             position: "center",
             type: "success",
@@ -178,7 +179,10 @@ export class LoginComponent implements OnInit {
             showConfirmButton: false,
             timer: 2000
           });
-          this.router.navigate(["/proyectos"]);
+
+          this.router.navigate(["/proyectos"]);         
+
+          
         } else {
           this.status = "error";
           swal({

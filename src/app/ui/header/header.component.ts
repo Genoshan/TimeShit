@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,DoCheck  } from '@angular/core';
 import { Usuario } from "../../interfaces/usuario";
 //import { Router } from "../../../../node_modules/@angular/router";
 import {Router,RouterModule} from '@angular/router';
@@ -8,7 +8,7 @@ import {Router,RouterModule} from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, DoCheck{
 
   user1: Usuario = {
     Nombre: "",
@@ -25,17 +25,31 @@ export class HeaderComponent implements OnInit {
 
     if (this.user1 == null) {
       this.correcto = false;
-    } else this.correcto = true;
+    } else{
+      this.correcto = true;      
+    } 
+    
   }
 
   logout() {
     this.router.navigate([""]);
     localStorage.removeItem("usuario");
-    this.user1 = null;
+    this.user1 = null;    
     //this.auth.logout();
   }
 
+  ngDoCheck() {
+    
+    if(JSON.parse(localStorage.getItem("usuario"))==null) {      
+    }
+    else{      
+      this.user1 = JSON.parse(localStorage.getItem("usuario"));      
+    }
+
+ }
+
   ngOnInit() {
+    
   }
 
 }
