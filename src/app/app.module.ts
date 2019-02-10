@@ -16,6 +16,8 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 
 import { routingModule } from "./app.routing";
 
+import { MatButtonModule, MatCardModule, MatFormFieldModule,MatDialog, MatDialogRef,MatDialogModule } from '@angular/material';
+
 
 
 //SERVICES
@@ -34,6 +36,8 @@ import {MatExpansionModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { KeysPipe } from './pipes/keys.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { NgbModalBackdrop } from '@ng-bootstrap/ng-bootstrap/modal/modal-backdrop';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -60,7 +64,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    NgbModule    
 //    PaginationModule,    
   ],
   providers: [HttpModule,

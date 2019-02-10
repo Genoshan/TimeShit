@@ -3,11 +3,17 @@
         <h2><b>PROYECTOS</b></h2>        
         <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div>
         <ul class="pagination">
-            <pagination-controls class="my-pagination" (pageChange)=" p =$event"> </pagination-controls>
+            <pagination-controls class="my-pagination" (pageChange)=" p =$event"> </pagination-controls>            
         </ul>
         <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar proyectos">
         <div class="row">
             <div class="col-md-12 text-center" id="middlebutton">
+
+
+
+
+
+
                 <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-outline-primary btn-lg">
                     Nuevo Proyecto
                     <!-- <fa name="plus"></fa>Nuevo Proyecto -->            
@@ -18,43 +24,58 @@
                     <!-- <fa name="plus"></fa>Cargar Horas -->
                 </button>
                 <!-- Button to Open the Modal -->
-                <button type="button" class="btn btn-outline-secondary btn-lg" data-toggle="modal" data-target="#newProyect">
-                    Asignar Usuarios
-                    <!-- <fa name="plus"></fa>Asignar Usuarios -->
-                </button>
-                <!-- Nuevo Proyecto Modal -->
-                <div class="modal" id="newProyect">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header text-center">
-                                <b>Asignar Usuarios a Proyecto </b>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Proyecto</label>
-                                        <select [(ngModel)]="proyecto.IdProyecto" name="IdProyecto" class="custom-select">
-                                            <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-                                        </select>
 
-                                        <label>Usuario</label>
-                                        <select [(ngModel)]="proyecto.IdProyecto" name="IdProyecto" class="custom-select">
-                                            <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-                                        </select>
-                                    </div>
-                                    <button class="btn btn-outline-primary btn-block" (click)="asignarUsuarios()">Asignar</button>
 
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
+                <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Asignar usuarios a proyecto</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+
+                      <div class="form-group">
+
+                        <label for="dateOfBirth">Usuarios</label>
+                          <div class="form-group input-group">
+                            <span class="has-float-label">
+                         <select [(ngModel)]="proyecto.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
+							<option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
+						</select>                              
+                            </span>
+                          </div>
+
+                          <label for="dateOfBirth">Proyecto</label>
+                          <div class="form-group input-group">
+                            <span class="has-float-label">
+                         <select [(ngModel)]="proyecto.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
+							<option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
+						</select>                              
+                            </span>
+                          </div>
+
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Asignar</button>
+                  </div>
+                </ng-template>
+                
+                <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Asignar Usuarios a proyecto</button>
+                
+                <hr>
+                
+                <pre>{{closeResult}}</pre>
+             
+
+
+
+
             </div>
         </div>
         <div class="container">
