@@ -41,10 +41,19 @@
                       <div class="form-group">
 
                         <label for="dateOfBirth">Usuarios</label>
+                        
+                        <mat-selection-list #shoes>
+                                <mat-list-option *ngFor="let u of usuarios" 
+                                                 [value]="u">
+                                  {{u.Nombre}}
+                                </mat-list-option>
+                              </mat-selection-list>
+
+
                           <div class="form-group input-group">
                             <span class="has-float-label">
                          <select [(ngModel)]="proyecto.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
-							<option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
+							<option input type="checkbox" *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
 						</select>                              
                             </span>
                           </div>

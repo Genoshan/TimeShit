@@ -1,13 +1,14 @@
 import { ProyectosService } from "./../../services/proyectos.service";
 import { Proyecto } from "./../../interfaces/proyecto";
 import { Usuario } from "../../interfaces/usuario";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgxPaginationModule } from "ngx-pagination";
 import swal from "sweetalert2";
 import { UsuarioService } from "../../services/usuario.service";
 import { Router } from "@angular/router";
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { MatSelectionList, MatSelectionListChange, MatListOption } from '@angular/material';
 
 
 //import { PaginationModule } from 'ngx-pagination-bootstrap';
@@ -55,10 +56,14 @@ export class ProyectosComponent implements OnInit {
 
   status: string;
 
+  
+
   constructor(private pservice: ProyectosService,private router: Router,
     private uservice: UsuarioService,private modalService: NgbModal) {}
 
+    @ViewChild('shoes') shoes: MatSelectionList;
 
+    
     open(content) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
