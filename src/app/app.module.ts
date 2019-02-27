@@ -16,8 +16,10 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 
 import { routingModule } from "./app.routing";
 
-import { MatButtonModule, MatCardModule, MatFormFieldModule,MatDialog, MatDialogRef,MatDialogModule } from '@angular/material';
+//import { MatButtonModule, MatCardModule, MatFormFieldModule,MatDialog, MatDialogRef,MatDialogModule } from '@angular/material';
 
+import { MatListModule,MatButtonModule, MatCardModule, MatSelectModule,
+  MatMenuModule, MatToolbarModule, MatIconModule, MatAutocompleteModule, MatInputModule,MatFormFieldModule } from '@angular/material';
 
 
 //SERVICES
@@ -65,10 +67,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NgxPaginationModule,
     BrowserAnimationsModule,
     MatExpansionModule,
-    MatButtonModule,
-    MatCardModule,
+    MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatAutocompleteModule, MatInputModule,MatFormFieldModule, 
+    MatAutocompleteModule,
+    MatInputModule,
     MatFormFieldModule,
-    MatDialogModule,
+    MatListModule,
+    MatSelectModule,
     NgbModule    
 //    PaginationModule,    
   ],

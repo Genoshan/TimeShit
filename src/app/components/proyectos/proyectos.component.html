@@ -1,6 +1,6 @@
 <body>
     <div class="container">
-        <h2><b>PROYECTOS</b></h2>        
+        <h3><b>PROYECTOS</b></h3>        
         <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div>
         <ul class="pagination">
             <pagination-controls class="my-pagination" (pageChange)=" p =$event"> </pagination-controls>            
@@ -8,12 +8,6 @@
         <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar proyectos">
         <div class="row">
             <div class="col-md-12 text-center" id="middlebutton">
-
-
-
-
-
-
                 <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-outline-primary btn-lg">
                     Nuevo Proyecto
                     <!-- <fa name="plus"></fa>Nuevo Proyecto -->            
@@ -24,9 +18,6 @@
                     <!-- <fa name="plus"></fa>Cargar Horas -->
                 </button>
                 <!-- Button to Open the Modal -->
-
-
-
 
                 <ng-template #content let-modal>
                 <div class="modal-header">
@@ -40,32 +31,40 @@
 
                       <div class="form-group">
 
-                        <label for="dateOfBirth">Usuarios</label>
-                        
-                        <mat-selection-list #shoes>
-                                <mat-list-option *ngFor="let u of usuarios" 
-                                                 [value]="u">
-                                  {{u.Nombre}}
-                                </mat-list-option>
-                              </mat-selection-list>
+
+                            <!-- <mat-select placeholder="Proyectos" [(ngModel)]="proyecto.IdProyecto" name="Proyecto" (selectionChange)="onProyectoChange($event)">                         -->
+
+                                    <!-- <mat-option *ngFor="let p of proyectos" [value]="p.Nombre"> -->
+
+                          <mat-form-field>
+                              <mat-select placeholder="Proyectos" [(ngModel)]="proyecto.IdProyecto" name="Proyecto" (selectionChange)="onProyectoChange($event)">                        
+                                  <mat-option *ngFor="let p of proyectos" [value]="p.IdProyecto">
+                                      {{ p.Nombre }}
+                                  </mat-option>                          
+                              </mat-select>
+                          </mat-form-field>
+
+                          <br>
 
 
-                          <div class="form-group input-group">
-                            <span class="has-float-label">
-                         <select [(ngModel)]="proyecto.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
-							<option input type="checkbox" *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-						</select>                              
-                            </span>
-                          </div>
+                        <!-- <label for="dateOfBirth">Usuarios</label>     -->
 
-                          <label for="dateOfBirth">Proyecto</label>
-                          <div class="form-group input-group">
-                            <span class="has-float-label">
-                         <select [(ngModel)]="proyecto.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
-							<option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-						</select>                              
-                            </span>
-                          </div>
+                        <!-- <p>
+                            Usuarios selec: {{lista.selectedOptions.selected.length}}
+                          </p>     -->
+                          
+                          
+                          <mat-form-field>
+                                <mat-select placeholder="Usuarios" [formControl]="selectedusers" multiple>
+                                  <mat-option *ngFor="let u of listausuariosMerge" [value]="u">{{u.Nombre}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+                              <div>
+                                    value selected is : {{valueSelected}}
+                                  </div>
+
+
 
                       </div>
                     </form>
@@ -102,7 +101,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:itemsPerPage,currentPage: p} ">
+                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:8,currentPage: p} ">
                             <td>{{ proyectos[k].CodigoProyecto }}</td>
                             <td>{{ proyectos[k].Nombre }}</td>
                             <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>

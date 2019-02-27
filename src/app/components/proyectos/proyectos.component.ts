@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { MatSelectionList, MatSelectionListChange, MatListOption } from '@angular/material';
+import { FormControl } from "@angular/forms";
+import { debug } from "util";
 
 
 //import { PaginationModule } from 'ngx-pagination-bootstrap';
@@ -20,11 +22,19 @@ const Swal = require('sweetalert2');
   templateUrl: "./proyectos.component.html",
   styleUrls: ['./proyectos.component.css']
 })
+
+
+
+
+
 export class ProyectosComponent implements OnInit {
+
+  selectedusers = new FormControl();
 
   closeResult: string;
 
   result: any[];
+  selected: any;
 
   proyectos: Proyecto[] = [];
   loading: boolean;
@@ -32,18 +42,18 @@ export class ProyectosComponent implements OnInit {
 
   user: Usuario = {
     Nombre: "",
-    email: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   useraasignar: Usuario = {
     Nombre: "",
-    email: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   proyecto: Proyecto = {
@@ -54,6 +64,12 @@ export class ProyectosComponent implements OnInit {
     IdProyecto: 0
   };
 
+  listausuariosaasignar:Usuario[]=[];
+  listausuarios:Usuario[]=[];
+  listausuariosMerge:Usuario[]=[];
+
+  valueSelected: string;
+
   status: string;
 
   
@@ -61,12 +77,12 @@ export class ProyectosComponent implements OnInit {
   constructor(private pservice: ProyectosService,private router: Router,
     private uservice: UsuarioService,private modalService: NgbModal) {}
 
-    @ViewChild('shoes') shoes: MatSelectionList;
+    
 
     
     open(content) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
+        this.closeResult = `Cerrado con: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
@@ -86,6 +102,9 @@ export class ProyectosComponent implements OnInit {
     this.loading = true;
     this.proyectos = this.pservice.getProyectoxTermino(termino);
   }
+
+
+
 
   borrarProyecto(k: Number) {  
 
@@ -200,33 +219,7 @@ export class ProyectosComponent implements OnInit {
     });
    }  
 
-   async ModalAsignar(){
-    const {value: fruit} = await Swal.fire({
-      title: 'Select field validation',
-      input: 'select',
-      inputOptions: {
-        'apples': 'Apples',
-        'bananas': 'Bananas',
-        'grapes': 'Grapes',
-        'oranges': 'Oranges'
-      },
-      inputPlaceholder: 'Select a fruit',
-      showCancelButton: true,
-      inputValidator: (value) => {
-        return new Promise((resolve) => {
-          if (value === 'oranges') {
-            resolve()
-          } else {
-            resolve('You need to select oranges :)')
-          }
-        })
-      }
-    })
-    
-    if (fruit) {
-      Swal.fire('You selected: ' + fruit)
-    }
-   }
+
 
 
 
@@ -259,7 +252,111 @@ export class ProyectosComponent implements OnInit {
       }})
   }
 
+
+
+
+  onProyectoChange() {
+    //console.log(this.proyecto);
+
+    //tomamos una lista y la filtramos por un elemento del objeto dentro de la lista (Lambda Expression )
+    let proyecto = this.proyectos.find(p => p.IdProyecto == this.proyecto.IdProyecto)
+
+    this.uservice.getUsuariosAsignadosAProyecto(proyecto).subscribe(
+      correcto => {
+
+        if (correcto['RetornoCorrecto'] === "S") {
+
+          if (correcto['Retorno'].length >= 0) {
+            //vacio las tareas y las vuelvo a cargar.
+
+            this.listausuariosMerge = null;
+
+
+            // this.listausuarios = correcto['Retorno'];
+
+            //selecciono la primer tarea de la lista del proyecto cargado
+            this.listausuariosMerge = correcto['Retorno'];           
+            
+            this.valueSelected = this.selectedusers.value && this.selectedusers.value.toString();
+
+            
+
+          }
+        }
+        else {
+          this.status = 'error';
+          swal({
+            position: "center",
+            type: "error",
+            title: correcto['Mensaje'],
+            text: correcto['Descripcion'],
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      }, (error) => {
+        this.status = "error";
+        //console.log(error);
+        swal(
+          'Error',
+          '' + error,
+          'error'
+        );
+      })
+
+    //OBTENGO LA TAREA
+    //this.hora.IdTarea = this.tarea.IdTarea;
+    //this.tarea.IdProyecto = this.proyecto.IdProyecto;
+  }
+
+
+
+
+
+
+
+
+
+
   ngOnInit() {      
+    
+    //LLAMO AL SERVICIO Y OBTENGO TODOS LOS USUARIOS
+    this.uservice.getUsuarios().subscribe(
+          correcto => {
+            
+            if(correcto['RetornoCorrecto']==="S")
+                { 
+                  if(correcto['Retorno'].length>0){
+                    //console.log(correcto);
+                    this.listausuarios = correcto['Retorno'];  
+                    //console.log(this.listausuarios);                  
+                  }
+            }         
+            else {
+              this.status = "error";
+              swal({
+                position: "center",
+                type: "error",
+    
+                //"usuario o contraseña incorrectos"
+                title: correcto['Mensaje'],             
+                text: correcto['Descripcion'],
+                showConfirmButton: false,
+                timer: 2000
+              });
+            }
+          },
+              error => {
+            this.status = "error";
+            //console.log(error);
+            swal(
+              'Error',
+              ''+error,
+              'error'
+            );
+          }
+        );
+    
 
 
 

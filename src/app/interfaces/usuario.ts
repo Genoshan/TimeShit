@@ -1,10 +1,10 @@
 export interface Usuario {
     
     Nombre: string;
-    email: string;
+    Email: string;
     //password: string;
-    img: string;
-    ci: string;
+    Img: string;
+    CI: string;
   }
   
   

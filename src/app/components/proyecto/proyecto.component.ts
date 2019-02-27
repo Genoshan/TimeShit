@@ -28,10 +28,10 @@ export class ProyectoComponent implements OnInit {
 
   user: Usuario = {
     Nombre: "",
-    email: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   proyecto: Proyecto = {
@@ -163,9 +163,9 @@ export class ProyectoComponent implements OnInit {
   ngOnInit() {
     //this.user = JSON.parse(localStorage.getItem("usuario"));
     //{"Nombre":"Alex Rostan","Email":"alex.rostan@arkanosoft.com","Img":"","CI":"4377187-2"}
-    this.user.ci = JSON.parse(localStorage.getItem("usuario"))["CI"];
-    this.user.email = JSON.parse(localStorage.getItem("usuario"))["Email"];
-    this.user.img = JSON.parse(localStorage.getItem("usuario"))["Img"];
+    this.user.CI = JSON.parse(localStorage.getItem("usuario"))["CI"];
+    this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
+    this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
     this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
     
 

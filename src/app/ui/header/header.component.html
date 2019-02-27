@@ -1,5 +1,5 @@
 <nav  class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
-  <a class="navbar-brand" href="/">TimeSheet App</a>
+  <a class="navbar-brand" [attr.href]="['/proyectos']">TimeSheet App</a>
   <div class="navbar-expand mr-auto">
     <div *ngIf="user1" class="navbar-nav">
       <!-- <a class="nav-item nav-link active" routerLink="['/proyectos']" >Proyectos</a>       -->
@@ -8,12 +8,9 @@
       <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
 
       
-      <a class="nav-item nav-link" href="#">Asignar usuarios a pryectos</a>
+      
     </div>
   </div>
-
-
-
   
 
   <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">

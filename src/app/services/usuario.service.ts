@@ -35,7 +35,7 @@ export class UsuarioService {
     CI: number;
   };
   private url: string;
-  listausuariosaasignar:Usuario[]= [];
+  
 
   //nuevo objeto para manejar retornos
   private retornoLogin = {
@@ -53,6 +53,42 @@ export class UsuarioService {
   }
 };
 
+private retornoUsuarios=
+{
+  "RetornoCorrecto": "S",
+  "Retorno": [
+    {
+      Nombre: "",
+  Email: "",
+  //password: string,
+  Img: "",
+  CI: ""      
+    }],
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+  }
+};
+
+private retornoUsuariosAsignadosAProyecto=
+{
+  "RetornoCorrecto": "S",
+  "Retorno": [
+    {
+      Nombre: "",
+  Email: "",
+  //password: string,
+  Img: "",
+  CI: ""      
+    }],
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+  }
+};
+
 private retornoAsignarUsuarioAProyecto = {
   "RetornoCorrecto": "S",
   "Retorno": false,
@@ -62,6 +98,10 @@ private retornoAsignarUsuarioAProyecto = {
     "Descripcion": null
   }
 };
+
+listausuariosaasignar:Usuario[]= [];
+listausuariosasignadosaproyecto:Usuario[]= [];
+listausuarios:Usuario[]= [];
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
@@ -74,12 +114,12 @@ private retornoAsignarUsuarioAProyecto = {
     
     var body = {
       
-      pDocumento: u.ci,
+      pDocumento: u.CI,
       pIdProyecto: p.IdProyecto
       
     };   
 
-    let params = JSON.stringify({ pDocumento: u.ci, pIdProyecto: p.IdProyecto });
+    let params = JSON.stringify({ pDocumento: u.CI, pIdProyecto: p.IdProyecto });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -87,7 +127,7 @@ private retornoAsignarUsuarioAProyecto = {
 
     return this._http
       .post(
-        this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + u.ci+"&pIdProyecto=" + p.IdProyecto, params)
+        this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + u.CI+"&pIdProyecto=" + p.IdProyecto, params)
         //this.url + 'AsignarUsusarioAProyecto', body, { headers: headers })
       .map((resp: any) => {
         //console.log(resp);
@@ -110,6 +150,92 @@ private retornoAsignarUsuarioAProyecto = {
       })
       .catch(this.handleError);
   }
+
+
+  getUsuarios(){
+
+    //let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto );
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this._http
+      .get(
+        this.url + "ListarUsuarios"        
+      )
+      .map((res: any) => { 
+
+         this.retornoUsuarios = res.json();
+         //console.log(res.json);
+
+         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+         if (this.retornoUsuarios.RetornoCorrecto==="S")
+      {
+        //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+        if (this.retornoUsuarios.Retorno.length>0)
+        {
+          
+          this.listausuarios = this.retornoUsuarios.Retorno;
+         // console.log(this.retornoUsuarios.Retorno);
+
+          return this.retornoUsuarios;            
+        }
+        else {
+          return false;
+        }
+      }
+      else
+      {
+        return this.retornoUsuarios.Errores;
+      }//fin nueva forma
+    })
+      .catch(this.handleError); 
+
+}
+
+
+getUsuariosAsignadosAProyecto(proyecto: Proyecto){  
+  let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto });
+console.log(proyecto);
+  let headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  return this._http
+    .get(
+      this.url + "ListaUsuariosAsignadoAProyecto?pIdProyecto=" + proyecto.IdProyecto+"",      
+      params    
+    )
+    .map((res: any) => { 
+
+       this.retornoUsuariosAsignadosAProyecto = res.json();
+
+       //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+       if (this.retornoUsuariosAsignadosAProyecto.RetornoCorrecto==="S")
+    {
+      //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+      if (this.retornoUsuariosAsignadosAProyecto.Retorno.length>0)
+      {
+        
+        this.listausuariosasignadosaproyecto = this.retornoUsuariosAsignadosAProyecto.Retorno;
+        //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+
+        return this.retornoUsuariosAsignadosAProyecto;            
+      }
+      else {
+        return false;
+      }
+    }
+    else
+    {
+      return this.retornoUsuariosAsignadosAProyecto.Errores;
+    }//fin nueva forma
+  })
+    .catch(this.handleError); 
+
+}
+
+
+
 
   getUsuariosNoAsignadosDeProyecto(proyecto: Proyecto){
 

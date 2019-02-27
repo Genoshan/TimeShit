@@ -37,10 +37,10 @@ export class TareaComponent implements OnInit {
 
   user: Usuario = {
     Nombre: "",
-    email: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   proyecto: Proyecto = {

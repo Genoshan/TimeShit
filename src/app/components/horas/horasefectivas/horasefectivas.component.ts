@@ -171,10 +171,10 @@ export class HorasefectivasComponent implements OnInit {
   p: number = 1;
   user: Usuario = {
     Nombre: "",
-    email: "",
+    Email: "",
     //password: string;
-    img: "",
-    ci: ""
+    Img: "",
+    CI: ""
   };
 
   proyecto: Proyecto = {
