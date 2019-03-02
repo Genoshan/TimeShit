@@ -8,9 +8,10 @@ import { UsuarioService } from "../../services/usuario.service";
 import { Router } from "@angular/router";
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { MatSelectionList, MatSelectionListChange, MatListOption } from '@angular/material';
+import { MatSelectionList, MatSelectionListChange, MatListOption,MatCheckboxModule } from '@angular/material';
 import { FormControl } from "@angular/forms";
 import { debug } from "util";
+import { forEach } from "@angular/router/src/utils/collection";
 
 
 //import { PaginationModule } from 'ngx-pagination-bootstrap';
@@ -37,6 +38,7 @@ export class ProyectosComponent implements OnInit {
   selected: any;
 
   proyectos: Proyecto[] = [];
+  proyectosModal: Proyecto[] = [];
   loading: boolean;
   p: number = 1;
 
@@ -66,35 +68,43 @@ export class ProyectosComponent implements OnInit {
 
   listausuariosaasignar:Usuario[]=[];
   listausuarios:Usuario[]=[];
+  listamarcados:Usuario[]=[];
   listausuariosMerge:Usuario[]=[];
+  listausuariosAMostrar:Usuario[]=[];
+
 
   valueSelected: string;
 
   status: string;
 
+  selectedOptions=[];
+  selectedOption;
+
   
 
   constructor(private pservice: ProyectosService,private router: Router,
     private uservice: UsuarioService,private modalService: NgbModal) {}
-
-    
+    //Selecciona los usuarios asignados en el combo
+    compareWithFunc(a, b) {
+      return a.Email === b.Email;
+    }
 
     
     open(content) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
         this.closeResult = `Cerrado con: ${result}`;
       }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.closeResult = `Desestimado ${this.getDismissReason(reason)}`;
       });
     }
   
     private getDismissReason(reason: any): string {
       if (reason === ModalDismissReasons.ESC) {
-        return 'by pressing ESC';
+        return 'Con ESC';
       } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-        return 'by clicking on a backdrop';
+        return 'Click en atras';
       } else {
-        return  `with: ${reason}`;
+        return  `con: ${reason}`;
       }
     }
 
@@ -228,7 +238,10 @@ export class ProyectosComponent implements OnInit {
     //tengo un proyecto
     //llamo al servicio y le paso usuario y proyecto
 
-    this.uservice.asignarUsuarios(this.proyecto,this.useraasignar).subscribe(
+    console.log(this.proyecto);
+    console.log(this.useraasignar);
+
+    this.uservice.asignarUsuarios(this.proyecto,this.listausuariosAMostrar).subscribe(
       correcto => {
         if (correcto==="S") {
           //console.log(JSON.parse(localStorage.getItem("usuario")));
@@ -259,7 +272,8 @@ export class ProyectosComponent implements OnInit {
     //console.log(this.proyecto);
 
     //tomamos una lista y la filtramos por un elemento del objeto dentro de la lista (Lambda Expression )
-    let proyecto = this.proyectos.find(p => p.IdProyecto == this.proyecto.IdProyecto)
+
+    let proyecto = this.proyectosModal.find(p => p.IdProyecto == this.proyecto.IdProyecto)
 
     this.uservice.getUsuariosAsignadosAProyecto(proyecto).subscribe(
       correcto => {
@@ -270,16 +284,25 @@ export class ProyectosComponent implements OnInit {
             //vacio las tareas y las vuelvo a cargar.
 
             this.listausuariosMerge = null;
-
+            this.listamarcados = null;
 
             // this.listausuarios = correcto['Retorno'];
 
             //selecciono la primer tarea de la lista del proyecto cargado
-            this.listausuariosMerge = correcto['Retorno'];           
+            this.listausuariosMerge = correcto['Retorno'];                 
+            this.listamarcados =  this.listausuariosMerge;
+            //this.useraasignar = this.listausuariosMerge;  
             
-            this.valueSelected = this.selectedusers.value && this.selectedusers.value.toString();
+            this.listausuariosAMostrar = this.listausuariosMerge;
+
+            // this.listausuarios.forEach(u => {               
+            //   this.useraasignar = this.listausuariosMerge.find(x => x.Email === u.Email);              
+            //   });
 
             
+            //console.log(this.listausuariosAMostrar);            
+            //this.valueSelected = this.selectedusers.value && this.selectedusers.value.toString(); 
+            //console.log(this.valueSelected);           
 
           }
         }
@@ -309,7 +332,12 @@ export class ProyectosComponent implements OnInit {
     //this.tarea.IdProyecto = this.proyecto.IdProyecto;
   }
 
-
+  onNgModelChange($event){
+    
+    this.listausuariosAMostrar=$event;
+    console.log(this.listausuariosAMostrar);
+    // this.selectedOption=$event.Nombre;    
+  }
 
 
 
@@ -319,8 +347,47 @@ export class ProyectosComponent implements OnInit {
 
 
   ngOnInit() {      
+
+    //OBTENGO TODOS LOS PROYECTOS PARA EL MODAL
+    
+    this.pservice.getProyectos().subscribe(
+      correcto => {
+        
+        if(correcto['RetornoCorrecto']==="S")
+            { 
+              if(correcto['Retorno'].length>0){
+                //console.log(correcto);
+                this.proyectosModal = correcto['Retorno'];  
+                //console.log(this.listausuarios);                  
+              }
+        }         
+        else {
+          this.status = "error";
+          swal({
+            position: "center",
+            type: "error",
+
+            //"usuario o contraseña incorrectos"
+            title: correcto['Mensaje'],             
+            text: correcto['Descripcion'],
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      },
+          error => {
+        this.status = "error";
+        //console.log(error);
+        swal(
+          'Error',
+          ''+error,
+          'error'
+        );
+      }
+    );
     
     //LLAMO AL SERVICIO Y OBTENGO TODOS LOS USUARIOS
+
     this.uservice.getUsuarios().subscribe(
           correcto => {
             
@@ -360,8 +427,11 @@ export class ProyectosComponent implements OnInit {
 
 
 
-    //LISTA PROYECTOS DEL USUARIO DESDE API
+    //LISTA PROYECTOS DEL USUARIO DESDE API para LA GRILLA
     this.user = JSON.parse(localStorage.getItem("usuario"));
+
+
+    //OBTENGO LOS USUARIOS:
 
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
     this.pservice.getProyectosUsuario(this.user["CI"]).subscribe(
@@ -371,7 +441,12 @@ export class ProyectosComponent implements OnInit {
             { 
               if(correcto['Retorno'].length>0){
                 //console.log(correcto);
-                this.proyectos = correcto['Retorno'];                      
+                this.proyectos = correcto['Retorno'];
+
+                //esto es para asignar usuarios a proyectos y asignar el valor inicial del combo
+                //this.proyecto = this.proyectos[0];
+                //this.onProyectoChange();
+
               }
         }         
         else {
@@ -398,6 +473,9 @@ export class ProyectosComponent implements OnInit {
         );
       }
     );
+
+    //PARA CARGAR MODAL ASIGNAR USUARIOS A PROYECTOS
+
   }
 }
 

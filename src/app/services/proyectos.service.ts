@@ -54,6 +54,24 @@ export class ProyectosService {
     }
   ];
 
+  private retornoListarProyectosSegunEstado=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        IdProyecto: 0,
+        Nombre: "",
+        FechaInicio: new Date(Date.now()),
+        Estado: true,
+        CodigoProyecto: ""
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
   private retornoListarProyectosDeUsuario=
   {
     "RetornoCorrecto": "S",
@@ -114,11 +132,50 @@ export class ProyectosService {
 
   //METODOS
 
-  getProyectos() {
-    return this.proyectos;
+  getProyectos() {   
 
-    //Llamada al servicio de la API y traer por la CI
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this._http
+      .get(this.url + "ListarProyectosSegunEstado?pEstado=true")
+      .map((res: any) => {
+
+        this.retornoListarProyectosSegunEstado = res.json();
+        //console.log(this.retornoListarProyectosDeUsuario);
+        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListarProyectosSegunEstado.RetornoCorrecto==="S")
+        {
+          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+          if (this.retornoListarProyectosSegunEstado.Retorno.length>0)
+          {
+            
+            this.proyectos = this.retornoListarProyectosSegunEstado.Retorno;
+            console.log(this.retornoListarProyectosSegunEstado.Retorno);
+
+            return this.retornoListarProyectosSegunEstado;            
+          }
+          else {
+            return false;
+          }
+        }
+        else
+        {
+          return this.retornoListarProyectosSegunEstado.Errores;
+        }//fin nueva forma
+
+        // this.proyectos = res.json();
+
+        // if (this.proyectos.length > 0) {
+        //   return this.proyectos;
+        // } else {
+        //   return false;
+        // }
+      })
+      .catch(this.handleError);
   }
+
 
   getProyectosUsuario(ci: string) {
     let params = JSON.stringify({ pCI: ci });

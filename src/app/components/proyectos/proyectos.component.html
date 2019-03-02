@@ -28,17 +28,12 @@
                   </div>
                   <div class="modal-body">
                     <form>
-
                       <div class="form-group">
 
-
-                            <!-- <mat-select placeholder="Proyectos" [(ngModel)]="proyecto.IdProyecto" name="Proyecto" (selectionChange)="onProyectoChange($event)">                         -->
-
-                                    <!-- <mat-option *ngFor="let p of proyectos" [value]="p.Nombre"> -->
-
+                        <!-- Selector de Proyectos -->
                           <mat-form-field>
                               <mat-select placeholder="Proyectos" [(ngModel)]="proyecto.IdProyecto" name="Proyecto" (selectionChange)="onProyectoChange($event)">                        
-                                  <mat-option *ngFor="let p of proyectos" [value]="p.IdProyecto">
+                                  <mat-option *ngFor="let p of proyectosModal"  [value]="p.IdProyecto">
                                       {{ p.Nombre }}
                                   </mat-option>                          
                               </mat-select>
@@ -46,31 +41,25 @@
 
                           <br>
 
-
-                        <!-- <label for="dateOfBirth">Usuarios</label>     -->
-
-                        <!-- <p>
-                            Usuarios selec: {{lista.selectedOptions.selected.length}}
-                          </p>     -->
-                          
-                          
+                          <!-- Selector de Usuarios  [formControl]="selectedusers"-->
                           <mat-form-field>
-                                <mat-select placeholder="Usuarios" [formControl]="selectedusers" multiple>
-                                  <mat-option *ngFor="let u of listausuariosMerge" [value]="u">{{u.Nombre}}</mat-option>
+                                <mat-select placeholder="Usuarios" [(ngModel)]="listamarcados" name="Usuario" multiple [(ngModel)]="selectedOptions" [compareWith]="compareWithFunc"
+                                (ngModelChange)="onNgModelChange($event)" >
+                                  <mat-option *ngFor="let u of listausuarios" [value]="u">{{u.Nombre}}</mat-option>                                     
                                 </mat-select>
                               </mat-form-field>
 
-                              <div>
-                                    value selected is : {{valueSelected}}
+                              <h6>Usuarios :</h6>
+                              <div *ngFor="let l of listausuariosAMostrar">
+                                     {{l.Nombre}}
                                   </div>
-
-
-
+                                  
                       </div>
                     </form>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Asignar</button>
+                        <button class="btn btn-outline-success btn-block" (click)="asignarUsuarios()">Asignar</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cerrar</button>
                   </div>
                 </ng-template>
                 
@@ -78,7 +67,7 @@
                 
                 <hr>
                 
-                <pre>{{closeResult}}</pre>
+                <!-- <pre>{{closeResult}}</pre> -->
              
 
 

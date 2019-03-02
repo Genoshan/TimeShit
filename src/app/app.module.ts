@@ -19,7 +19,7 @@ import { routingModule } from "./app.routing";
 //import { MatButtonModule, MatCardModule, MatFormFieldModule,MatDialog, MatDialogRef,MatDialogModule } from '@angular/material';
 
 import { MatListModule,MatButtonModule, MatCardModule, MatSelectModule,
-  MatMenuModule, MatToolbarModule, MatIconModule, MatAutocompleteModule, MatInputModule,MatFormFieldModule } from '@angular/material';
+  MatMenuModule, MatToolbarModule, MatIconModule, MatAutocompleteModule, MatInputModule,MatFormFieldModule,MatCheckboxModule } from '@angular/material';
 
 
 //SERVICES
@@ -73,6 +73,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatFormFieldModule,
     MatListModule,
     MatSelectModule,
+    MatCheckboxModule,
     NgbModule    
 //    PaginationModule,    
   ],

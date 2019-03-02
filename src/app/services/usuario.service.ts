@@ -110,16 +110,19 @@ listausuarios:Usuario[]= [];
   }
 
   //Asignar Usuarios a Proyectos
-  asignarUsuarios(p: Proyecto, u: Usuario) {
+  asignarUsuarios(p: Proyecto, u: Usuario[]) {
+    
+    console.log(p);
+    console.log(u);
     
     var body = {
       
-      pDocumento: u.CI,
+      pUsuarios: u,
       pIdProyecto: p.IdProyecto
       
     };   
 
-    let params = JSON.stringify({ pDocumento: u.CI, pIdProyecto: p.IdProyecto });
+    let params = JSON.stringify({ pUsuarios: u, pIdProyecto: p.IdProyecto });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -127,8 +130,8 @@ listausuarios:Usuario[]= [];
 
     return this._http
       .post(
-        this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + u.CI+"&pIdProyecto=" + p.IdProyecto, params)
-        //this.url + 'AsignarUsusarioAProyecto', body, { headers: headers })
+        //this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + u.CI+"&pIdProyecto=" + p.IdProyecto, params)
+        this.url + 'AsignarUsusarioAProyecto', body, { headers: headers })
       .map((resp: any) => {
         //console.log(resp);
         this.retornoAsignarUsuarioAProyecto = resp.json();        

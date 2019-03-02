@@ -14,3 +14,10 @@ body{
 .btn-lg, .btn-group-lg > .btn {
     margin-right: 15px;
 }
+
+.mat-form-field {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    width: 100%;
+}
