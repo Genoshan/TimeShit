@@ -102,12 +102,21 @@ private retornoAsignarUsuarioAProyecto = {
 listausuariosaasignar:Usuario[]= [];
 listausuariosasignadosaproyecto:Usuario[]= [];
 listausuarios:Usuario[]= [];
+private usuarios: Usuario[] = [];
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
     this.url = "http://localhost:88/api/";
     //this.url = "https://timesheetrestapi.azurewebsites.net/api/";
   }
+
+
+    //BUSCADOR DE TAREAS
+    getUsuariosxTermino(termino: string) {
+      return this.usuarios.filter(
+        x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1
+      );
+    }
 
   //Asignar Usuarios a Proyectos
   asignarUsuarios(p: Proyecto, u: Usuario[]) {

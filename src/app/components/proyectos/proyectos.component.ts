@@ -14,8 +14,6 @@ import { debug } from "util";
 import { forEach } from "@angular/router/src/utils/collection";
 
 
-//import { PaginationModule } from 'ngx-pagination-bootstrap';
-
 declare var require: any;
 const Swal = require('sweetalert2');
 @Component({

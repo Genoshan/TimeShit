@@ -40,6 +40,8 @@ import { KeysPipe } from './pipes/keys.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //import { NgbModalBackdrop } from '@ng-bootstrap/ng-bootstrap/modal/modal-backdrop';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { EscapeHtmlPipe } from './pipes/keep-html.pipe';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     TareaComponent,
     LoginComponent,
     UsuarioComponent,
-    KeysPipe
+    KeysPipe,
+    UsuariosComponent,
+    EscapeHtmlPipe
   ],
   imports: [
     FormsModule,
