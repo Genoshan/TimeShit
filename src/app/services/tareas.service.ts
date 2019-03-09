@@ -175,7 +175,7 @@ export class TareasService {
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoCrearTarea.RetornoCorrecto==="S")
         {
-          return this.retornoCrearTarea.RetornoCorrecto;
+          return this.retornoCrearTarea;
         }
         else 
         {

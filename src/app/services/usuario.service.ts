@@ -389,7 +389,7 @@ console.log(proyecto);
           if (this.retornoAltaUsuario.RetornoCorrecto==="S")
           {
             console.log("RetornoCorrecto");
-            return this.retornoAltaUsuario.RetornoCorrecto;
+            return this.retornoAltaUsuario;
           }
           else 
           {          
