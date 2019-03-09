@@ -1,3 +1,52 @@
-<p>
-  usuario works!
-</p>
+<button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
+  <i class="fa fa-arrow-left"></i>
+</button>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12">
+      <form class="card w-100 card-block bg-faded">
+        <legend class="m-b-1 text-center text-info"> <strong>
+
+            <p *ngIf="user.Email ==''"><b> NUEVO USUARIO </b></p>
+            <b> {{ user.Email }} </b>
+
+          </strong></legend>
+
+        <div class="form-group input-group">
+          <span class="has-float-label">
+            <input placeholder="Nombre" class="form-control" type="text" [ngModel]="user.Nombre" name="Usuario"
+              (ngModelChange)="user.Nombre=$event">
+            <label for="last">Nombre</label>
+          </span>
+        </div>
+
+        <div class="form-group input-group">
+          <span class="has-float-label">
+            <input placeholder="Email" class="form-control" type="text" [ngModel]="user.Email" name="Email"
+              (ngModelChange)="user.Email=$event">
+            <label for="last">Email</label>
+          </span>
+        </div>
+
+        <div class="form-group input-group">
+          <span class="has-float-label">
+            <input placeholder="CI" class="form-control" type="text" [ngModel]="user.CI" name="CI"
+              (ngModelChange)="user.CI=$event">
+            <label for="last">CI</label>
+          </span>
+        </div>
+
+        <!-- <div class="form-group input-group">
+          <span class="has-float-label">
+            <input placeholder="Imagen" class="form-control" type="text" [ngModel]="user.Imagen" name="Imagen"
+              (ngModelChange)="user.Imagen=$event">
+            <label for="last">Imagen</label>
+          </span>
+        </div>     -->
+
+        <button class="btn btn-outline-dark btn-block" (click)="altaUsuario()">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>

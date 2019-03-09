@@ -1,8 +1,3 @@
-
-
-//Nueva API
-
-
 import { UsuarioComponent } from "./../components/usuario/usuario.component";
 import "rxjs/Rx";
 import { Injectable } from "@angular/core";

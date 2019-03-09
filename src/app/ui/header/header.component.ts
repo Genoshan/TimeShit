@@ -13,9 +13,10 @@ export class HeaderComponent implements OnInit, DoCheck{
   user1: Usuario = {
     Nombre: "",
     Email: "",
-    //passwrd: string;
+    Clave: "",
     Img: "",
-    CI: ""
+    CI: "",
+    oCompany: 0
   };
   correcto = false;
 

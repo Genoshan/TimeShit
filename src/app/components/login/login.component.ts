@@ -18,9 +18,10 @@ export class LoginComponent implements OnInit {
   user: Usuario = {
     Nombre: "",
     Email: "",
-    //password: string;
+    Clave: "",
     Img: "",
-    CI: ""
+    CI: "",
+    oCompany: 0
   };
 
   email: string;

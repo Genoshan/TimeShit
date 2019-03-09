@@ -30,7 +30,7 @@ backClicked() {
 
 buscar(termino: string) {
   this.loading = true;
-  this.usuarios=this.uservice.getUsuariosxTermino(termino);
+  this.listausuarios=this.uservice.getUsuariosxTermino(termino);
   
 }
 
@@ -43,7 +43,8 @@ buscar(termino: string) {
             { 
               if(correcto['Retorno'].length>0){
                 //console.log(correcto);
-                this.listausuarios = correcto['Retorno'];  
+                this.listausuarios = correcto['Retorno'];                  
+                localStorage.setItem('usuarios',JSON.stringify(this.listausuarios)); 
                 //console.log(this.listausuarios);                  
               }
         }

@@ -1,6 +1,3 @@
-
-//Nueva API
-
 import { UsuarioComponent } from "./../components/usuario/usuario.component";
 import "rxjs/Rx";
 import { Injectable } from "@angular/core";
@@ -30,10 +27,15 @@ export class UsuarioService {
   private Usuario: {
     Nombre: string;
     Email: string;
-    //password: string,
+    Clave: string;
     Img: string;
-    CI: number;
+    CI: string;
+    oCompany: number;
   };
+
+
+
+  
   private url: string;
   
 
@@ -43,8 +45,11 @@ export class UsuarioService {
     "Retorno": {
         "Nombre": null,
         "Email": null,
+        "Clave": null,
         "Img": null,
-        "CI": null
+        "CI": null,
+        "oCompany":null
+
     },
     "Errores": {
       "ExceptionType": null,
@@ -59,11 +64,23 @@ private retornoUsuarios=
   "Retorno": [
     {
       Nombre: "",
-  Email: "",
-  //password: string,
-  Img: "",
-  CI: ""      
+      Email: "",
+      Clave: "",
+      Img: "",
+      CI: "",
+      oCompany: 0  
     }],
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+  }
+};
+
+private retornoAltaUsuario=
+{
+  "RetornoCorrecto": "E",
+  "Retorno": false,
   "Errores": {
     "ExceptionType": null,
     "Mensaje": null,
@@ -77,10 +94,11 @@ private retornoUsuariosAsignadosAProyecto=
   "Retorno": [
     {
       Nombre: "",
-  Email: "",
-  //password: string,
-  Img: "",
-  CI: ""      
+      Email: "",
+      Clave: "",
+      Img: "",
+      CI: "",
+      oCompany: 0
     }],
   "Errores": {
     "ExceptionType": null,
@@ -99,10 +117,21 @@ private retornoAsignarUsuarioAProyecto = {
   }
 };
 
+private retornoEditarUsuario=
+{
+  "RetornoCorrecto": "E",
+  "Retorno": false,
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+  }
+};
+
 listausuariosaasignar:Usuario[]= [];
 listausuariosasignadosaproyecto:Usuario[]= [];
 listausuarios:Usuario[]= [];
-private usuarios: Usuario[] = [];
+usuarios: Usuario[] = [];
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
@@ -112,8 +141,9 @@ private usuarios: Usuario[] = [];
 
 
     //BUSCADOR DE TAREAS
-    getUsuariosxTermino(termino: string) {
-      return this.usuarios.filter(
+    getUsuariosxTermino(termino: string) {     
+      console.log(termino) ;
+      return this.listausuarios.filter(
         x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1
       );
     }
@@ -128,6 +158,7 @@ private usuarios: Usuario[] = [];
       
       pUsuarios: u,
       pIdProyecto: p.IdProyecto
+
       
     };   
 
@@ -164,6 +195,19 @@ private usuarios: Usuario[] = [];
   }
 
 
+
+
+    //OBTENER USUARIO POR EMAIL
+    getUsuario(email: string) {      
+      
+      //console.log(this.usuarios);      
+      //console.log(email);
+      this.Usuario = this.listausuarios.find(x => x.Email == email);      
+      return (this.Usuario = this.listausuarios.find(x => x.Email == email));        
+    
+    }
+
+
   getUsuarios(){
 
     //let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto );
@@ -177,18 +221,17 @@ private usuarios: Usuario[] = [];
       )
       .map((res: any) => { 
 
-         this.retornoUsuarios = res.json();
-         //console.log(res.json);
+         this.retornoUsuarios = res.json();         
 
          //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
          if (this.retornoUsuarios.RetornoCorrecto==="S")
-      {
+               {     
+        
         //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
         if (this.retornoUsuarios.Retorno.length>0)
         {
           
-          this.listausuarios = this.retornoUsuarios.Retorno;
-         // console.log(this.retornoUsuarios.Retorno);
+          this.listausuarios = this.retornoUsuarios.Retorno;         
 
           return this.retornoUsuarios;            
         }
@@ -204,6 +247,8 @@ private usuarios: Usuario[] = [];
       .catch(this.handleError); 
 
 }
+
+
 
 
 getUsuariosAsignadosAProyecto(proyecto: Proyecto){  
@@ -292,21 +337,10 @@ console.log(proyecto);
       )
       .map((res: any) => {                 
 
-        /*FORMA ANTERIOR de obtener el retorno (el usuario)*/
-        // this.Usuario = res.json();
-        //  if (this.Usuario["Nombre"]!=null)
-        //    {            
-        //      localStorage.setItem('usuario',JSON.stringify(this.Usuario));
-        //      return true;
-        //    }
-        //  else{          
-        //      return false;
-        //    }
-
-
         /*NUEVA FORMA DE OBTENER RETORNOS*/
         //obtengo el retorno con la  nueva forma
           this.retornoLogin = res.json();
+          console.log(this.retornoLogin);
         
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
          if (this.retornoLogin.RetornoCorrecto==="S")
@@ -326,6 +360,95 @@ console.log(proyecto);
       })
       .catch(this.handleError); 
   }
+
+
+    //alta de usuario
+    altaUsuario(u: Usuario) {
+
+      //let body:any = JSON.stringify({ t });
+  
+      var body = {
+        Nombre: u.Nombre,
+        Email: u.Email,
+        Clave: u.Clave,
+        Img: u.Img,
+        CI: u.CI,
+        oCompany: 3
+      };
+  
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+  
+      let options = new RequestOptions({ headers: headers });
+  
+      return this._http
+        .post(this.url + 'AltaUsuario', body, { headers: headers })
+        .map((resp: any) => {
+          this.retornoAltaUsuario = resp.json();        
+          //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+          if (this.retornoAltaUsuario.RetornoCorrecto==="S")
+          {
+            console.log("RetornoCorrecto");
+            return this.retornoAltaUsuario.RetornoCorrecto;
+          }
+          else 
+          {          
+            console.log(this.retornoAltaUsuario)  ;
+            return this.retornoAltaUsuario.Errores;          
+          }//fin nueva forma
+          
+          //swal('Tarea Actualizada', t.Nombre, 'success');        
+          //return resp;
+        })
+        .catch(this.handleError);
+    }
+
+
+    //editarTarea
+  editarUsuario(u: Usuario) {
+    //let headers = new Headers();
+    var body = {
+      Nombre: u.Nombre,
+      Email: u.Email,
+      Clave: u.Clave,
+      Img: u.Img,
+      CI: u.CI,
+      oCompany: u.oCompany
+    };   
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http
+      .post(this.url + 'ModificarUsuario', body, { headers: headers })
+      .map((resp: any) => {
+        //swal('Tarea Actualizada', t.Nombre, 'success');        
+        //return resp;
+
+        //retornoEditarTarea
+        this.retornoEditarUsuario = resp.json();        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoEditarUsuario.RetornoCorrecto==="S")
+        {
+          return this.retornoEditarUsuario.RetornoCorrecto;
+        }
+        else 
+        {
+          return this.retornoEditarUsuario.Errores;          
+        }//fin nueva forma
+
+      })
+      .catch(this.handleError);
+  }
+
+
+
+
+
+
+
 
   //MANEJADOR DE ERRORES DE SERVICIO  
   private handleError(error: any) {

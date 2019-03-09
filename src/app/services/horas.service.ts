@@ -255,9 +255,10 @@ export class HorasService {
   private user: Usuario = {
     Nombre: "",
     Email: "",
-    //password: string;
+    Clave: "",
     Img: "",
-    CI: ""
+    CI: "",
+    oCompany: 0
   }
 
   private Hora: {

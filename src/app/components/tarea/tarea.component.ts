@@ -38,9 +38,10 @@ export class TareaComponent implements OnInit {
   user: Usuario = {
     Nombre: "",
     Email: "",
-    //password: string;
+    Clave: "",
     Img: "",
-    CI: ""
+    CI: "",
+    oCompany : 0
   };
 
   proyecto: Proyecto = {
@@ -102,7 +103,7 @@ export class TareaComponent implements OnInit {
               type: "success",
               title: "Tarea creada Correctamente"
             });
-            this.router.navigate([`/tareas/${this.proyecto.IdProyecto}`]);
+            this.router.navigate([`/tareas`]);
             this.tarea = correcto['Retorno'];
           } 
           else {            

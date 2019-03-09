@@ -2,9 +2,10 @@ export interface Usuario {
     
     Nombre: string;
     Email: string;
-    //password: string;
+    Clave: string;
     Img: string;
     CI: string;
+    oCompany: number;
   }
   
   

@@ -30,8 +30,10 @@ export class HorasComponent implements OnInit {
   user: Usuario = {
     Nombre: "",
     Email: "",
+    Clave: "",
     Img: "",
-    CI: ""
+    CI: "",
+    oCompany: 0
   };
 
   hora: Hora = {

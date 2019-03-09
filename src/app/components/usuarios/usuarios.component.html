@@ -31,7 +31,7 @@
               <table class="table table-dark  table-hover table-striped ">
                   <thead>
                       <tr>
-                        <th>IMAGEN</th>
+                        <!-- <th>IMAGEN</th> -->
                           <th>Nombre</th>                                
                           <th>Email</th>
                           <th>CI</th>
@@ -40,15 +40,15 @@
                   </thead>
                   <tbody>                            
                               <tr *ngFor="let u of listausuarios | keys | paginate:{itemsPerPage:8,currentPage: p}">
-                                <td>{{ listausuarios[u].Img }}</td>                                
-                                <img src="'data:image/jpg;base64,'+ listausuarios[u].Img | keepHtml "/>
+                                <!-- <td>{{ listausuarios[u].Img }}</td>                                
+                                <img src="'data:image/jpg;base64,'+ listausuarios[u].Img | keepHtml "/> -->
                                 
                                   <td>{{ listausuarios[u].Nombre }}</td>
                                   <td>{{ listausuarios[u].Email }}</td>
-                                  <td>{{ listausuarios[u].CI }}</td>
+                                  <td>{{ listausuarios[u].CI }}</td>                                  
 <td>
                                       <!-- Editar Usuario -->
-                                      <button id="editarUsuario" [routerLink]="['/usuario',u.Email]" type="button" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Editar Usuario">                                                
+                                      <button id="editarUsuario" [routerLink]="['/usuario',listausuarios[u].Email]" type="button" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Editar Usuario">                                                
                                           <i class="fa fa-edit"></i>    
                                       </button>
                                     </td>
