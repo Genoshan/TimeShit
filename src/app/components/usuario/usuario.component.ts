@@ -126,7 +126,7 @@ altaUsuario() {
             type: "success",
             title: "Usuario Modificado Correctamente"
           });
-          this.router.navigate([`/tareas/${this.user.Email}`]);
+          this.router.navigate([`/usuarios`]);
           this.user = correcto['Retorno'];
         } else {
           //this.status = "error";

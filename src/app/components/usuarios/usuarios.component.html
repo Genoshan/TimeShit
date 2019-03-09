@@ -6,7 +6,9 @@
     <h2><b>Lista de Usuarios</b></h2>          
       <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div>
       <ul class="pagination">
-          <pagination-controls class="my-pagination" (pageChange)=" p =$event"> </pagination-controls>
+          <pagination-controls class="my-pagination" (pageChange)=" p =$event"
+          previousLabel="Anterior"
+          nextLabel="Siguiente"> </pagination-controls>
       </ul>
       <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar usuarios">
 

@@ -6,7 +6,9 @@
       <h2><b>HORAS de la tarea: {{ tarea.Nombre }}</b></h2>               
         <div class="hint-text ">Mostrando <b>{{itemsPerPage}}</b> de <b>25</b> entradas</div>
         <ul class="pagination">
-            <pagination-controls class="my-pagination" (pageChange)=" p =$event"> </pagination-controls>
+            <pagination-controls class="my-pagination" (pageChange)=" p =$event"
+            previousLabel="Anterior"
+            nextLabel="Siguiente"> </pagination-controls>
         </ul>
         <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar horas">
         <div class="row">

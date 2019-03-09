@@ -153,16 +153,25 @@ usuarios: Usuario[] = [];
     
     console.log(p);
     console.log(u);
+
+    let listaStringEmails:string []=[];
+
+    u.forEach(element => {
+      let email = element.Email;
+      listaStringEmails.push(email);
+    });
+    
+
     
     var body = {
       
-      pUsuarios: u,
-      pIdProyecto: p.IdProyecto
-
-      
+      ListaUsuarios: listaStringEmails,
+      IdProyecto: p.IdProyecto      
     };   
 
-    let params = JSON.stringify({ pUsuarios: u, pIdProyecto: p.IdProyecto });
+    console.log(body);
+
+    let params = JSON.stringify({ ListaUsuarios: listaStringEmails, IdProyecto: p.IdProyecto });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 

@@ -66,8 +66,7 @@ buscar(termino: string) {
 }
 
 borrarTarea(k: Number) {  
-
-  //console.log('antesdelswal');
+  
   swal({
     title: 'La tarea se eliminará, está seguro?',
     text: "La tarea no se podrá recuperar.",
@@ -157,6 +156,7 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
  this.tservice.getTareasDeProyecto(this.id)
  .subscribe(        
  correcto => { 
+   console.log(correcto);
   if(correcto['RetornoCorrecto']==="S")
   { 
     if(correcto['Retorno'].length>=0){
@@ -166,7 +166,22 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
     }
 }         
 else {
-this.status = "error";
+
+  if(correcto===false){
+    swal({
+      position: "center",
+      type: "info",
+    
+      
+      title: "Aviso",
+      text: "No existen tareas para el proyecto",
+      showConfirmButton: false,
+      timer: 3000
+    });
+  }
+
+  else{
+    this.status = "error";
 swal({
   position: "center",
   type: "error",
@@ -177,6 +192,7 @@ swal({
   showConfirmButton: false,
   timer: 2000
 });
+  }
 }  
 },(error) => {
   this.status = "error";

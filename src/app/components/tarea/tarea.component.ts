@@ -103,7 +103,7 @@ export class TareaComponent implements OnInit {
               type: "success",
               title: "Tarea creada Correctamente"
             });
-            this.router.navigate([`/tareas`]);
+            this.router.navigate([`/tareas/${this.tarea.IdTarea}`]);
             this.tarea = correcto['Retorno'];
           } 
           else {            
@@ -160,8 +160,7 @@ export class TareaComponent implements OnInit {
           }
         },
         error => {
-          this.status = "error";
-          //console.log(error);
+          this.status = "error";          
           swal(
             'Error',
             ''+error,

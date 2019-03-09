@@ -146,8 +146,7 @@ export class ProyectosService {
           if (this.retornoListarProyectosSegunEstado.Retorno.length>0)
           {
             
-            this.proyectos = this.retornoListarProyectosSegunEstado.Retorno;
-            console.log(this.retornoListarProyectosSegunEstado.Retorno);
+            this.proyectos = this.retornoListarProyectosSegunEstado.Retorno;            
 
             return this.retornoListarProyectosSegunEstado;            
           }
