@@ -62,6 +62,7 @@ export class HorasComponent implements OnInit {
   };
 
   status: string;
+  hayerrores: boolean = false;
 
   constructor(
     private ts: TareasService,
@@ -97,7 +98,7 @@ export class HorasComponent implements OnInit {
       this.proyectos.push(this.proyecto);
       this.tareas.push(this.tarea);
 
-      //OBTENGO LA TAREA
+      //OBTENGO LA TAREA      
       this.hora.IdTarea = this.tarea.IdTarea;
       this.tarea.IdProyecto = this.proyecto.IdProyecto;
 
@@ -135,31 +136,45 @@ export class HorasComponent implements OnInit {
           this.proyectos.push(this.proyecto);
 
           //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS
-          this.ts
-            .getTareasDeProyecto(Number(this.proyecto.IdProyecto))
-            .subscribe(
+          this.ts.getTareasDeProyecto(Number(this.proyecto.IdProyecto)).subscribe(
               correcto => {
                 if(correcto['RetornoCorrecto']==="S") {
 
-                  if(correcto['Retorno'].length>=0){
+                  if(correcto['Retorno'].length>=0){                    
 
                     //vacio las tareas y las vuelvo a cargar.
                     this.tareas = null;
                     this.tareas = correcto['Retorno'];
                     //OBTENGO LA TAREA
-                    this.hora.IdTarea = this.tareas[0].IdTarea;
-                    this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-                    //console.log(this.tareas);     
+                    if(this.hora.IdTarea!=null){
+                      this.hora.IdTarea = this.tareas[0].IdTarea;
+                      this.tarea.IdProyecto = this.tareas[0].IdProyecto;                    
+                    }
+                    else {                      
+                      this.status = "error";
+                      swal({
+                        position: "center",
+                        type: "error",
+                        /*"usuario o contraseña incorrectos" */
+                        title: "Aviso",
+                        text: "No hay tareas",
+                        showConfirmButton: false,
+                        timer: 2000
+                      });
+
+                    }
                   }
                 }
-                else {
+                else {                    
                   this.status = "error";
                   swal({
                     position: "center",
                     type: "error",
                     /*"usuario o contraseña incorrectos" */
-                    title: correcto['Mensaje'],
-                    text: correcto['Descripcion'],
+                    // title: correcto['Mensaje'],
+                    // text: correcto['Descripcion'],
+                    title: "Aviso",
+                    text: "No hay tareas",
                     showConfirmButton: false,
                     timer: 2000
                   });
@@ -191,6 +206,8 @@ export class HorasComponent implements OnInit {
                 correcto => {
                   if(correcto['RetornoCorrecto']==="S") {
 
+                    console.log(correcto['Retorno']);
+
                     if(correcto['Retorno'].length>=0){
                       //vacio las tareas y las vuelvo a cargar.
                       this.tareas = null;
@@ -198,21 +215,29 @@ export class HorasComponent implements OnInit {
                       //OBTENGO LA TAREA      
                       this.hora.IdTarea = this.tareas[0].IdTarea;
                       this.tarea.IdProyecto = this.tareas[0].IdProyecto;
-                      //console.log(this.tareas);     
+                      //console.log(this.tareas);    
                     }
-
                   }
                   else {
+                    //console.log(correcto['Retorno']);
+                    this.tarea = {
+                      IdTarea: 0,
+                      Nombre: "",
+                      Descripcion: "",
+                      FechaInicio: new Date(Date.now()),
+                      FechaFIn: new Date(Date.now()),
+                      IdProyecto: this.proyecto.IdProyecto
+                    };
                     this.status = "error";
                     swal({
                       position: "center",
-                      type: "error",
+                      type: "info",
                       
                       /*"usuario o contraseña incorrectos" */
-                      title: correcto['Mensaje'],
-                      text: correcto['Descripcion'],
+                      title: "Aviso",
+                      text: "No hay tareas",
                       showConfirmButton: false,
-                      timer: 3000
+                      timer: 2000
                     });
                   }
                 },
@@ -250,7 +275,7 @@ export class HorasComponent implements OnInit {
                         .getTareasDeProyecto(Number(this.tarea.IdProyecto))
                         .subscribe(
                           correcto => {
-                            if(correcto['RetornoCorrecto']==="S") {
+                            if(correcto['RetornoCorrecto']==="S") {                              
                               if(correcto['Retorno'].length>=0){
                                 //vacio las tareas y las vuelvo a cargar.
                                 this.tareas = null;
@@ -262,13 +287,16 @@ export class HorasComponent implements OnInit {
 
                             }
                             else {
+                              
+                              this.hayerrores = true;
+                              console.log(correcto);
                               this.status = "error";
                               swal({
                                 position: "center",
-                                type: "error",
+                                type: "info",
                                 /*"usuario o contraseña incorrectos" */
-                                title: correcto['Mensaje'],
-                                text: correcto['Descripcion'],
+                                title: "Aviso",
+                                text: "No hay tareas para ese proyecto",
                                 showConfirmButton: false,
                                 timer: 3000
                               });
@@ -545,6 +573,8 @@ export class HorasComponent implements OnInit {
   onProyectoChange() {
     //console.log(this.tarea.IdProyecto);
 
+    this.hayerrores = false;
+
     this.ts.getTareasDeProyecto(Number(this.tarea.IdProyecto))
       .subscribe(
         correcto => {
@@ -560,20 +590,23 @@ export class HorasComponent implements OnInit {
             //console.log(this.tareas);
             }
           }
-          else {
+          else {    
+            this.hayerrores = true;
+            console.log(this.hayerrores);
             this.status = 'error';
             swal({
               position: "center",
-              type: "error",
-              title: correcto['Mensaje'],
-              text: correcto['Descripcion'],
+              type: "info",
+              title: "Atencion",
+              text: "No hay tareas para ese proyecto",
+              // title: correcto['Mensaje'],
+              // text: correcto['Descripcion'],
               showConfirmButton: false,
               timer: 2000
             });
           }
         }, (error) => {
-          this.status = "error";
-          //console.log(error);
+          this.status = "error";          
           swal(
             'Error',
             '' + error,
@@ -589,8 +622,10 @@ export class HorasComponent implements OnInit {
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ngOnInit() {
     //OBTENGO USUARIO DE LA LOCAL STORAGE
+    
     this.user = JSON.parse(localStorage.getItem("usuario"));
     this.getHora();
+
   }
 }
 

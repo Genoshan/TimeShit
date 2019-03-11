@@ -55,7 +55,21 @@
           </span>
         </div>
 
-        <button class="btn btn-outline-dark btn-block" (click)="crearTareas()">Guardar</button>
+        
+
+<!-- Para no permitir agregar vacio -->
+        <div *ngIf="tarea.Nombre== '' else validar">
+            <button class="btn btn-outline-dark btn-block" disabled (click)="crearTareas()">Guardar</button>            
+          </div>
+    
+          <ng-template #validar>
+              <button class="btn btn-outline-dark btn-block" (click)="crearTareas()">Guardar</button>              
+            </ng-template>
+
+
+
+
+
       </form>
     </div>
   </div>

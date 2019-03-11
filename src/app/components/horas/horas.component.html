@@ -8,15 +8,15 @@
                     <form class="card w-100 card-block bg-faded">
                           <legend class="m-b-1 text-center text-info"> <strong> 
 
-                            <p *ngIf="hora.Descripcion ==''"><b> CARGA DE HORAS </b></p>
-                         
+                            <p><b> CARGA DE HORAS </b></p>                           
                                                           
                         </strong></legend>
                           <div class="form-group input-group">
-                            <span class="has-float-label">
+                            <span class="has-float-label">                              
                          <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" (change)="onProyectoChange()" class="custom-select">
 							<option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-						</select>
+            </select>
+          
                               <label for="first">Proyecto</label>
                             </span>
                           </div>
@@ -39,7 +39,7 @@
 						  
 						<div class="form-group input-group">
                             <span class="has-float-label">
-								<textarea [(ngModel)]="hora.Descripcion" name="Descripcion" id="Descripcion" type="text" class="form-control"></textarea>
+								<textarea [(ngModel)]="hora.Descripcion" name="Descripcion" maxlength="72" id="Descripcion" type="text" class="form-control"></textarea>
                               <label for="fourth">Descripcion</label>
                             </span>
                           </div>
@@ -51,7 +51,27 @@
                               <label for="last">Fecha</label>
                             </span>
                           </div>
-                          <button class="btn btn-outline-dark btn-block" (click)="CargarHoras()">Guardar</button>
+                          
+                    <div *ngIf="hayerrores || hora.CantidadHoras== '' || hora.Descripcion == ''; else habilitarBoton">
+                              <button class="btn btn-outline-dark btn-block" disabled (click)="CargarHoras()">Guardar</button>                          
+                            </div>
+
+                            <ng-template #habilitarBoton>
+                                <button class="btn btn-outline-dark btn-block"  (click)="CargarHoras()">Guardar</button>                          
+                              </ng-template>
+
+
+
+                        <!-- Para no permitir agregar vacio -->
+        <!-- <div *ngIf="hora.CantidadHoras '' || hora.Descripcion == '' else validar">
+            <button class="btn btn-outline-dark btn-block" disabled (click)="CargarHoras()">Guardar</button>            
+          </div>
+    
+          <ng-template #validar>
+              <button class="btn btn-outline-dark btn-block" (click)="crearTareas()">Guardar</button>              
+            </ng-template> -->
+
+                        
                     </form>
                 </div>
             </div>

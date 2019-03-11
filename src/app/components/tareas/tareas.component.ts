@@ -42,6 +42,7 @@ export class TareasComponent implements OnInit {
     IdProyecto: 0  
   }
   status: string;
+  hayerrores: boolean=false;
 
   constructor(private tservice: TareasService,private pservice: ProyectosService,
               private router:Router,
@@ -84,8 +85,7 @@ borrarTarea(k: Number) {
         .subscribe(        
           correcto => { 
             if(correcto['RetornoCorrecto']==="S")
-            {
-              //console.log(correcto);        
+            {              
               swal(
                 'Tarea Eliminada',
                 '',
@@ -94,17 +94,10 @@ borrarTarea(k: Number) {
 
               //recargo las tareas
               this.tareas = null;
-              this.listarTareasDeProyecto();
-              //console.log(this.tareas);
+              this.listarTareasDeProyecto();              
             }
             else{
               this.status = 'error';
-              //console.log(correcto);              
-              // swal(
-              //   'Error',
-              //   'No se pudo borrar la tarea',
-              //   'error'
-              // );
               swal({
                 position: "center",
                 type: "error",
@@ -116,15 +109,8 @@ borrarTarea(k: Number) {
       
             }
         },(error) => {
-          this.status = 'error';
-          //console.log(error);
+          this.status = 'error';          
           let MSG = 'No se puede eliminar la tarea.';                    
-          /* swal({
-            position: 'center',
-            type: 'error',
-            title: ''+MSG,
-            showConfirmButton: true,      
-          }); */
           swal(
             'Error',
             ''+error,
@@ -155,12 +141,10 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
 //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
  this.tservice.getTareasDeProyecto(this.id)
  .subscribe(        
- correcto => { 
-   console.log(correcto);
+ correcto => {    
   if(correcto['RetornoCorrecto']==="S")
   { 
-    if(correcto['Retorno'].length>=0){
-      //console.log(correcto);
+    if(correcto['Retorno'].length>=0){      
       this.tareas = null;
       this.tareas = correcto['Retorno'];
     }
@@ -168,11 +152,12 @@ localStorage.setItem('proyecto',JSON.stringify(this.proyecto));
 else {
 
   if(correcto===false){
+    
+    this.hayerrores = true;
+
     swal({
       position: "center",
       type: "info",
-    
-      
       title: "Aviso",
       text: "No existen tareas para el proyecto",
       showConfirmButton: false,
@@ -195,8 +180,7 @@ swal({
   }
 }  
 },(error) => {
-  this.status = "error";
-  //console.log(error);
+  this.status = "error";  
   swal(
     'Error',
     ''+error,

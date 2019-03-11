@@ -16,17 +16,33 @@
             <div class="row">
                 <div class="col-md-12 text-center" id="middlebutton">
 
-
-
-                    <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-outline-primary btn-lg">
+                      <div *ngIf="hayerrores else validar">
+                    <button [routerLink]="['/tarea','nueva']" disabled type="button" class="btn btn-outline-primary btn-lg">
                         Nueva Tarea                                  
                         <i class="fa fa-plus"></i>          
                     </button>
-                    <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-success btn-lg">
+
+                    <button [routerLink]="['/horas/tarea','nueva']" disabled type="button" class="btn btn-success btn-lg">                            
                         Cargar Horas                        
-                    </button>
+                    </button>                    
+                </div>
+                <ng-template #validar>
+                        <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-outline-primary btn-lg">
+                            Nueva Tarea                                  
+                            <i class="fa fa-plus"></i>          
+                        </button>
+                        
+                        <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-success btn-lg">                            
+                            Cargar Horas                        
+                </button>
+                
+                    </ng-template>  
                 </div>
             </div>
+
+                        
+
+            
 
             <div class="container">
                 <div class="">

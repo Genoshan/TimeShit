@@ -114,7 +114,6 @@ export class TareasService {
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
       if (this.retornoListarTareasDeProyecto.RetornoCorrecto==="S")
       {
-        //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
         if (this.retornoListarTareasDeProyecto.Retorno.length>0)
         {
           
@@ -124,20 +123,13 @@ export class TareasService {
           return this.retornoListarTareasDeProyecto;            
         }
         else {
-          return false;
+          return false;          
         }
       }
       else
       {
         return this.retornoListarTareasDeProyecto.Errores;
-      }//fin nueva forma
-
-        // this.tareas = res.json();
-        // if (this.tareas.length > 0) {
-        //   return this.tareas;
-        // } else {
-        //   return false;
-        // }
+      }
       })
       .catch(this.handleError);
   }

@@ -14,8 +14,8 @@ const Swal = require("sweetalert2");
 
 @Component({
   selector: "app-tarea",
-  templateUrl: "./tarea.component.html",
-  styles: []
+  templateUrl: "./tarea.component.html",  
+  styleUrls: ['./tarea.component.css']
 })
 export class TareaComponent implements OnInit {
 
