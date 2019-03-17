@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         /*PARA USAR CON LA NUEVA FORMA DE RETORNO */
         if (correcto ==="S") {
 
-          console.log(JSON.parse(localStorage.getItem("usuario")));          
+          //console.log(JSON.parse(localStorage.getItem("usuario")));          
           swal({
             position: "center",
             type: "success",

@@ -15,13 +15,28 @@
   </div>
   
 
-  <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
+  <!-- <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
     <div class="navbar-nav">
       <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
-      <div ><button class="btn" (click)="logout()">Salir</button></div>
-      <!-- <button class="btn btn-dark" (click)="logout()">Logout</button> -->
+      <div ><button class="btn" (click)="logout()">Salir</button></div>      
     </div>
   </div>
+</nav> -->
+
+<div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
+  <div class="navbar-nav">
+    <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+    <div ><button class="btn" (click)="logout()">Salir</button></div>      
+  </div>
+</div>
 </nav>
 
+
+<div *ngIf="user1.Administrador else validar">
+  <button class="btn btn-outline-dark btn-block" disabled (click)="crearTareas()">Guardar</button>            
+</div>
+
+<ng-template #validar>
+    <button class="btn btn-outline-dark btn-block" (click)="crearTareas()">Guardar</button>              
+  </ng-template>
 

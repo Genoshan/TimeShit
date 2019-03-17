@@ -145,22 +145,15 @@ export class HorasService {
     return (this.Hora = this.horas.find(x => x.Idhora == id));
   }
 
-   
-
-/*    getHora(id: number) {
-    return (this.Hora = this.horas.find(x => x.IdTarea == id));
-  } */
-
-
   getHorasDeTarea(t: Tarea) {
     this.user=JSON.parse(localStorage.getItem('usuario'));
-    let params = JSON.stringify({ pIdProyecto: t.IdProyecto, pIdTarea: t.IdTarea, pDocumento: this.user["CI"]});   
+    //let params = JSON.stringify({ pIdProyecto: t.IdProyecto, pIdTarea: t.IdTarea, pEmail: this.user["Email"]  });   
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     return this._http
-      .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto +  "&" + "pIdTarea=" + t.IdTarea + "&" + "pDocumento=" + this.user["CI"] + "" , params)
+      .get(this.url + "ListarHorasDeTareaDeUsuario?pIdProyecto=" + t.IdProyecto +  "&" + "pIdTarea=" + t.IdTarea + "&" + "pEmail=" + this.user["Email"])
       .map((res: any) => {
         this.retornoListarHorasDeProyectoyTarea = res.json();
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
@@ -194,13 +187,13 @@ export class HorasService {
       .catch(this.handleError);
   }
 
-  ListarHorasMensualesDeUsuario(ci:string){   
+  ListarHorasMensualesDeUsuario(email:string){   
     
-    var body = ci;  
+    //var body = ci;  
     
     //console.log(body);
 
-    let params = JSON.stringify({ pCI: ci });
+    //let params = JSON.stringify({ pCI: ci });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     
@@ -208,7 +201,7 @@ export class HorasService {
     let options = new RequestOptions({ headers: headers });
 
     return this._http
-      .get(this.url + "ListarHorasMensualesDeUsuario?pDocumento=" + ci + "", params)
+      .get(this.url + "ListarHorasMensualesDeUsuario?pEmail=" + email)
       .map((res: any) => {
 
         this.retornoListadoHorasEfectivas = res.json();
@@ -257,7 +250,7 @@ export class HorasService {
 
    //crear tarea
     
-    CargarHoras(h: Hora, ci:string) {    
+    CargarHoras(h: Hora, email:string) {    
         
     var body = {
       "<pHoras>k__BackingField" : {
@@ -267,7 +260,7 @@ export class HorasService {
         CantidadHoras: h.CantidadHoras,
         Fecha: h.Fecha
       },
-      "<pDocumento>k__BackingField" : ci
+      "<pEmail>k__BackingField" : email
     };    
     
     let headers = new Headers();

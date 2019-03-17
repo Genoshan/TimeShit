@@ -110,7 +110,7 @@
                             <!-- Lista de Tareas -->
                             <td>
                                 <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-info btn-sm"
-                                    data-toggle="tooltip" data-placement="top" title="Listar Tareas">
+                                    data-toggle="tooltip" data-placement="top" title="Listar Tareas" (click)="GuardarPadre()">
 
                                     <i class="fa fa-calendar"></i>    
 

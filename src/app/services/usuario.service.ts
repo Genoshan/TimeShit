@@ -33,12 +33,8 @@ export class UsuarioService {
     CI: string;
     oCompany: number;
   };
-
-
-
   
-  private url: string;
-  
+  private url: string;  
 
   //nuevo objeto para manejar retornos
   private retornoLogin = {
@@ -213,17 +209,11 @@ usuarios: Usuario[] = [];
         else 
         {
           return this.retornoAsignarUsuarioAProyecto.Errores;          
-        }//fin nueva forma
-
-        //forma vieja
-        //return resp;
+        }
 
       })
       .catch(this.handleError);
   }
-
-
-
 
     //OBTENER USUARIO POR EMAIL
     getUsuario(email: string) {      
@@ -234,8 +224,6 @@ usuarios: Usuario[] = [];
       return (this.Usuario = this.listausuarios.find(x => x.Email == email));        
     
     }
-
-
   getUsuarios(){
 
     //let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto );
@@ -318,10 +306,6 @@ console.log(proyecto);
     .catch(this.handleError); 
 
 }
-
-
-
-
   getUsuariosNoAsignadosDeProyecto(proyecto: Proyecto){
 
     let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto });

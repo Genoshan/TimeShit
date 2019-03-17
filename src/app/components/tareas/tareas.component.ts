@@ -71,6 +71,14 @@ backClicked() {
   this._location.back();
 }
 
+AtrasPadre() {  
+  this.router.navigateByUrl(localStorage.getItem("RutaProyecto"));  
+}
+
+GuardarPadre(){
+  localStorage.setItem("RutaTarea",this.router.url);
+}
+
 buscar(termino: string) {
   this.loading = true;
   this.tareas=this.tservice.getTareasxTermino(termino);
@@ -104,8 +112,7 @@ borrarTarea(k: Number) {
               );
 
               //recargo las tareas
-              this.tareas = null;
-              console.log(correcto);
+              this.tareas = null;              
               this.listarTareasDeProyecto();              
             }
             else{
@@ -202,10 +209,14 @@ swal({
 )
 }
 
+
+
   ngOnInit() {
 
     this.listarTareasDeProyecto();
     this.user = JSON.parse(localStorage.getItem("usuario"));
+    console.log(this.router.url);
+    
   }
 
 }

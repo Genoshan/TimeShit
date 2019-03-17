@@ -65,6 +65,8 @@ export class HorasComponent implements OnInit {
   status: string;
   hayerrores: boolean = false;
 
+
+
   constructor(
     private ts: TareasService,
     private pr: ProyectosService,
@@ -260,7 +262,7 @@ export class HorasComponent implements OnInit {
               this.user = JSON.parse(localStorage.getItem("usuario"));
               //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
               this.pr
-                .getProyectosUsuario(this.user["CI"])
+                .getProyectosUsuario(this.user["Email"])
                 .subscribe(correcto => {
                   if(correcto['RetornoCorrecto']==="S") {
                     if(correcto['Retorno'].length>=0){
@@ -359,7 +361,7 @@ export class HorasComponent implements OnInit {
   CargarHoras() {
     //creando
     if (this.id == "nueva") {
-      this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
+      this.hs.CargarHoras(this.hora, this.user["Email"]).subscribe(
         correcto => {
           if(correcto['RetornoCorrecto']==="S") {
             const toast = Swal.mixin({
@@ -400,7 +402,7 @@ export class HorasComponent implements OnInit {
     } else {
       if (this.router.url == "/horas/tarea/" + this.id) {
         //cargando una hora nueva desde boton + de tareas
-        this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
+        this.hs.CargarHoras(this.hora, this.user["Email"]).subscribe(
           correcto => {
             if(correcto['RetornoCorrecto']==="S") {
               const toast = Swal.mixin({
@@ -441,7 +443,7 @@ export class HorasComponent implements OnInit {
       } else {
         if (this.router.url == "/horas/proyecto/nueva") {
           //cargando una hora nueva desde boton + de tareas
-          this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
+          this.hs.CargarHoras(this.hora, this.user["Email"]).subscribe(
             correcto => {
               if(correcto['RetornoCorrecto']==="S") {
                 const toast = Swal.mixin({
@@ -485,7 +487,7 @@ export class HorasComponent implements OnInit {
           ) {
             //cargando horas desde un proyecto dado boton + de un proyecto
             //cargando una hora nueva desde boton + de tareas
-            this.hs.CargarHoras(this.hora, this.user["CI"]).subscribe(
+            this.hs.CargarHoras(this.hora, this.user["Email"]).subscribe(
               correcto => {
                 if(correcto['RetornoCorrecto']==="S") {
                   const toast = Swal.mixin({
@@ -626,6 +628,7 @@ export class HorasComponent implements OnInit {
     
     this.user = JSON.parse(localStorage.getItem("usuario"));
     this.getHora();
+    console.log(this.router.url);
 
   }
 }

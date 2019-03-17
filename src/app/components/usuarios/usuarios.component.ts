@@ -6,6 +6,7 @@ import { Usuario } from 'src/app/interfaces/usuario';
 import swal from "sweetalert2";
 
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -21,11 +22,19 @@ export class UsuariosComponent implements OnInit {
   loading:boolean;
   status: string;
 
-  constructor(private uservice: UsuarioService, private _location: Location ) { }
+  constructor(private uservice: UsuarioService, private _location: Location, private router:Router, ) { }
 
   //Ir Atras
 backClicked() {
   this._location.back();
+}
+
+AtrasPadre() {  
+  this.router.navigateByUrl(localStorage.getItem("RutaProyecto"));  
+}
+
+GuardarPadre(){
+  localStorage.setItem("RutaUsuario",this.router.url);
 }
 
 buscar(termino: string) {

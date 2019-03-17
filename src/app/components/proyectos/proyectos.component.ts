@@ -22,10 +22,6 @@ const Swal = require('sweetalert2');
   styleUrls: ['./proyectos.component.css']
 })
 
-
-
-
-
 export class ProyectosComponent implements OnInit {
 
   selectedusers = new FormControl();
@@ -125,12 +121,20 @@ export class ProyectosComponent implements OnInit {
     this.proyectos = this.pservice.getProyectoxTermino(termino);
   }
 
+  AtrasPadre() {  
+    
+    this.router.navigateByUrl(localStorage.getItem("RutaProyecto"));  
+  }
+  
+  GuardarPadre(){
+    localStorage.setItem("RutaProyecto",this.router.url);
+  }
+
 
 
 
   borrarProyecto(k: Number) {  
-
-    //console.log('antesdelswal');
+    
     swal({
       title: 'El proyecto se eliminará, está seguro?',
       text: "El proyecto no se podrá recuperar.",
@@ -147,6 +151,7 @@ export class ProyectosComponent implements OnInit {
           this.pservice.eliminarProyecto(k, this.user)
           .subscribe(        
             correcto => { 
+              console.log(correcto);
               if(correcto['RetornoCorrecto']==="S")
               {
                 //console.log(correcto);        
@@ -160,8 +165,9 @@ export class ProyectosComponent implements OnInit {
                 this.proyectos = null;
                 //this.listarTareasDeProyecto();
                 //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
-    this.pservice.getProyectosUsuario(this.user["CI"]).subscribe(
+    this.pservice.getProyectosUsuario(this.user["Email"]).subscribe(
       correcto => {
+        console.log(correcto);
         if(correcto['RetornoCorrecto']==="S")
             { 
               if(correcto['Retorno'].length>0){
@@ -250,8 +256,13 @@ export class ProyectosComponent implements OnInit {
     //tengo un proyecto
     //llamo al servicio y le paso usuario y proyecto
 
+    this.usuariologueado = JSON.parse(localStorage.getItem("usuario"));
     console.log(this.proyecto);
-    console.log(this.useraasignar);
+    console.log(this.usuariologueado);    
+    console.log(this.listausuariosAMostrar);
+
+
+
 
     this.uservice.asignarUsuarios(this.proyecto,this.listausuariosAMostrar, this.usuariologueado).subscribe(
       correcto => {

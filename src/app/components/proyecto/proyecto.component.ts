@@ -1,6 +1,3 @@
-
-//Nueva API
-
 import { ProyectosService } from "../../services/proyectos.service";
 import { Component, OnInit } from "@angular/core";
 import { Proyecto } from "./../../interfaces/proyecto";

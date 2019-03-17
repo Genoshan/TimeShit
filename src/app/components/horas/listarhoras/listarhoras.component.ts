@@ -72,6 +72,13 @@ backClicked() {
   this._location.back();
 }
 
+AtrasPadre() {  
+  this.router.navigateByUrl(localStorage.getItem("RutaTarea"));  
+}
+
+GuardarPadre(){
+  localStorage.setItem("RutaHora",this.router.url);
+}
 
 
   buscar(termino: string) {
@@ -208,6 +215,7 @@ backClicked() {
     //se realizó refactory de cargar la lista de horas en un metodo independiente que se pueda llamar 
     //desde cualquier parte del codigo de la clase.
     this.listarHorasdeTarea();
+    
   }
 
 }
