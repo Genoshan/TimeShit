@@ -41,7 +41,8 @@ export class TareaComponent implements OnInit {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany : 0
+    oCompany : 0,
+    Administrador: false
   };
 
   proyecto: Proyecto = {
@@ -91,7 +92,7 @@ export class TareaComponent implements OnInit {
       // insertando
 
       this.ts.crearTareas(this.tarea).subscribe(
-        correcto => {
+        correcto => {          
           if(correcto['RetornoCorrecto']==="S") {
             const toast = Swal.mixin({
               toast: true,
@@ -103,8 +104,10 @@ export class TareaComponent implements OnInit {
               type: "success",
               title: "Tarea creada Correctamente"
             });
-            this.router.navigate([`/tareas/${this.tarea.IdTarea}`]);
+            console.log(correcto);
+            this.router.navigate([`/tareas/${this.tarea.IdProyecto}`]);
             this.tarea = correcto['Retorno'];
+            
           } 
           else {            
             this.status = "error";

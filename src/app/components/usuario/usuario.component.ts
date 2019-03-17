@@ -17,9 +17,7 @@ const Swal = require("sweetalert2");
 })
 export class UsuarioComponent implements OnInit {
 
-  /*****ATRIBUTOS******/
-
-  
+  /*****ATRIBUTOS******/  
 
   nuevo: boolean = false;
 
@@ -31,12 +29,24 @@ export class UsuarioComponent implements OnInit {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany : 0
+    oCompany : 0,
+    Administrador: false
   };
-
+usuariologueado: Usuario = {
+    Nombre: "",
+    Email: "",
+    Clave: "",
+    Img: "",
+    CI: "",
+    oCompany : 0,
+    Administrador: false
+  };
   company: Compania;
+  companias:Compania[] = [];
 
   status: string;
+
+  hayerrores: boolean = false;
 
   constructor(private us: UsuarioService,
     private activatedRoute: ActivatedRoute,
@@ -53,8 +63,7 @@ export class UsuarioComponent implements OnInit {
 }
 
 getUsuario() {
-  if (this.email == "nueva") {
-    //console.log(this.proyecto);
+  if (this.email == "nueva") {    
     //this.tarea.IdProyecto = this.proyecto.IdProyecto;   
 
     //this.user.oCompany=this.company.IdCompania;
@@ -71,8 +80,8 @@ getUsuario() {
 altaUsuario() {
   if (this.email == "nueva") {
     // insertando    
-
-    this.us.altaUsuario(this.user).subscribe(
+    
+    this.us.altaUsuario(this.usuariologueado , this.user).subscribe(
       correcto => {
         
         if(correcto['RetornoCorrecto']==="S") {
@@ -89,7 +98,8 @@ altaUsuario() {
           this.router.navigate([`/usuarios`]);
           this.user = correcto['Retorno'];
         } 
-        else {            
+        else {         
+          this.hayerrores = true;   
           this.status = "error";
           swal({
             position: "center",
@@ -112,10 +122,10 @@ altaUsuario() {
     );
   } else {
     //actualizando   
-
-    this.us.editarUsuario(this.user).subscribe(
+    //this.usuariologueado = JSON.parse(localStorage.getItem("usuario"));
+    this.us.editarUsuario(this.usuariologueado , this.user).subscribe(
       correcto => {
-        if(correcto['RetornoCorrecto']==="S") {
+        if(correcto==="S") {
           const toast = Swal.mixin({
             toast: true,
             position: "top-end",
@@ -142,8 +152,7 @@ altaUsuario() {
         }
       },
       error => {
-        this.status = "error";
-        //console.log(error);
+        this.status = "error";        
         swal(
           'Error',
           ''+error,
@@ -155,12 +164,66 @@ altaUsuario() {
 }
 
 
+listarCompania(){
+  
+  //OBTENGO LAS TAREAS DEL PROYECTO PARA LISTARLAS    
+   this.us.getCompania()
+   .subscribe(        
+   correcto => {         
+    if(correcto['RetornoCorrecto']==="S")
+    { 
+      if(correcto['Retorno'].length>=0){      
+        this.companias = null;
+        this.companias = correcto['Retorno'];
+      }
+  }         
+  else {    
+  
+    if(correcto===false){
+      
+      this.hayerrores = true;
+  
+      swal({
+        position: "center",
+        type: "info",
+        title: "Aviso",
+        text: "No existen companias",
+        showConfirmButton: false,
+        timer: 3000
+      });
+    }
+  
+    else{
+      this.status = "error";
+  swal({
+    position: "center",
+    type: "error",
+    title: correcto['Mensaje'],
+    text: correcto['Descripcion'],
+    showConfirmButton: false,
+    timer: 2000
+  });
+    }
+  }  
+  },(error) => {
+    this.status = "error";  
+    swal(
+      'Error',
+      ''+error,
+      'error'
+    );                 
+   } 
+  )
+  }
+
     
 
   ngOnInit() {
     //this.user = JSON.parse(localStorage.getItem("usuario"));    
     //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA
     this.getUsuario();    
+    this.listarCompania();
+    this.usuariologueado = JSON.parse(localStorage.getItem("usuario"));
   }
 
 }

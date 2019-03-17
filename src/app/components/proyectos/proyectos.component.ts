@@ -46,7 +46,18 @@ export class ProyectosComponent implements OnInit {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany: 0
+    oCompany: 0,
+    Administrador: false
+  };
+
+  usuariologueado: Usuario = {
+    Nombre: "",
+    Email: "",
+    Clave: "",
+    Img: "",
+    CI: "",
+    oCompany: 0,
+    Administrador: false
   };
 
   useraasignar: Usuario = {
@@ -55,7 +66,8 @@ export class ProyectosComponent implements OnInit {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany: 0
+    oCompany: 0,
+    Administrador: false
   };
 
   proyecto: Proyecto = {
@@ -132,7 +144,7 @@ export class ProyectosComponent implements OnInit {
       if (result.value) {
         { 
           //llamo al metodo
-          this.pservice.eliminarProyecto(k)
+          this.pservice.eliminarProyecto(k, this.user)
           .subscribe(        
             correcto => { 
               if(correcto['RetornoCorrecto']==="S")
@@ -241,14 +253,14 @@ export class ProyectosComponent implements OnInit {
     console.log(this.proyecto);
     console.log(this.useraasignar);
 
-    this.uservice.asignarUsuarios(this.proyecto,this.listausuariosAMostrar).subscribe(
+    this.uservice.asignarUsuarios(this.proyecto,this.listausuariosAMostrar, this.usuariologueado).subscribe(
       correcto => {
         if (correcto==="S") {
           //console.log(JSON.parse(localStorage.getItem("usuario")));
           swal({
                position: "center",
                type: "success",
-               title: `Usuario asignado!`,
+               title: `Usuarios asignado!`,
                showConfirmButton: false,
                timer: 2000
              });             
@@ -268,8 +280,7 @@ export class ProyectosComponent implements OnInit {
 
 
 
-  onProyectoChange() {
-    //console.log(this.proyecto);
+  onProyectoChange() {    
 
     //tomamos una lista y la filtramos por un elemento del objeto dentro de la lista (Lambda Expression )
 
@@ -346,7 +357,7 @@ export class ProyectosComponent implements OnInit {
 
 
 
-  ngOnInit() {      
+  ngOnInit() {
 
     //OBTENGO TODOS LOS PROYECTOS PARA EL MODAL
     
@@ -355,10 +366,8 @@ export class ProyectosComponent implements OnInit {
         
         if(correcto['RetornoCorrecto']==="S")
             { 
-              if(correcto['Retorno'].length>0){
-                //console.log(correcto);
-                this.proyectosModal = correcto['Retorno'];  
-                //console.log(this.listausuarios);                  
+              if(correcto['Retorno'].length>0){                
+                this.proyectosModal = correcto['Retorno'];                  
               }
         }         
         else {
@@ -393,10 +402,8 @@ export class ProyectosComponent implements OnInit {
             
             if(correcto['RetornoCorrecto']==="S")
                 { 
-                  if(correcto['Retorno'].length>0){
-                    //console.log(correcto);
-                    this.listausuarios = correcto['Retorno'];  
-                    //console.log(this.listausuarios);                  
+                  if(correcto['Retorno'].length>0){                    
+                    this.listausuarios = correcto['Retorno'];                      
                   }
             }         
             else {
@@ -434,7 +441,7 @@ export class ProyectosComponent implements OnInit {
     //OBTENGO LOS USUARIOS:
 
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
-    this.pservice.getProyectosUsuario(this.user["CI"]).subscribe(
+    this.pservice.getProyectosUsuario(this.user["Email"]).subscribe(
       correcto => {
         
         if(correcto['RetornoCorrecto']==="S")

@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 
 
 import {Location} from '@angular/common';
+import { Usuario } from 'src/app/interfaces/usuario';
 
 
 @Component({
@@ -41,6 +42,16 @@ export class TareasComponent implements OnInit {
     FechaFIn: new Date(Date.now()),
     IdProyecto: 0  
   }
+
+  user: Usuario = {
+    Nombre: "",
+    Email: "",
+    Clave: "",
+    Img: "",
+    CI: "",
+    oCompany: 0,
+    Administrador: false
+  };
   status: string;
   hayerrores: boolean=false;
 
@@ -81,10 +92,10 @@ borrarTarea(k: Number) {
     if (result.value) {
       { 
         //llamo al metodo
-        this.tservice.eliminarTarea(k)
+        this.tservice.eliminarTarea(k, this.user)
         .subscribe(        
-          correcto => { 
-            if(correcto['RetornoCorrecto']==="S")
+          correcto => {                
+            if(correcto==="S")
             {              
               swal(
                 'Tarea Eliminada',
@@ -94,6 +105,7 @@ borrarTarea(k: Number) {
 
               //recargo las tareas
               this.tareas = null;
+              console.log(correcto);
               this.listarTareasDeProyecto();              
             }
             else{
@@ -193,6 +205,7 @@ swal({
   ngOnInit() {
 
     this.listarTareasDeProyecto();
+    this.user = JSON.parse(localStorage.getItem("usuario"));
   }
 
 }

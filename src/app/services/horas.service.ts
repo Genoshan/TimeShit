@@ -36,7 +36,8 @@ export class HorasService {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany: 0
+    oCompany: 0,
+    Administrador: false
   }
 
   private Hora: {

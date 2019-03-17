@@ -32,7 +32,8 @@ export class ProyectoComponent implements OnInit {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany: 0
+    oCompany: 0,
+    Administrador: false
   };
 
   proyecto: Proyecto = {
@@ -76,7 +77,7 @@ export class ProyectoComponent implements OnInit {
   crearProyectos() {
     if (this.id == "nuevo") {
       // insertando
-      console.log(this.user);    
+      //console.log(this.user);    
       this.pr.crearProyectos(this.proyecto,this.user).subscribe(
         correcto => {
           if (correcto['RetornoCorrecto']==="S") {
@@ -119,7 +120,7 @@ export class ProyectoComponent implements OnInit {
     } else {
       //actualizando
       console.log("Entro al Editar");
-      this.pr.editarProyecto(this.proyecto).subscribe(
+      this.pr.editarProyecto(this.proyecto, this.user).subscribe(
         correcto => {
           if (correcto['RetornoCorrecto']==="S") {
             const toast = Swal.mixin({
@@ -164,11 +165,12 @@ export class ProyectoComponent implements OnInit {
   ngOnInit() {
     //this.user = JSON.parse(localStorage.getItem("usuario"));
     //{"Nombre":"Alex Rostan","Email":"alex.rostan@arkanosoft.com","Img":"","CI":"4377187-2"}
-    this.user.CI = JSON.parse(localStorage.getItem("usuario"))["CI"];
-    this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
-    this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
-    this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
-    
+    // this.user.CI = JSON.parse(localStorage.getItem("usuario"))["CI"];
+    // this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
+    // this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
+    // this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
+    this.user = JSON.parse(localStorage.getItem("usuario"));
+    //this.usuariologueado = JSON.parse(localStorage.getItem("usuario"));
 
     // private Usuario: {
     //   Nombre: string;

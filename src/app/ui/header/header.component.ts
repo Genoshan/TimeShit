@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit, DoCheck{
     Clave: "",
     Img: "",
     CI: "",
-    oCompany: 0
+    oCompany: 0,
+    Administrador: false
   };
   correcto = false;
 

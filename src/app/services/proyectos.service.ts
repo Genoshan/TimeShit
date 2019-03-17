@@ -27,14 +27,6 @@ export class ProyectosService {
     CodigoProyecto: string;
   };
 
-  private Usuario: {
-    Nombre: string;
-    Email: string;
-    //password: string,
-    Img: string;
-    CI: number;
-  };
-
   private proyectos: Proyecto[] = [];
 
   private url: string; 
@@ -170,7 +162,7 @@ export class ProyectosService {
       .catch(this.handleError);
   }
 
-
+/*
   getProyectosUsuario(ci: string) {
     let params = JSON.stringify({ pCI: ci });
 
@@ -178,11 +170,11 @@ export class ProyectosService {
     headers.append("Content-Type", "application/json");
 
     return this._http
-      .get(this.url + "ListarProyectosDeUsuario?pDocumento=" + ci + "", params)
+      .get(this.url + "ListarProyectosDeUsuario?pDocumento=" + Email + "", params)
       .map((res: any) => {
 
         this.retornoListarProyectosDeUsuario = res.json();
-        //console.log(this.retornoListarProyectosDeUsuario);
+        
         
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoListarProyectosDeUsuario.RetornoCorrecto==="S")
@@ -203,15 +195,42 @@ export class ProyectosService {
         else
         {
           return this.retornoListarProyectosDeUsuario.Errores;
+        }
+      })
+      .catch(this.handleError);
+  }
+*/
+
+  getProyectosUsuario(email: string) {
+    let params = JSON.stringify({ pEMAIL: email });
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this._http
+      .get(this.url + "ListarProyectosDeUsuario?pEmail=" + email)
+      .map((res: any) => {
+
+        this.retornoListarProyectosDeUsuario = res.json();        
+        
+        //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+        if (this.retornoListarProyectosDeUsuario.RetornoCorrecto==="S")
+        {          
+          if (this.retornoListarProyectosDeUsuario.Retorno.length>0)
+          {
+            
+            this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;            
+
+            return this.retornoListarProyectosDeUsuario;            
+          }
+          else {
+            return false;
+          }
+        }
+        else
+        {
+          return this.retornoListarProyectosDeUsuario.Errores;
         }//fin nueva forma
-
-        // this.proyectos = res.json();
-
-        // if (this.proyectos.length > 0) {
-        //   return this.proyectos;
-        // } else {
-        //   return false;
-        // }
       })
       .catch(this.handleError);
   }
@@ -246,7 +265,7 @@ export class ProyectosService {
         CI: u.CI
       }
     };
-    console.log(body);
+    //console.log(body);
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -272,14 +291,25 @@ export class ProyectosService {
   }
 
 //editarTarea
-  editarProyecto(p: Proyecto) {
+  editarProyecto(p: Proyecto, u: Usuario) {
     //let headers = new Headers();
     var body = {      
-      IdProyecto: p.IdProyecto,
-      Nombre: p.Nombre,
-      CodigoProyecto: p.CodigoProyecto,
-      FechaInicio: p.FechaInicio,
-      Estado: p.Estado
+      pProyecto:{
+        IdProyecto: p.IdProyecto,
+        Nombre: p.Nombre,
+        FechaInicio: p.FechaInicio,
+        Estado: p.Estado,
+        CodigoProyecto: p.CodigoProyecto
+      },
+      pUsuario:{
+        Nombre: u.Nombre,
+        Email: u.Email,
+        Clave: u.Clave,
+        Img: u.Img,
+        CI: u.CI,
+        oCompany: u.oCompany,
+        Administrador: u.Administrador
+      }      
     };   
 
     let headers = new Headers();
@@ -308,11 +338,22 @@ export class ProyectosService {
   }
 
   //eliminarTarea
-  eliminarProyecto(k: Number) {
+  eliminarProyecto(k: Number, u: Usuario) {
     //console.log(k);
     //let headers = new Headers();
-    var body = k
-    ;   
+    var body =
+    {
+      pIdProyecto: k,
+      pUsuario:{
+        Nombre: u.Nombre,
+        Email: u.Email,
+        Clave: u.Clave,
+        Img: u.Img,
+        CI: u.CI,
+        oCompany: u.oCompany,
+        Administrador: u.Administrador
+      }
+    };   
 
     //console.log(body);
     let headers = new Headers();

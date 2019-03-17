@@ -4,7 +4,7 @@
                 <i class="fa fa-arrow-left"></i>     
              </button>
           <h2><b>TAREAS del Proyecto: {{ proyecto.Nombre }}</b></h2>          
-            <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div>
+            <!-- <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div> -->
             <ul class="pagination">
                 <pagination-controls class="my-pagination" (pageChange)=" p =$event"
                 previousLabel="Anterior"
@@ -13,10 +13,8 @@
             <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar tareas">
 
 
-            <div class="row">
-                <div class="col-md-12 text-center" id="middlebutton">
 
-                      <div *ngIf="hayerrores else validar">
+                      <!-- <div *ngIf="hayerrores else validar">
                     <button [routerLink]="['/tarea','nueva']" disabled type="button" class="btn btn-outline-primary btn-lg">
                         Nueva Tarea                                  
                         <i class="fa fa-plus"></i>          
@@ -36,9 +34,38 @@
                             Cargar Horas                        
                 </button>
                 
-                    </ng-template>  
-                </div>
-            </div>
+                    </ng-template>   -->
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-12 text-center" id="middlebutton">
+                            <div *ngIf="hayerrores else validar">
+                    
+                            <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-outline-primary btn-lg">
+                                Nueva Tarea
+                                <i class="fa fa-plus"></i>
+                            </button>   
+                                    <button [routerLink]="['/horas/tarea','nueva']" disabled type="button" class="btn btn-success btn-lg">
+                                        Cargar Horas
+                                    </button>
+                                </div>
+
+                                <ng-template #validar>   
+
+                                        <button [routerLink]="['/tarea','nueva']" type="button" class="btn btn-outline-primary btn-lg">
+                                            Nueva Tarea
+                                            <i class="fa fa-plus"></i>
+                                        </button>  
+                                
+                                    <button [routerLink]="['/horas/tarea','nueva']" type="button" class="btn btn-success btn-lg">
+                                        Cargar Horas
+                                    </button>
+                                
+                                </ng-template>
+                        </div>
+                    </div>
 
                         
 

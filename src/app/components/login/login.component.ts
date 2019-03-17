@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany: 0
+    oCompany: 0,
+    Administrador: false
   };
 
   email: string;
@@ -50,31 +51,6 @@ export class LoginComponent implements OnInit {
 
     this.pservice.login(loginForm.value.email, loginForm.value.pass).subscribe(
       correcto => {
-
-        //if (correcto) {
-          //console.log(JSON.parse(localStorage.getItem("usuario")));
-          // swal({
-          //      position: "center",
-          //      type: "success",
-          //      title: `Bienvenido : ${
-          //        JSON.parse(localStorage.getItem("usuario"))["Nombre"]
-          //      }`,
-          //      showConfirmButton: false,
-          //      timer: 2000
-          //    });
-          //    this.router.navigate(["/proyectos"]);
-          //  } else {
-          //    this.status = "error";
-          //    swal({
-          //      position: "center",
-          //      type: "error",
-          //      title: "Error al iniciar sesión",             
-          //      text: "usuario o contraseña incorrectos",
-          //      showConfirmButton: false,
-          //      timer: 1750
-          //    });
-
-
 
         /*PARA USAR CON LA NUEVA FORMA DE RETORNO */
         if (correcto ==="S") {

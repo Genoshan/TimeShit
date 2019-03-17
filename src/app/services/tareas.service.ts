@@ -1,8 +1,3 @@
-
-
-
-//Nueva API
-
 import "rxjs/Rx";
 import { Injectable } from "@angular/core";
 import {
@@ -19,6 +14,7 @@ import { Observable } from "rxjs/Rx";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { Usuario } from "../interfaces/usuario";
 
 @Injectable()
 export class TareasService {
@@ -220,11 +216,20 @@ export class TareasService {
   }
 
   //eliminarTarea
-  eliminarTarea(k: Number) {
-    console.log(k);
-    //let headers = new Headers();
-    var body = k
-    ;   
+  eliminarTarea(k: Number, u:Usuario) {
+    var body =
+    {
+      pIdTarea: k,
+      pUsuario: {
+        Nombre: u.Nombre,
+        Email: u.Email,
+        Clave: u.Clave,
+        Img: u.Img,
+        CI: u.CI,
+        oCompany: u.oCompany,
+        Administrador: u.Administrador
+      }
+    };   
 
     console.log(body);
     let headers = new Headers();
@@ -235,9 +240,7 @@ export class TareasService {
     return this._http
       .post(this.url + 'EliminarTarea', body, { headers: headers })
       .map((resp: any) => {
-        //swal('Tarea Actualizada', t.Nombre, 'success');
-        //console.log(resp);
-        //return resp;        
+        
         this.retornoEliminarTarea = resp.json();        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoEliminarTarea.RetornoCorrecto==="S")

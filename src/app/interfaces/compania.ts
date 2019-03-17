@@ -1,4 +1,4 @@
 export interface Compania {
-    IdCompania:number;
-    Nombre:string;
+    Id:number;
+    Name:string;
 }

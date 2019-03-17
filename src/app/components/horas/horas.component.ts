@@ -33,7 +33,8 @@ export class HorasComponent implements OnInit {
     Clave: "",
     Img: "",
     CI: "",
-    oCompany: 0
+    oCompany: 0,
+    Administrador: false
   };
 
   hora: Hora = {
@@ -154,7 +155,7 @@ export class HorasComponent implements OnInit {
                       this.status = "error";
                       swal({
                         position: "center",
-                        type: "error",
+                        type: "info",
                         /*"usuario o contraseña incorrectos" */
                         title: "Aviso",
                         text: "No hay tareas",
@@ -169,7 +170,7 @@ export class HorasComponent implements OnInit {
                   this.status = "error";
                   swal({
                     position: "center",
-                    type: "error",
+                    type: "info",
                     /*"usuario o contraseña incorrectos" */
                     // title: correcto['Mensaje'],
                     // text: correcto['Descripcion'],

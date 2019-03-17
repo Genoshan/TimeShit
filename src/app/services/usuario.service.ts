@@ -17,6 +17,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Proyecto } from "../interfaces/proyecto";
+import { Compania } from "../interfaces/compania";
 
 
 @Injectable()
@@ -68,7 +69,8 @@ private retornoUsuarios=
       Clave: "",
       Img: "",
       CI: "",
-      oCompany: 0  
+      oCompany: 0,
+      Administrador: false
     }],
   "Errores": {
     "ExceptionType": null,
@@ -76,6 +78,25 @@ private retornoUsuarios=
     "Descripcion": null
   }
 };
+
+
+private retornoCompania=
+{
+  "RetornoCorrecto": "S",
+  "Retorno": [
+    {
+      Id:0,
+      Name:""
+    }],
+  "Errores": {
+    "ExceptionType": null,
+    "Mensaje": null,
+    "Descripcion": null
+  }
+};
+
+
+
 
 private retornoAltaUsuario=
 {
@@ -98,7 +119,8 @@ private retornoUsuariosAsignadosAProyecto=
       Clave: "",
       Img: "",
       CI: "",
-      oCompany: 0
+      oCompany: 0,
+      Administrador: false
     }],
   "Errores": {
     "ExceptionType": null,
@@ -131,6 +153,7 @@ private retornoEditarUsuario=
 listausuariosaasignar:Usuario[]= [];
 listausuariosasignadosaproyecto:Usuario[]= [];
 listausuarios:Usuario[]= [];
+listaCompanias:Compania[]= [];
 usuarios: Usuario[] = [];
 
   constructor(private _http: Http) {
@@ -149,34 +172,30 @@ usuarios: Usuario[] = [];
     }
 
   //Asignar Usuarios a Proyectos
-  asignarUsuarios(p: Proyecto, u: Usuario[]) {
-    
-    console.log(p);
-    console.log(u);
-
+  asignarUsuarios(p: Proyecto, u: Usuario[], uActual:Usuario) {
     let listaStringEmails:string []=[];
-
     u.forEach(element => {
       let email = element.Email;
       listaStringEmails.push(email);
-    });
-    
-
-    
-    var body = {
-      
+    });    
+    var body = {      
       ListaUsuarios: listaStringEmails,
-      IdProyecto: p.IdProyecto      
+      IdProyecto: p.IdProyecto,
+      pUsuario:{
+        Nombre: uActual.Nombre,
+        Email: uActual.Email,
+        Clave: uActual.Clave,
+        Img: uActual.Img,
+        CI: uActual.CI,
+        oCompany: uActual.oCompany,
+        Administrador: uActual.Administrador
+      }
     };   
-
-    console.log(body);
 
     let params = JSON.stringify({ ListaUsuarios: listaStringEmails, IdProyecto: p.IdProyecto });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
     let options = new RequestOptions({ headers: headers });
-
     return this._http
       .post(
         //this.url + 'AsignarUsusarioAProyecto?'+"pDocumento=" + u.CI+"&pIdProyecto=" + p.IdProyecto, params)
@@ -372,17 +391,26 @@ console.log(proyecto);
 
 
     //alta de usuario
-    altaUsuario(u: Usuario) {
-
-      //let body:any = JSON.stringify({ t });
-  
+    altaUsuario(u: Usuario, uNew: Usuario) {
       var body = {
-        Nombre: u.Nombre,
-        Email: u.Email,
-        Clave: u.Clave,
-        Img: u.Img,
-        CI: u.CI,
-        oCompany: 3
+        pUsuario:{
+          Nombre: u.Nombre,
+          Email: u.Email,
+          Clave: u.Clave,
+          Img: u.Img,
+          CI: u.CI,
+          oCompany: u.oCompany,
+          Administrador: u.Administrador
+        },
+        pUsuNew: {
+          Nombre: uNew.Nombre,
+          Email: uNew.Email,
+          Clave: uNew.Clave,
+          Img: uNew.Img,
+          CI: uNew.CI,
+          oCompany: uNew.oCompany,
+          Administrador: uNew.Administrador
+        }       
       };
   
       let headers = new Headers();
@@ -414,15 +442,27 @@ console.log(proyecto);
 
 
     //editarTarea
-  editarUsuario(u: Usuario) {
+  editarUsuario(u: Usuario, uEdit: Usuario) {
     //let headers = new Headers();
     var body = {
-      Nombre: u.Nombre,
-      Email: u.Email,
-      Clave: u.Clave,
-      Img: u.Img,
-      CI: u.CI,
-      oCompany: u.oCompany
+      pUsuario:{
+        Nombre: u.Nombre,
+        Email: u.Email,
+        Clave: u.Clave,
+        Img: u.Img,
+        CI: u.CI,
+        oCompany: u.oCompany,
+        Administrador: u.Administrador
+      },
+      pUsuMod: {
+        Nombre: uEdit.Nombre,
+        Email: uEdit.Email,
+        Clave: uEdit.Clave,
+        Img: uEdit.Img,
+        CI: uEdit.CI,
+        oCompany: uEdit.oCompany,
+        Administrador: uEdit.Administrador
+      }       
     };   
 
     let headers = new Headers();
@@ -454,7 +494,47 @@ console.log(proyecto);
 
 
 
+  
 
+  getCompania(){
+
+    
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this._http
+      .get(
+        this.url + "ListarCompanias"        
+      )
+      .map((res: any) => { 
+
+         this.retornoCompania = res.json();         
+
+         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
+         if (this.retornoCompania.RetornoCorrecto==="S")
+               {     
+        
+        //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
+        if (this.retornoCompania.Retorno.length>0)
+        {
+          
+          this.listaCompanias = this.retornoCompania.Retorno;         
+
+          return this.retornoCompania;            
+        }
+        else {
+          return false;
+        }
+      }
+      else
+      {
+        return this.retornoUsuarios.Errores;
+      }//fin nueva forma
+    })
+      .catch(this.handleError); 
+
+}
 
 
 

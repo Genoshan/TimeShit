@@ -4,7 +4,7 @@
             <i class="fa fa-arrow-left"></i>     
          </button>
       <h2><b>HORAS de la tarea: {{ tarea.Nombre }}</b></h2>               
-        <div class="hint-text ">Mostrando <b>{{itemsPerPage}}</b> de <b>25</b> entradas</div>
+        <!-- <div class="hint-text ">Mostrando <b>{{25}}</b> de <b>25</b> entradas</div> -->
         <ul class="pagination">
             <pagination-controls class="my-pagination" (pageChange)=" p =$event"
             previousLabel="Anterior"
@@ -13,7 +13,7 @@
         <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar horas">
         <div class="row">
             <div class="col-md-12 text-center" id="middlebutton">
-                <button [routerLink]="['/horas/proyecto','nueva']" type="button" class="btn btn-success btn-lg">
+                <button [routerLink]="['/horas','nueva']" type="button" class="btn btn-success btn-lg">
                     Cargar Horas
                     <!-- <fa name="plus"></fa>Cargar Horas -->
                 </button>
@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>                        
-                            <tr *ngFor="let k of horas | keys | paginate:{itemsPerPage:itemsPerPage,currentPage: p} ">
+                            <tr *ngFor="let k of horas | keys | paginate:{itemsPerPage:8,currentPage: p} ">
                                 <td>{{ horas[k].CantidadHoras }}</td>
                                 <td>{{ horas[k].Descripcion }}</td>
                                 <td>{{ horas[k].Fecha | date: "dd-MM-yyyy" }}</td>

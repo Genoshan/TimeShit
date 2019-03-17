@@ -6,6 +6,7 @@ export interface Usuario {
     Img: string;
     CI: string;
     oCompany: number;
+    Administrador: boolean;
   }
   
   

@@ -31,7 +31,8 @@ const routes: Routes = [
           { path: 'listarhoras/:id', component: ListarhorasComponent, canActivate: [AuthGuard] },
           { path: 'horasefectivas', component: HorasefectivasComponent, canActivate: [AuthGuard] },
           { path: 'login', component: LoginComponent },      
-          { path: '', redirectTo: '/login', pathMatch: 'full'}
+          { path: '', redirectTo: '/login', pathMatch: 'full'},
+          
 ];
 
 export const routingModule: ModuleWithProviders = RouterModule.forRoot(routes);

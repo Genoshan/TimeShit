@@ -51,6 +51,8 @@ export class ListarhorasComponent implements OnInit {
 
   status: string;
 
+  hayerrores: boolean=false;
+
   constructor(private tservice: TareasService,private pservice: ProyectosService, private hservice: HorasService,
     private router:Router,
     private route: ActivatedRoute,
@@ -95,7 +97,7 @@ backClicked() {
           this.hservice.eliminarHora(k)
             .subscribe(
               correcto => {
-                if(correcto['RetornoCorrecto']==="S") {
+                if(correcto==="S") {
                   //console.log(correcto);
                   swal(
                     'Hora Eliminada',
@@ -158,6 +160,24 @@ backClicked() {
               this.horas = correcto['Retorno'];                     
             }   
            }
+
+           else {
+
+            if(correcto===false){
+              
+              this.hayerrores = true;
+          
+              swal({
+                position: "center",
+                type: "info",
+                title: "Aviso",
+                text: "No hay horas cargadas para esta tarea",
+                showConfirmButton: false,
+                timer: 3000
+              });
+            }
+
+
            else{
              this.status = 'error';
              console.log(correcto);
@@ -170,6 +190,7 @@ backClicked() {
               timer: 3000
             });                         
            }
+          }        
        },(error) => {
         this.status = "error";        
         console.log(error);
@@ -180,8 +201,6 @@ backClicked() {
         );                    
          } 
        )
-
-
   }
 
   ngOnInit() {
