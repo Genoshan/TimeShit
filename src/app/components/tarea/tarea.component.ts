@@ -104,7 +104,7 @@ export class TareaComponent implements OnInit {
               type: "success",
               title: "Tarea creada Correctamente"
             });
-            console.log(correcto);
+            //console.log(correcto);
             this.router.navigate([`/tareas/${this.tarea.IdProyecto}`]);
             this.tarea = correcto['Retorno'];
             

@@ -7,8 +7,8 @@ import swal from "sweetalert2";
 import { UsuarioService } from "../../services/usuario.service";
 import { Router } from "@angular/router";
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { MatSelectionList, MatSelectionListChange, MatListOption,MatCheckboxModule } from '@angular/material';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MatSelectionList, MatSelectionListChange, MatListOption, MatCheckboxModule } from '@angular/material';
 import { FormControl } from "@angular/forms";
 import { debug } from "util";
 import { forEach } from "@angular/router/src/utils/collection";
@@ -74,67 +74,69 @@ export class ProyectosComponent implements OnInit {
     IdProyecto: 0
   };
 
-  listausuariosaasignar:Usuario[]=[];
-  listausuarios:Usuario[]=[];
-  listamarcados:Usuario[]=[];
-  listausuariosMerge:Usuario[]=[];
-  listausuariosAMostrar:Usuario[]=[];
+  listausuariosaasignar: Usuario[] = [];
+  listausuarios: Usuario[] = [];
+  listamarcados: Usuario[] = [];
+  listausuariosMerge: Usuario[] = [];
+  listausuariosAMostrar: Usuario[] = [];
 
 
   valueSelected: string;
 
   status: string;
 
-  selectedOptions=[];
+  selectedOptions = [];
   selectedOption;
 
-  
+  hayerrores: boolean = false;
 
-  constructor(private pservice: ProyectosService,private router: Router,
-    private uservice: UsuarioService,private modalService: NgbModal) {}
-    //Selecciona los usuarios asignados en el combo
-    compareWithFunc(a, b) {
-      return a.Email === b.Email;
-    }
 
-    
-    open(content) {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        this.closeResult = `Cerrado con: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Desestimado ${this.getDismissReason(reason)}`;
-      });
+
+  constructor(private pservice: ProyectosService, private router: Router,
+    private uservice: UsuarioService, private modalService: NgbModal) { }
+  //Selecciona los usuarios asignados en el combo
+  compareWithFunc(a, b) {
+    return a.Email === b.Email;
+  }
+
+
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Cerrado con: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Desestimado ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'Con ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'Click en atras';
+    } else {
+      return `con: ${reason}`;
     }
-  
-    private getDismissReason(reason: any): string {
-      if (reason === ModalDismissReasons.ESC) {
-        return 'Con ESC';
-      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-        return 'Click en atras';
-      } else {
-        return  `con: ${reason}`;
-      }
-    }
+  }
 
   buscar(termino: string) {
     this.loading = true;
     this.proyectos = this.pservice.getProyectoxTermino(termino);
   }
 
-  AtrasPadre() {  
-    
-    this.router.navigateByUrl(localStorage.getItem("RutaProyecto"));  
-  }
-  
-  GuardarPadre(){
-    localStorage.setItem("RutaProyecto",this.router.url);
+  AtrasPadre() {
+
+    this.router.navigateByUrl(localStorage.getItem("RutaProyecto"));
   }
 
+  GuardarPadre() {
+    localStorage.setItem("RutaProyecto", this.router.url);
+  }
 
 
 
-  borrarProyecto(k: Number) {  
-    
+
+  borrarProyecto(k: Number) {
+
     swal({
       title: 'El proyecto se eliminará, está seguro?',
       text: "El proyecto no se podrá recuperar.",
@@ -144,154 +146,153 @@ export class ProyectosComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, confirmo!',
       cancelButtonText: 'Cancelar'
-    }).then((result) => {    
+    }).then((result) => {
       if (result.value) {
-        { 
+        {
           //llamo al metodo
           this.pservice.eliminarProyecto(k, this.user)
-          .subscribe(        
-            correcto => { 
-              console.log(correcto);
-              if(correcto['RetornoCorrecto']==="S")
-              {
-                //console.log(correcto);        
-                swal(
-                  'Proyecto Eliminado',
-                  '',
-                  'success'
-                );
-  
-                //recargo las tareas
-                this.proyectos = null;
-                //this.listarTareasDeProyecto();
-                //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
-    this.pservice.getProyectosUsuario(this.user["Email"]).subscribe(
-      correcto => {
-        console.log(correcto);
-        if(correcto['RetornoCorrecto']==="S")
-            { 
-              if(correcto['Retorno'].length>0){
-                //console.log(correcto);
-                this.proyectos = correcto['Retorno'];                      
-              }
-        // if (correcto) {
-        //   this.proyectos = correcto;
-        //   //Para que cargue el primer elemento del combo
-        //   //this.proyecto = this.proyectos[0];
-        }         
-        else {
-          this.status = "error";
-          swal({
-            position: "center",
-            type: "error",
-            title: correcto['Mensaje']/*"usuario o contraseña incorrectos" */,             
-            text: correcto['Descripcion'],
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }
-      },
-      error => {
-        this.status = "error";
-        //console.log(error);
-        swal(
-          'Error',
-          ''+error,
-          'error'
-        );
-      }
-    ); 
-                //console.log(this.tareas);
-              }
-              else{
+            .subscribe(
+              correcto => {
+                console.log(correcto);
+                if (correcto['RetornoCorrecto'] === "S") {
+                  //console.log(correcto);        
+                  swal(
+                    'Proyecto Eliminado',
+                    '',
+                    'success'
+                  );
+
+                  //recargo las tareas
+                  this.proyectos = null;
+                  //this.listarTareasDeProyecto();
+                  //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
+                  this.pservice.getProyectosUsuario(this.user["Email"]).subscribe(
+                    correcto => {
+                      console.log(correcto);
+                      if (correcto['RetornoCorrecto'] === "S") {
+                        if (correcto['Retorno'].length > 0) {
+                          //console.log(correcto);
+                          this.proyectos = correcto['Retorno'];
+                        }
+                        // if (correcto) {
+                        //   this.proyectos = correcto;
+                        //   //Para que cargue el primer elemento del combo
+                        //   //this.proyecto = this.proyectos[0];
+                      }
+                      else {
+                        this.status = "error";
+                        swal({
+                          position: "center",
+                          type: "error",
+                          title: correcto['Mensaje']/*"usuario o contraseña incorrectos" */,
+                          text: correcto['Descripcion'],
+                          showConfirmButton: false,
+                          timer: 2000
+                        });
+                      }
+                    },
+                    error => {
+                      this.status = "error";
+                      //console.log(error);
+                      swal(
+                        'Error',
+                        '' + error,
+                        'error'
+                      );
+                    }
+                  );
+                  //console.log(this.tareas);
+                }
+                else {
+                  this.status = 'error';
+                  //console.log(correcto);              
+                  // swal(
+                  //   'Error',
+                  //   'No se pudo borrar la tarea',
+                  //   'error'
+                  // );
+                  swal({
+                    position: "center",
+                    type: "error",
+                    title: correcto['Mensaje'],
+                    text: correcto['Descripcion'],
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                }
+              }, (error) => {
                 this.status = 'error';
-                //console.log(correcto);              
-                // swal(
-                //   'Error',
-                //   'No se pudo borrar la tarea',
-                //   'error'
-                // );
-                swal({
-                  position: "center",
-                  type: "error",
-                  title: correcto['Mensaje'],             
-                  text: correcto['Descripcion'],
-                  showConfirmButton: false,
-                  timer: 3000
-                });
-        
+                //console.log(error);
+                let MSG = 'No se puede eliminar el proyecto.';
+                /* swal({
+                  position: 'center',
+                  type: 'error',
+                  title: ''+MSG,
+                  showConfirmButton: true,      
+                }); */
+                swal(
+                  'Error',
+                  '' + error,
+                  'error'
+                );
               }
-          },(error) => {
-            this.status = 'error';
-            //console.log(error);
-            let MSG = 'No se puede eliminar el proyecto.';                    
-            /* swal({
-              position: 'center',
-              type: 'error',
-              title: ''+MSG,
-              showConfirmButton: true,      
-            }); */
-            swal(
-              'Error',
-              ''+error,
-              'error'
-            );
-            } 
-          )  
+            )
         }
       }
-  
-      else{
-  
+
+      else {
+
       }
     });
-   }  
+  }
 
 
 
 
 
-  asignarUsuarios(){    
+  asignarUsuarios() {
     //tengo un usuario   
     //tengo un proyecto
     //llamo al servicio y le paso usuario y proyecto
 
     this.usuariologueado = JSON.parse(localStorage.getItem("usuario"));
     console.log(this.proyecto);
-    console.log(this.usuariologueado);    
+    console.log(this.usuariologueado);
     console.log(this.listausuariosAMostrar);
 
 
 
 
-    this.uservice.asignarUsuarios(this.proyecto,this.listausuariosAMostrar, this.usuariologueado).subscribe(
+    this.uservice.asignarUsuarios(this.proyecto, this.listausuariosAMostrar, this.usuariologueado).subscribe(
       correcto => {
-        if (correcto==="S") {
+        if (correcto === "S") {
           //console.log(JSON.parse(localStorage.getItem("usuario")));
           swal({
-               position: "center",
-               type: "success",
-               title: `Usuarios asignado!`,
-               showConfirmButton: false,
-               timer: 2000
-             });             
-           } else {
-             this.status = "error";
-             swal({
-               position: "center",
-               type: "error",
-               title: correcto.Mensaje,             
-               text: correcto.Descripcion,
-               showConfirmButton: false,
-               timer: 2000
-             });
-      }})
+            position: "center",
+            type: "success",
+            title: `Usuarios asignado!`,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+          this.status = "error";
+          swal({
+            position: "center",
+            type: "error",
+            title: correcto.Mensaje,
+            text: correcto.Descripcion,
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      })
   }
 
 
 
 
-  onProyectoChange() {    
+  onProyectoChange() {
 
     //tomamos una lista y la filtramos por un elemento del objeto dentro de la lista (Lambda Expression )
 
@@ -311,17 +312,17 @@ export class ProyectosComponent implements OnInit {
             // this.listausuarios = correcto['Retorno'];
 
             //selecciono la primer tarea de la lista del proyecto cargado
-            this.listausuariosMerge = correcto['Retorno'];                 
-            this.listamarcados =  this.listausuariosMerge;
+            this.listausuariosMerge = correcto['Retorno'];
+            this.listamarcados = this.listausuariosMerge;
             //this.useraasignar = this.listausuariosMerge;  
-            
+
             this.listausuariosAMostrar = this.listausuariosMerge;
 
             // this.listausuarios.forEach(u => {               
             //   this.useraasignar = this.listausuariosMerge.find(x => x.Email === u.Email);              
             //   });
 
-            
+
             //console.log(this.listausuariosAMostrar);            
             //this.valueSelected = this.selectedusers.value && this.selectedusers.value.toString(); 
             //console.log(this.valueSelected);           
@@ -354,143 +355,161 @@ export class ProyectosComponent implements OnInit {
     //this.tarea.IdProyecto = this.proyecto.IdProyecto;
   }
 
-  onNgModelChange($event){
-    
-    this.listausuariosAMostrar=$event;
-    console.log(this.listausuariosAMostrar);
+  onNgModelChange($event) {
+
+    this.listausuariosAMostrar = $event;
+    //console.log(this.listausuariosAMostrar);
     // this.selectedOption=$event.Nombre;    
   }
 
 
+  listaProyectos() {
+
+  }
+
+  listarProyectosDelUsuario() {
+    this.pservice.getProyectosUsuario(this.user["Email"]).subscribe(
+      correcto => {
+
+        if (correcto['RetornoCorrecto'] === "S") {
+          if (correcto['Retorno'].length > 0) {
+            //console.log(correcto);
+            this.proyectos = correcto['Retorno'];
+
+            //esto es para asignar usuarios a proyectos y asignar el valor inicial del combo
+            //this.proyecto = this.proyectos[0];
+            //this.onProyectoChange();
+
+          }
+        }
+        else {
+          this.status = "error";
+          swal({
+            position: "center",
+            type: "error",
+
+            //"usuario o contraseña incorrectos"
+            title: correcto['Mensaje'],
+            text: correcto['Descripcion'],
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      },
+      error => {
+        this.status = "error";
+        //console.log(error);
+        swal(
+          'Error',
+          '' + error,
+          'error'
+        );
+      }
+    );
+  }
+
+  listaProyectosOpen() {
+    this.pservice.getProyectos().subscribe(
+      correcto => {
+
+        if (correcto['RetornoCorrecto'] === "S") {
+          //console.log(correcto);
+          if (correcto['Retorno'].length > 0) {
+            this.proyectosModal = correcto['Retorno'];
+          }
+        }
+        else {
+          if (correcto === false) {
+            console.log(correcto);
+
+            this.hayerrores = true;
+
+            swal({
+              position: "center",
+              type: "info",
+              title: "Aviso",
+              text: "No existen proyectos",
+              showConfirmButton: false,
+              timer: 3000
+            });
+          }
 
 
+          else {
+            this.status = "error";
+            swal({
+              position: "center",
+              type: "error",
 
+              //"usuario o contraseña incorrectos"
+              title: correcto['Mensaje'],
+              text: correcto['Descripcion'],
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+        }
+      }, error => {
+        this.status = "error";
+        //console.log(error);
+        swal(
+          'Error',
+          '' + error,
+          'error'
+        );
+      }
+    );
+  }
 
+  listarUsusriosCompleto() {
+    this.uservice.getUsuarios().subscribe(
+      correcto => {
 
+        if (correcto['RetornoCorrecto'] === "S") {
+          if (correcto['Retorno'].length > 0) {
+            this.listausuarios = correcto['Retorno'];
+          }
+        }
+        else {
+          this.status = "error";
+          swal({
+            position: "center",
+            type: "error",
+
+            //"usuario o contraseña incorrectos"
+            title: correcto['Mensaje'],
+            text: correcto['Descripcion'],
+            showConfirmButton: false,
+            timer: 2000
+          });
+        }
+      },
+      error => {
+        this.status = "error";
+        //console.log(error);
+        swal(
+          'Error',
+          '' + error,
+          'error'
+        );
+      }
+    );
+  }
 
   ngOnInit() {
 
     //OBTENGO TODOS LOS PROYECTOS PARA EL MODAL
-    
-    this.pservice.getProyectos().subscribe(
-      correcto => {
-        
-        if(correcto['RetornoCorrecto']==="S")
-            { 
-              if(correcto['Retorno'].length>0){                
-                this.proyectosModal = correcto['Retorno'];                  
-              }
-        }         
-        else {
-          this.status = "error";
-          swal({
-            position: "center",
-            type: "error",
 
-            //"usuario o contraseña incorrectos"
-            title: correcto['Mensaje'],             
-            text: correcto['Descripcion'],
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }
-      },
-          error => {
-        this.status = "error";
-        //console.log(error);
-        swal(
-          'Error',
-          ''+error,
-          'error'
-        );
-      }
-    );
-    
+    this.listaProyectosOpen();
+
     //LLAMO AL SERVICIO Y OBTENGO TODOS LOS USUARIOS
-
-    this.uservice.getUsuarios().subscribe(
-          correcto => {
-            
-            if(correcto['RetornoCorrecto']==="S")
-                { 
-                  if(correcto['Retorno'].length>0){                    
-                    this.listausuarios = correcto['Retorno'];                      
-                  }
-            }         
-            else {
-              this.status = "error";
-              swal({
-                position: "center",
-                type: "error",
-    
-                //"usuario o contraseña incorrectos"
-                title: correcto['Mensaje'],             
-                text: correcto['Descripcion'],
-                showConfirmButton: false,
-                timer: 2000
-              });
-            }
-          },
-              error => {
-            this.status = "error";
-            //console.log(error);
-            swal(
-              'Error',
-              ''+error,
-              'error'
-            );
-          }
-        );
-    
-
-
+    this.listarUsusriosCompleto();
 
     //LISTA PROYECTOS DEL USUARIO DESDE API para LA GRILLA
     this.user = JSON.parse(localStorage.getItem("usuario"));
-
-
     //OBTENGO LOS USUARIOS:
-
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
-    this.pservice.getProyectosUsuario(this.user["Email"]).subscribe(
-      correcto => {
-        
-        if(correcto['RetornoCorrecto']==="S")
-            { 
-              if(correcto['Retorno'].length>0){
-                //console.log(correcto);
-                this.proyectos = correcto['Retorno'];
-
-                //esto es para asignar usuarios a proyectos y asignar el valor inicial del combo
-                //this.proyecto = this.proyectos[0];
-                //this.onProyectoChange();
-
-              }
-        }         
-        else {
-          this.status = "error";
-          swal({
-            position: "center",
-            type: "error",
-
-            //"usuario o contraseña incorrectos"
-            title: correcto['Mensaje'],             
-            text: correcto['Descripcion'],
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }
-      },
-          error => {
-        this.status = "error";
-        //console.log(error);
-        swal(
-          'Error',
-          ''+error,
-          'error'
-        );
-      }
-    );
+    this.listarProyectosDelUsuario();
 
     //PARA CARGAR MODAL ASIGNAR USUARIOS A PROYECTOS
 

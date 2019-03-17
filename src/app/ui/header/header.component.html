@@ -1,18 +1,15 @@
-<nav  class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
-  <a class="navbar-brand" [attr.href]="['/proyectos']">TimeSheet App</a>
+<!-- <nav  class="navbar navbar-expand-l navbar-dark bg-dark mb-5"> -->
+
+  <!-- <a class="navbar-brand" [attr.href]="['/proyectos']">TimeSheet App</a>
   <div class="navbar-expand mr-auto">
-    <div *ngIf="user1" class="navbar-nav">
-      <!-- <a class="nav-item nav-link active" routerLink="['/proyectos']" >Proyectos</a>       -->
+    <div *ngIf="user1" class="navbar-nav">      
       <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
 
       <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
 
-      <a class="nav-item nav-link " [attr.href]="['/usuarios']" >Usuarios</a> 
-
-      
-      
+      <a class="nav-item nav-link " [attr.href]="['/usuarios']" >Usuarios</a>       
     </div>
-  </div>
+  </div> -->
   
 
   <!-- <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
@@ -23,20 +20,182 @@
   </div>
 </nav> -->
 
+
+
+
+
+
+
+<!-- <a class="navbar-brand" [attr.href]="['/proyectos']">TimeSheet App</a>
+<div class="navbar-expand mr-auto">
+  <div *ngIf="user1 else nada" class="navbar-nav">      
+    <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
+
+    <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
+
+    <a class="nav-item nav-link " [attr.href]="['/usuarios']" >Usuarios</a>       
+  </div>
+</div>
+
+<div class="navbar-expand mr-auto">
 <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
   <div class="navbar-nav">
     <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
     <div ><button class="btn" (click)="logout()">Salir</button></div>      
   </div>
 </div>
+</div>
 </nav>
 
 
-<div *ngIf="user1.Administrador else validar">
-  <button class="btn btn-outline-dark btn-block" disabled (click)="crearTareas()">Guardar</button>            
-</div>
 
-<ng-template #validar>
-    <button class="btn btn-outline-dark btn-block" (click)="crearTareas()">Guardar</button>              
-  </ng-template>
 
+<nav  class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
+  
+  <a class="navbar-brand" [attr.href]="['/proyectos']">TimeSheet App</a>
+  <div class="navbar-expand mr-auto">
+    <div *ngIf="user1.Administrador else noAdmin" class="navbar-nav">      
+      <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
+  
+      <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
+  
+      <a class="nav-item nav-link " [attr.href]="['/usuarios']" >Usuarios</a>       
+    </div>
+  </div>
+  
+  <div class="navbar-expand mr-auto">
+  <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+      <div ><button class="btn" (click)="logout()">Salir</button></div>      
+    </div>
+  </div>
+  </div>
+  </nav>
+
+
+
+
+
+<ng-template #noAdmin >
+
+  <div class="navbar-nav">
+    <nav  class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
+    <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>        
+    
+    <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
+  
+  <div class="navbar-expand mr-auto">
+      <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
+        <div class="navbar-nav">
+          <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+          <div ><button class="btn" (click)="logout()">Salir</button></div>      
+        </div>
+      </div>
+      </div>
+
+    </nav>
+    </div>
+</ng-template>
+
+
+
+<ng-template #nada >
+
+    <div class="navbar-nav">
+      <nav  class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
+    <div class="navbar-expand mr-auto">
+        </div>
+  
+      </nav>
+      </div>
+  </ng-template> -->
+
+
+  <ng-container *ngIf="user1 && user1.Administrador else nada" >
+    <nav class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
+        <a class="navbar-brand" [attr.href]="['/proyectos']">TimeSheet App</a>
+        <div class="navbar-expand mr-auto">
+          <div class="navbar-nav">
+                  <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
+            
+                <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
+            
+                <a class="nav-item nav-link " [attr.href]="['/usuarios']" >Usuarios</a>     
+              </div>
+              </div>
+            
+              <div class="navbar-expand ml-auto navbar-nav">
+              <div class="navbar-nav">
+                <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+                <div ><button class="btn" (click)="logout()">Salir</button></div>      
+              </div>            
+            </div>	
+          </nav>        
+          </ng-container>
+
+          <ng-template #nada>
+
+            <ng-container *ngIf="user1 && !user1.Administrador">
+                <nav class="navbar navbar-expand-l navbar-dark bg-dark mb-5">
+                    <a class="navbar-brand" [attr.href]="['/proyectos']">TimeSheet App</a>
+                    <div class="navbar-expand mr-auto">
+                        <div class="navbar-nav">
+                    <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
+          
+              <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
+            </div>
+          </div>
+
+              <div class="navbar-expand ml-auto navbar-nav">
+              <div class="navbar-nav">
+                <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+                <div ><button class="btn" (click)="logout()">Salir</button></div>      
+              </div>            
+            </div>	
+      </nav>
+            </ng-container>          
+        </ng-template>
+
+
+
+  <!-- <ng-container *ngIf="user1;else nada" >
+    <nav  class="navbar navbar-dark bg-dark">
+            <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
+      
+          <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
+      
+          <a class="nav-item nav-link " [attr.href]="['/usuarios']" >Usuarios</a>     
+      
+          <div class="navbar-expand mr-auto">
+      <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
+        <div class="navbar-nav">
+          <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+          <div ><button class="btn" (click)="logout()">Salir</button></div>      
+        </div>
+      </div>
+      </div>	
+    </nav>
+    </ng-container>
+      
+      <ng-template #nada>
+          <ng-container *ngIf="user1 && user1.Administrador">
+              <nav  class="navbar navbar-dark bg-dark">
+                  <a class="nav-item nav-link active" [attr.href]="['/proyectos']" >Proyectos</a>      
+        
+            <a class="nav-item nav-link " [attr.href]="['/horasefectivas']" >Horas Efectivas</a> 
+      
+            <div class="navbar-expand mr-auto">
+      <div *ngIf="user1" class="navbar-expand ml-auto navbar-nav">
+        <div class="navbar-nav">
+          <a  class="nav-item nav-link active" href="#"> {{user1.Nombre }}</a>
+          <div ><button class="btn" (click)="logout()">Salir</button></div>      
+        </div>
+      </div>
+      </div>
+            
+    </nav>
+          </ng-container>
+      </ng-template> -->
+      
+      

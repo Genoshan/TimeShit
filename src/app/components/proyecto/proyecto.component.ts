@@ -116,7 +116,7 @@ export class ProyectoComponent implements OnInit {
       );
     } else {
       //actualizando
-      console.log("Entro al Editar");
+      //console.log("Entro al Editar");
       this.pr.editarProyecto(this.proyecto, this.user).subscribe(
         correcto => {
           if (correcto['RetornoCorrecto']==="S") {

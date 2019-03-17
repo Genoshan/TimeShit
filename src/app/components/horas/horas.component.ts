@@ -330,7 +330,7 @@ export class HorasComponent implements OnInit {
                   }
                   error => {
                     this.status = "error";
-                    console.log(error);
+                    //console.log(error);
                     swal(
                       'Error',
                       '' + error,
@@ -595,7 +595,7 @@ export class HorasComponent implements OnInit {
           }
           else {    
             this.hayerrores = true;
-            console.log(this.hayerrores);
+            //console.log(this.hayerrores);
             this.status = 'error';
             swal({
               position: "center",
@@ -628,7 +628,7 @@ export class HorasComponent implements OnInit {
     
     this.user = JSON.parse(localStorage.getItem("usuario"));
     this.getHora();
-    console.log(this.router.url);
+    //console.log(this.router.url);
 
   }
 }

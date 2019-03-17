@@ -162,7 +162,7 @@ GuardarPadre(){
           if(correcto['RetornoCorrecto']==="S")
            {
             if(correcto['Retorno'].length>=0){
-              console.log(correcto);
+              //console.log(correcto);
               this.horas = null;
               this.horas = correcto['Retorno'];                     
             }   
@@ -187,7 +187,7 @@ GuardarPadre(){
 
            else{
              this.status = 'error';
-             console.log(correcto);
+             //console.log(correcto);
              swal({
               position: "center",
               type: "error",
@@ -200,7 +200,7 @@ GuardarPadre(){
           }        
        },(error) => {
         this.status = "error";        
-        console.log(error);
+        //console.log(error);
         swal(
           'Error',
           ''+error,

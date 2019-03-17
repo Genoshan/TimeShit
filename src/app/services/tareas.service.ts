@@ -231,7 +231,7 @@ export class TareasService {
       }
     };   
 
-    console.log(body);
+    //console.log(body);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 

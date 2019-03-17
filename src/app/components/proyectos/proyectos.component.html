@@ -1,85 +1,114 @@
 <body>
-    <div class="container">
-        <h3><b>PROYECTOS</b></h3>        
+    <div class="container container-flex">
+        <h3><b>PROYECTOS</b></h3>
         <!-- <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div> -->
         <ul class="pagination">
-            <pagination-controls class="my-pagination" (pageChange)=" p =$event"
-            previousLabel="Anterior"
-            nextLabel="Siguiente"
-            > </pagination-controls>            
+            <pagination-controls class="my-pagination" (pageChange)=" p =$event" previousLabel="Anterior"
+                nextLabel="Siguiente"> </pagination-controls>
         </ul>
-        <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar proyectos">
-        <div class="row">
-            <div class="col-md-12 text-center" id="middlebutton">
-                <button [routerLink]="['/proyecto','nuevo']" type="button" class="btn btn-outline-primary btn-lg">
-                    Nuevo Proyecto
-                    <!-- <fa name="plus"></fa>Nuevo Proyecto -->            
-                    <i class="fa fa-plus"></i>          
-                </button>
-                <button [routerLink]="['/horas/proyecto','nueva']" type="button" class="btn btn-success btn-lg">
-                    Cargar Horas
-                    <!-- <fa name="plus"></fa>Cargar Horas -->
-                </button>
-                <!-- Button to Open the Modal -->
+        <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg"
+            placeholder="Buscar proyectos">
 
-                <ng-template #content let-modal>
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">Asignar usuarios a proyecto</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="form-group">
+        <div *ngIf="user && user.Administrador else noAdminRow">
+            <div class="row AddMargin">
+                <div class="col-lg-2">
 
-                        <!-- Selector de Proyectos -->
-                          <mat-form-field>
-                              <mat-select placeholder="Proyectos" [(ngModel)]="proyecto.IdProyecto" name="Proyecto" (selectionChange)="onProyectoChange($event)">                        
-                                  <mat-option *ngFor="let p of proyectosModal"  [value]="p.IdProyecto">
-                                      {{ p.Nombre }}
-                                  </mat-option>                          
-                              </mat-select>
-                          </mat-form-field>
+                </div>
+                <div class="col-lg-8">
+                    <div class="d-inline-block">
+                        <div class="col-lg-4">
+                            <!-- restricciones de usuarios -->
+                            <button [routerLink]="['/proyecto','nuevo']" type="button"
+                                class="btn btn-outline-primary btn-lg">
+                                Nuevo Proyecto
+                                <!-- <i class="fa fa-plus"></i> -->
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-inline-block">
+                        <div class="col-lg-4">
+                            <button [routerLink]="['/horas/proyecto','nueva']" type="button"
+                                class="btn btn-success btn-lg">
+                                Cargar Horas
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-inline-block">
+                        <div class="col-lg-4">
+                            <!-- Modal si el usuario es administrador -->
+                            <ng-template #content let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="modal-basic-title">Asignar usuarios a proyecto</h4>
+                                    <button type="button" class="close" aria-label="Close"
+                                        (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
 
-                          <br>
+                                            <!-- Selector de Proyectos -->
+                                            <mat-form-field>
+                                                <mat-select placeholder="Proyectos" [(ngModel)]="proyecto.IdProyecto"
+                                                    name="Proyecto" (selectionChange)="onProyectoChange($event)">
+                                                    <mat-option *ngFor="let p of proyectosModal" [value]="p.IdProyecto">
+                                                        {{ p.Nombre }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
 
-                          <!-- Selector de Usuarios  [formControl]="selectedusers"-->
-                          <mat-form-field>
-                                <mat-select placeholder="Usuarios" [(ngModel)]="listamarcados" name="Usuario" multiple [(ngModel)]="selectedOptions" [compareWith]="compareWithFunc"
-                                (ngModelChange)="onNgModelChange($event)" >
-                                  <mat-option *ngFor="let u of listausuarios" [value]="u">{{u.Nombre}}</mat-option>                                     
-                                </mat-select>
-                              </mat-form-field>
+                                            <br>
 
-                              <h6>Usuarios :</h6>
-                              <div *ngFor="let l of listausuariosAMostrar">
-                                     {{l.Nombre}}
-                                  </div>
-                                  
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                        <button class="btn btn-outline-success btn-block" (click)="asignarUsuarios()">Asignar</button>
-                    <button type="button" class="btn btn-outline-danger" (click)="modal.close()">Cerrar</button>
-                  </div>
-                </ng-template>
-                
-                <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Asignar Usuarios a proyecto</button>
-                
-                <hr>
-                
-                <!-- <pre>{{closeResult}}</pre> -->
-             
+                                            <!-- Selector de Usuarios  [formControl]="selectedusers"-->
+                                            <mat-form-field>
+                                                <mat-select placeholder="Usuarios" [(ngModel)]="listamarcados"
+                                                    name="Usuario" multiple [(ngModel)]="selectedOptions"
+                                                    [compareWith]="compareWithFunc"
+                                                    (ngModelChange)="onNgModelChange($event)">
+                                                    <mat-option *ngFor="let u of listausuarios" [value]="u">
+                                                        {{u.Nombre}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
 
+                                            <h6>Usuarios :</h6>
+                                            <div *ngFor="let l of listausuariosAMostrar">
+                                                {{l.Nombre}}
+                                            </div>
 
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-outline-success btn-block"
+                                        (click)="asignarUsuarios()">Asignar</button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                        (click)="modal.close()">Cerrar</button>
+                                </div>
+                            </ng-template>
+                            <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Asignar
+                                Usuarios</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
 
-
+                </div>
             </div>
         </div>
+        <ng-template #noAdminRow>
+            <div class="row AddMargin">
+                <div class="col-md-3 offset-md-5">
+                    <button [routerLink]="['/horas/proyecto','nueva']" type="button" class="btn btn-success btn-lg">
+                        Cargar Horas
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+        <hr>
         <div class="container">
-            <div class="">
+            <div *ngIf="user && user.Administrador else noAdminTable">
                 <table class="table table-dark  table-hover table-striped ">
                     <thead>
                         <tr>
@@ -99,52 +128,76 @@
                             <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
                             <td>
                                 <!-- Editar Proyecto -->
-                                <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button" class="btn btn-outline-primary btn-sm text-center"
-                                    data-toggle="tooltip" data-placement="top" title="Editar Proyecto">
-
-                                    <i class="fa fa-edit"></i>    
-
-                                    <!-- <fa name="edit"></fa> -->
+                                <button [routerLink]="['/proyecto', proyectos[k].IdProyecto ]" type="button"
+                                    class="btn btn-outline-primary btn-sm text-center" data-toggle="tooltip"
+                                    data-placement="top" title="Editar Proyecto">
+                                    <i class="fa fa-edit"></i>
                                 </button>
                             </td>
                             <!-- Lista de Tareas -->
                             <td>
-                                <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button" class="btn btn-outline-info btn-sm"
-                                    data-toggle="tooltip" data-placement="top" title="Listar Tareas" (click)="GuardarPadre()">
-
-                                    <i class="fa fa-calendar"></i>    
-
-                                    <!-- <fa name="calendar"></fa> -->
+                                <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button"
+                                    class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top"
+                                    title="Listar Tareas" (click)="GuardarPadre()">
+                                    <i class="fa fa-calendar"></i>
                                 </button>
-
                             </td>
                             <!-- Agregar Horas -->
-
                             <td>
                                 <button [routerLink]="['/horas/proyecto/nueva',proyectos[k].IdProyecto]" type="button"
                                     class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="Agregar Horas">
-
-                                    <i class="fa fa-plus"></i>    
-
-                                    <!-- <fa name="plus"></fa> -->
+                                    <i class="fa fa-plus"></i>
                                 </button>
-
                             </td>
-                            
                             <!-- Eliminar Proyectos Horas -->
-                            
                             <td>
-                                <button id="borrarProyecto" (click)="borrarProyecto(proyectos[k].IdProyecto)" type="button" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto">
+                                <button id="borrarProyecto" (click)="borrarProyecto(proyectos[k].IdProyecto)"
+                                    type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip"
+                                    data-placement="top" title="Eliminar Proyecto">
                                     <i class="fa fa-window-close" aria-hidden="true"></i>
                                 </button>
                             </td>
-                            </tr>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            <ng-template #noAdminTable>
+                <table class="table table-dark  table-hover table-striped ">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Listar Tareas</th>
+                            <th>Cargar Horas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let k of proyectos | keys | paginate:{itemsPerPage:8,currentPage: p} ">
+                            <td>{{ proyectos[k].CodigoProyecto }}</td>
+                            <td>{{ proyectos[k].Nombre }}</td>
+                            <td>{{ proyectos[k].FechaInicio | date: "dd-MM-yyyy" }}</td>
+                            <!-- Lista de Tareas -->
+                            <td>
+                                <button [routerLink]="['/tareas',proyectos[k].IdProyecto]" type="button"
+                                    class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top"
+                                    title="Listar Tareas" (click)="GuardarPadre()">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </td>
+                            <!-- Agregar Horas -->
+                            <td>
+                                <button [routerLink]="['/horas/proyecto/nueva',proyectos[k].IdProyecto]" type="button"
+                                    class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top"
+                                    title="Agregar Horas">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-template>
         </div>
     </div>
 </body>
-

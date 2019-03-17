@@ -215,7 +215,7 @@ swal({
 
     this.listarTareasDeProyecto();
     this.user = JSON.parse(localStorage.getItem("usuario"));
-    console.log(this.router.url);
+    //console.log(this.router.url);
     
   }
 

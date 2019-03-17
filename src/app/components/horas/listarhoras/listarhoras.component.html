@@ -12,14 +12,15 @@
             nextLabel="Siguiente"> </pagination-controls>
         </ul>
         <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar horas">
-        <div class="row">
-            <div class="col-md-12 text-center" id="middlebutton">
+        <div class="row AddMargin">
+            <div class="col-md-12 text-center ">
                 <button [routerLink]="['/horas','nueva']" type="button" class="btn btn-success btn-lg">
                     Cargar Horas
                     <!-- <fa name="plus"></fa>Cargar Horas -->
                 </button>
             </div>
         </div>
+        <hr>
         <div class="container">
             <div class="">
                 <table class="table table-dark  table-hover table-striped ">

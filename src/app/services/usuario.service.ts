@@ -161,7 +161,7 @@ usuarios: Usuario[] = [];
 
     //BUSCADOR DE TAREAS
     getUsuariosxTermino(termino: string) {     
-      console.log(termino) ;
+      //console.log(termino) ;
       return this.listausuarios.filter(
         x => x.Nombre.toLowerCase().indexOf(termino.toLowerCase()) > -1
       );
@@ -269,7 +269,7 @@ usuarios: Usuario[] = [];
 
 getUsuariosAsignadosAProyecto(proyecto: Proyecto){  
   let params = JSON.stringify({ pIdProyecto: proyecto.IdProyecto });
-console.log(proyecto);
+//console.log(proyecto);
   let headers = new Headers();
   headers.append("Content-Type", "application/json");
 
@@ -352,7 +352,7 @@ console.log(proyecto);
         /*NUEVA FORMA DE OBTENER RETORNOS*/
         //obtengo el retorno con la  nueva forma
           this.retornoLogin = res.json();
-          console.log(this.retornoLogin);
+          //console.log(this.retornoLogin);
         
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
          if (this.retornoLogin.RetornoCorrecto==="S")
@@ -409,12 +409,12 @@ console.log(proyecto);
           //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
           if (this.retornoAltaUsuario.RetornoCorrecto==="S")
           {
-            console.log("RetornoCorrecto");
+            //console.log("RetornoCorrecto");
             return this.retornoAltaUsuario;
           }
           else 
           {          
-            console.log(this.retornoAltaUsuario)  ;
+            //console.log(this.retornoAltaUsuario)  ;
             return this.retornoAltaUsuario.Errores;          
           }//fin nueva forma
           

@@ -320,7 +320,7 @@ export class ProyectosService {
     return this._http
       .post(this.url + 'EditarProyecto', body, { headers: headers })
       .map((resp: any) => {
-        console.log(resp.json());
+        //console.log(resp.json());
         this.retornoEditarProyecto = resp.json();        
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
         if (this.retornoEditarProyecto.RetornoCorrecto==="S")
