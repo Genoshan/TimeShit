@@ -77,6 +77,26 @@ export class ProyectosService {
     }
   };
 
+
+  private retornoListarProyectosTotales=
+  {
+    "RetornoCorrecto": "S",
+    "Retorno": [
+      {
+        IdProyecto: 0,
+        Nombre: "",
+        FechaInicio: new Date(Date.now()),
+        Estado: true,
+        CodigoProyecto: ""
+      }],
+    "Errores": {
+      "ExceptionType": null,
+      "Mensaje": null,
+      "Descripcion": null
+    }
+  };
+
+
   private retornoCrearProyecto=
   {
     "RetornoCorrecto": "E",
@@ -162,31 +182,26 @@ export class ProyectosService {
       .catch(this.handleError);
   }
 
-/*
-  getProyectosUsuario(ci: string) {
-    let params = JSON.stringify({ pCI: ci });
+  getProyectosTotales() {    
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     return this._http
-      .get(this.url + "ListarProyectosDeUsuario?pDocumento=" + Email + "", params)
+      .get(this.url + "ListarProyectos")
       .map((res: any) => {
 
-        this.retornoListarProyectosDeUsuario = res.json();
-        
+        this.retornoListarProyectosTotales = res.json();        
         
         //Nueva forma de obtener retornos - se crea un objeto retorno en la definicion de las variables
-        if (this.retornoListarProyectosDeUsuario.RetornoCorrecto==="S")
-        {
-          //this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
-          if (this.retornoListarProyectosDeUsuario.Retorno.length>0)
+        if (this.retornoListarProyectosTotales.RetornoCorrecto==="S")
+        {          
+          if (this.retornoListarProyectosTotales.Retorno.length>0)
           {
             
-            this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;
-            //console.log(this.retornoListarProyectosDeUsuario.Retorno);
+            this.proyectos = this.retornoListarProyectosTotales.Retorno;            
 
-            return this.retornoListarProyectosDeUsuario;            
+            return this.retornoListarProyectosTotales;            
           }
           else {
             return false;
@@ -194,12 +209,11 @@ export class ProyectosService {
         }
         else
         {
-          return this.retornoListarProyectosDeUsuario.Errores;
-        }
+          return this.retornoListarProyectosTotales.Errores;
+        }//fin nueva forma
       })
       .catch(this.handleError);
   }
-*/
 
   getProyectosUsuario(email: string) {
     let params = JSON.stringify({ pEMAIL: email });

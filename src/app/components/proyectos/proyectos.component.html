@@ -1,5 +1,5 @@
 <body>
-    <div class="container container-flex">
+    <div class="container-fluid">
         <h3><b>PROYECTOS</b></h3>
         <!-- <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div> -->
         <ul class="pagination">
@@ -98,6 +98,18 @@
             </div>
         </div>
         <ng-template #noAdminRow>
+            <div *ngIf="hayerrores else validar">
+                <div class="row AddMargin">
+                    <div class="col-md-3 offset-md-5">
+                        <button [routerLink]="['/horas/proyecto','nueva']" disabled type="button"
+                            class="btn btn-success btn-lg">
+                            Cargar Horas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #validar>
             <div class="row AddMargin">
                 <div class="col-md-3 offset-md-5">
                     <button [routerLink]="['/horas/proyecto','nueva']" type="button" class="btn btn-success btn-lg">
@@ -107,9 +119,9 @@
             </div>
         </ng-template>
         <hr>
-        <div class="container">
+        <div class="container-fluid">
             <div *ngIf="user && user.Administrador else noAdminTable">
-                <table class="table table-dark  table-hover table-striped ">
+                <table class="table table-dark  table-hover table-striped addMarginBot">
                     <thead>
                         <tr>
                             <th>Codigo</th>

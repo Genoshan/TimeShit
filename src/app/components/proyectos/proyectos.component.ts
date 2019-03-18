@@ -31,6 +31,7 @@ export class ProyectosComponent implements OnInit {
   result: any[];
   selected: any;
 
+  proyectosTotales: Proyecto[] = [];
   proyectos: Proyecto[] = [];
   proyectosModal: Proyecto[] = [];
   loading: boolean;
@@ -364,7 +365,56 @@ export class ProyectosComponent implements OnInit {
 
 
   listaProyectos() {
+    this.pservice.getProyectosTotales().subscribe(
+      correcto => {
 
+        if (correcto['RetornoCorrecto'] === "S") {
+          //console.log(correcto);
+          if (correcto['Retorno'].length > 0) {
+            this.proyectos = correcto['Retorno'];
+          }
+        }
+        else {
+          if (correcto === false) {
+            console.log(correcto);
+
+            this.hayerrores = true;
+
+            swal({
+              position: "center",
+              type: "info",
+              title: "Aviso",
+              text: "No existen proyectos",
+              showConfirmButton: false,
+              timer: 3000
+            });
+          }
+
+
+          else {
+            this.status = "error";
+            swal({
+              position: "center",
+              type: "error",
+
+              //"usuario o contraseña incorrectos"
+              title: correcto['Mensaje'],
+              text: correcto['Descripcion'],
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
+        }
+      }, error => {
+        this.status = "error";
+        //console.log(error);
+        swal(
+          'Error',
+          '' + error,
+          'error'
+        );
+      }
+    );
   }
 
   listarProyectosDelUsuario() {
@@ -373,27 +423,34 @@ export class ProyectosComponent implements OnInit {
 
         if (correcto['RetornoCorrecto'] === "S") {
           if (correcto['Retorno'].length > 0) {
-            //console.log(correcto);
             this.proyectos = correcto['Retorno'];
-
-            //esto es para asignar usuarios a proyectos y asignar el valor inicial del combo
-            //this.proyecto = this.proyectos[0];
-            //this.onProyectoChange();
-
           }
         }
         else {
-          this.status = "error";
-          swal({
-            position: "center",
-            type: "error",
+          if (correcto === false) {
+            this.hayerrores = true;
+            swal({
+              position: "center",
+              type: "info",
+              title: "Aviso",
+              text: "El Usuario no tiene Proyectos asignados, contactar con un administrador",
+              showConfirmButton: false,
+              timer: 3000
+            });
+          }
+          else {
+            this.status = "error";
+            swal({
+              position: "center",
+              type: "error",
 
-            //"usuario o contraseña incorrectos"
-            title: correcto['Mensaje'],
-            text: correcto['Descripcion'],
-            showConfirmButton: false,
-            timer: 2000
-          });
+              /*"usuario o contraseña incorrectos" */
+              title: correcto['Mensaje'],
+              text: correcto['Descripcion'],
+              showConfirmButton: false,
+              timer: 2000
+            });
+          }
         }
       },
       error => {
@@ -498,6 +555,7 @@ export class ProyectosComponent implements OnInit {
 
   ngOnInit() {
 
+    this.user = JSON.parse(localStorage.getItem("usuario"));
     //OBTENGO TODOS LOS PROYECTOS PARA EL MODAL
 
     this.listaProyectosOpen();
@@ -509,7 +567,14 @@ export class ProyectosComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem("usuario"));
     //OBTENGO LOS USUARIOS:
     //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
-    this.listarProyectosDelUsuario();
+    if (this.user.Administrador) {
+      this.listaProyectos();
+    }
+    else  
+    {
+      this.listarProyectosDelUsuario();
+    }
+    
 
     //PARA CARGAR MODAL ASIGNAR USUARIOS A PROYECTOS
 

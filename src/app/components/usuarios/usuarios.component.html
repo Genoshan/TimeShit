@@ -1,59 +1,55 @@
 <body>
-  <div class="container">
+    <div class="container">
 
-    <h2><b>Lista de Usuarios</b></h2>          
-      <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div>
-      <ul class="pagination">
-          <pagination-controls class="my-pagination" (pageChange)=" p =$event"
-          previousLabel="Anterior"
-          nextLabel="Siguiente"> </pagination-controls>
-      </ul>
-      <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg" placeholder="Buscar usuarios">
-
-
-      <div class="row">
-          <div class="col-md-12 text-center" id="middlebutton">
-
-
-
-              <button [routerLink]="['/usuario','nueva']" type="button" class="btn btn-outline-primary btn-lg">
-                  Nuevo Usuario                                  
-                  <i class="fa fa-plus"></i>          
-              </button>
-
-          </div>
-      </div>
-
-      <div class="container">
-          <div class="">
-              <table class="table table-dark  table-hover table-striped ">
-                  <thead>
-                      <tr>
-                        <!-- <th>IMAGEN</th> -->
-                          <th>Nombre</th>                                
-                          <th>Email</th>
-                          <th>CI</th>
-                          <th>Editar Usuario</th>
-                      </tr>
-                  </thead>
-                  <tbody>                            
-                              <tr *ngFor="let u of listausuarios | keys | paginate:{itemsPerPage:8,currentPage: p}">
-                                <!-- <td>{{ listausuarios[u].Img }}</td>                                
+        <h2><b>Lista de Usuarios</b></h2>
+        <div class="hint-text ">Mostrando <b>5</b> de <b>25</b> entradas</div>
+        <ul class="pagination">
+            <pagination-controls class="my-pagination" (pageChange)=" p =$event" previousLabel="Anterior"
+                nextLabel="Siguiente"> </pagination-controls>
+        </ul>
+        <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control form-control-lg"
+            placeholder="Buscar usuarios">
+        <div class="row">
+            <div class="col-md-12 text-center AddMargin">
+                <button [routerLink]="['/usuario','nueva']" type="button" class="btn btn-outline-primary btn-lg">
+                    Nuevo Usuario
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="container">
+            <div class="">
+                <table class="table table-dark  table-hover table-striped addMarginBot">
+                    <thead>
+                        <tr>
+                            <!-- <th>IMAGEN</th> -->
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>CI</th>
+                            <th>Editar Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let u of listausuarios | keys | paginate:{itemsPerPage:8,currentPage: p}">
+                            <!-- <td>{{ listausuarios[u].Img }}</td>                                
                                 <img src="'data:image/jpg;base64,'+ listausuarios[u].Img | keepHtml "/> -->
-                                
-                                  <td>{{ listausuarios[u].Nombre }}</td>
-                                  <td>{{ listausuarios[u].Email }}</td>
-                                  <td>{{ listausuarios[u].CI }}</td>                                  
-<td>
-                                      <!-- Editar Usuario -->
-                                      <button id="editarUsuario" [routerLink]="['/usuario',listausuarios[u].Email]" type="button" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Editar Usuario">                                                
-                                          <i class="fa fa-edit"></i>    
-                                      </button>
-                                    </td>
-                              </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>            
-  </div>
+
+                            <td>{{ listausuarios[u].Nombre }}</td>
+                            <td>{{ listausuarios[u].Email }}</td>
+                            <td>{{ listausuarios[u].CI }}</td>
+                            <td>
+                                <!-- Editar Usuario -->
+                                <button id="editarUsuario" [routerLink]="['/usuario',listausuarios[u].Email]"
+                                    type="button" class="btn btn-outline-primary btn-sm" data-toggle="tooltip"
+                                    data-placement="top" title="Editar Usuario">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>

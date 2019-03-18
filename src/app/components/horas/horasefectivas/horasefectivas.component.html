@@ -19,14 +19,14 @@
 
 
         <mat-accordion>
-            <mat-expansion-panel *ngFor="let p of result | keys | paginate:{itemsPerPage:15,currentPage: p} ; let i = index">
+            <mat-expansion-panel *ngFor="let p of result | keys | paginate:{itemsPerPage:15,currentPage: p} ; let i = index" class="addMarginBot">
                 <mat-expansion-panel-header>
                     {{result[p].name | date: "EEEE, dd-MM-yyyy" }} | Horas: <span class="badge badge-success">{{
                         result[p].total }}</span>
                 </mat-expansion-panel-header>
 
 
-                <table class="table table-hover">
+                <table class="table table-hover addMarginBotLG">
 
                     <thead>
                         <tr>
