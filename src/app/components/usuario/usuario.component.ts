@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Location} from '@angular/common';
 import { Compania } from 'src/app/interfaces/compania';
+import { HeaderComponent } from '../../ui/header/header.component';
 
 declare var require: any;
 const Swal = require("sweetalert2");
@@ -20,7 +21,7 @@ export class UsuarioComponent implements OnInit {
   /*****ATRIBUTOS******/  
 
   nuevo: boolean = false;
-
+  
   email: string;
 
   user: Usuario = {
@@ -51,7 +52,7 @@ usuariologueado: Usuario = {
   constructor(private us: UsuarioService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private _location: Location) {
+    private _location: Location) {           
       this.activatedRoute.params.subscribe(parametros => {
         this.email = parametros["Email"];
       });    
@@ -136,8 +137,17 @@ altaUsuario() {
             type: "success",
             title: "Usuario Modificado Correctamente"
           });
-          this.router.navigate([`/usuarios`]);
-          this.user = correcto['Retorno'];
+          if (this.usuariologueado.Email == this.user.Email) {
+            localStorage.clear();
+            this.router.navigate([""]);            
+            window.location.reload();
+          }
+          else
+          {            
+            this.router.navigate([`/usuarios`]);
+            this.user = correcto['Retorno'];
+          }
+          
         } else {
           //this.status = "error";
           this.status = "error";

@@ -133,7 +133,7 @@ export class ProyectosService {
 
   constructor(private _http: Http) {
     //esto tiene que estar en un GLOBAL
-    this.url = "http://localhost:88/api/";
+    this.url = "http://localhost:3840/api/";
     //this.url = "https://timesheetrestapi.azurewebsites.net/api/";
   }
 

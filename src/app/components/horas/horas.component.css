@@ -1,10 +1,9 @@
-
-
-  .text-info {
+.text-info {
     color: #435d7d !important;
-  }
+}
 
 
+/* 
 
   .card{
     padding:15px 30px;
@@ -19,4 +18,4 @@
   .has-float-label .form-control:placeholder-shown:not(:focus) + * {
     font-size: 100%;
     margin-top: 4px; 
-  }
+  } */

@@ -92,7 +92,8 @@ export class ProyectoComponent implements OnInit {
             this.proyecto = correcto['Retorno'];
 
           } 
-          else {            
+          else {         
+            console.log(correcto);
             this.status = "error";
             swal({
               position: "center",

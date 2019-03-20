@@ -1,59 +1,74 @@
-<button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
-  <i class="fa fa-arrow-left"></i>
-</button>
+<div class="container-fluid">
+    <button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
+        <i class="fa fa-arrow-left"></i>
+    </button>
+    <div class="row addMarginBot">
+        <div class="col-lg-7 offset-lg-2 col-sm-8 offset-sm-2 col-12">
+            <form>
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h3> CARGA DE HORAS </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="SelectProyecto" class="col-sm-3 col-form-label">Proyecto</label>
+                            <div class="col-sm-9">
+                                <select id="SelectProyecto" (change)="onProyectoChange()" [(ngModel)]="tarea.IdProyecto" name="IdProyecto" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                    <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div *ngIf="!hayerrores; else habilitarTareas">
+                            <div class="form-group row">
+                                <label for="SelectTareaa" class="col-sm-3 col-form-label">Tareas</label>
+                                <div class="col-sm-9">
+                                    <select id="SelectTareaa" (change)="onProyectoChange()" [(ngModel)]="hora.IdTarea" name="IdTarea" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        <option *ngFor="let t of tareas" [ngValue]="t.IdTarea">{{t.Nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #habilitarTareas>
+                            <div class="form-group row">
+                                <label for="SelectTareaa" class="col-sm-3 col-form-label">Tareas</label>
+                                <div class="col-sm-9">
+                                    <select id="SelectTareaa" disabled (change)="onProyectoChange()" [(ngModel)]="hora.IdTarea" name="IdTarea" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                        <option *ngFor="let t of tareas" [ngValue]="t.IdTarea">{{t.Nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
 
-<div class="container">
-  <div class="row addMarginBot">
-    <div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3">
-      <form class="card card-block bg-faded">
-        <legend class="m-b-1 text-center text-info"> <strong>
-            <p><b> CARGA DE HORAS </b></p>
-          </strong></legend>
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <select [(ngModel)]="tarea.IdProyecto" name="IdProyecto" (change)="onProyectoChange()"
-              class="custom-select">
-              <option *ngFor="let p of proyectos" [ngValue]="p.IdProyecto">{{p.Nombre}}</option>
-            </select>
-            <label for="first">Proyecto</label>
-          </span>
+                        </ng-template>
+                        <div class="form-group row">
+                            <label for="inputCantHoras" class="col-sm-3 col-form-label">Cant. Horas</label>
+                            <div class="col-sm-9">
+                                <input id="inputCantHoras" [(ngModel)]="hora.CantidadHoras" name="CantidadHoras" placeholder="Cantidad de Horas a Cargar" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputDescripcion" class="col-sm-3 col-form-label">Descripcion</label>
+                            <div class="col-sm-9">
+                                <textarea id="inputDescripcion" [(ngModel)]="hora.Descripcion" name="Descripcion" placeholder="Descripcion de la hora a cargar" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputFecha" class="col-sm-3 col-form-label">Fecha</label>
+                            <div class="col-sm-9">
+                                <input id="inputFecha" onfocus="(this.type='date')" [ngModel]="hora.Fecha | date: 'yyyy-MM-dd'" name="Fecha" placeholder="Fecha de la hora a ingresar" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" (ngModelChange)="hora.Fecha=$event"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="hayerrores || hora.CantidadHoras == 0 || hora.Descripcion == ''; else habilitarBoton">
+                        <button class=" btn btn-outline-dark btn-block" disabled (click)="CargarHoras()">Guardar</button>
+                    </div>
+
+                    <ng-template #habilitarBoton>
+                        <button class="btn btn-outline-dark btn-block" (click)="CargarHoras()">Guardar</button>
+                    </ng-template>
+                </div>
+            </form>
         </div>
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <select [(ngModel)]="hora.IdTarea" name="IdTarea" class="custom-select">
-              <option *ngFor="let t of tareas" [ngValue]="t.IdTarea">{{t.Nombre}}</option>
-            </select>
-            <label for="second">Tarea</label>
-          </span>
-        </div>
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <input [(ngModel)]="hora.CantidadHoras" name="CantidadHoras" id="CantidadHoras" type="number"
-              class="form-control">
-            <label for="third">Cantidad de Horas</label>
-          </span>
-        </div>
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <textarea [(ngModel)]="hora.Descripcion" name="Descripcion" maxlength="72" id="Descripcion" type="text"
-              class="form-control"></textarea>
-            <label for="fourth">Descripcion</label>
-          </span>
-        </div>
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <input placeholder="Fecha" class="form-control" type="text" onfocus="(this.type='date')"
-              [ngModel]="hora.Fecha | date: 'yyyy-MM-dd'" name="Fecha" (ngModelChange)="hora.Fecha=$event">
-            <label for="last">Fecha</label>
-          </span>
-        </div>
-        <div *ngIf="hayerrores || hora.CantidadHoras== '' || hora.Descripcion == ''; else habilitarBoton">
-          <button class="btn btn-outline-dark btn-block" disabled (click)="CargarHoras()">Guardar</button>
-        </div>
-        <ng-template #habilitarBoton>
-          <button class="btn btn-outline-dark btn-block" (click)="CargarHoras()">Guardar</button>
-        </ng-template>
-      </form>
     </div>
-  </div>
 </div>

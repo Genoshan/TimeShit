@@ -1,75 +1,73 @@
-<button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
-  <i class="fa fa-arrow-left"></i>
-</button>
+<div class="container-fluid">
+    <button type="button" class="btn btn-outline-dark btn-lg pull-left" (click)="backClicked()">
+        <i class="fa fa-arrow-left"></i>
+      </button>
+    <div class="row addMarginBot">
+        <div class="col-lg-7 offset-lg-2 col-sm-8 offset-sm-2 col-12">
+            <form>
+                <div class="card text-center">
+                    <div class="card-header">
+                        <div *ngIf="user.Email =='' else Title">
+                            <h3> NUEVO USUARIO </h3>
+                        </div>
+                        <ng-template #Title>
+                            <h3>{{ user.Email }}</h3>
+                        </ng-template>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="inputNombre" class="col-sm-3 col-form-label">Nombre</label>
+                            <div class="col-sm-9">
+                                <input id="inputNombre" [ngModel]="user.Nombre" name="Usuario" placeholder="Nombre del nuevo Usuario" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" (ngModelChange)="user.Nombre=$event" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input id="inputEmail" [ngModel]="user.Email" name="Email" placeholder="Email del nuevo Usuario" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" (ngModelChange)="user.Email=$event" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPass" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-9">
+                                <input id="inputPass" [ngModel]="user.Clave" name="Password" placeholder="Password del nuevo Usuario" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" (ngModelChange)="user.Clave=$event" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputCI" class="col-sm-3 col-form-label">C.I.</label>
+                            <div class="col-sm-9">
+                                <input id="inputCI" [ngModel]="user.CI" name="CI" placeholder="Cédula del nuevo Usuario" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" (ngModelChange)="user.CI=$event" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="SelectCompany" class="col-sm-3 col-form-label">Compania</label>
+                            <div class="col-sm-9">
+                                <select id="SelectCompany" [(ngModel)]="user.oCompany" name="Compania" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                    <option *ngFor="let c of companias" [ngValue]="c.Id">{{c.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">Administrador</div>
+                            <div class="col-sm-9">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="estado" [(ngModel)]="user.Administrador" type="checkbox" id="gridCheck1" required>
+                                    <label class="form-check-label" for="gridCheck1">
+                                    Es ADM?
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="hayerrores || user.Nombre== '' || user.Email == '' || user.CI == ''; else habilitarBoton">
+                        <button class=" btn btn-outline-dark btn-block" disabled (click)="altaUsuario()">Guardar</button>
+                    </div>
 
-<div class="container">
-  <div class="row addMarginBot">
-    <div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12">
-      <form class="card w-100 card-block bg-faded">
-        <legend class="m-b-1 text-center text-info"> <strong>
-
-            <p *ngIf="user.Email ==''"><b> NUEVO USUARIO </b></p>
-            <b> {{ user.Email }} </b>
-
-          </strong></legend>
-
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <input placeholder="Nombre" class="form-control" type="text" [ngModel]="user.Nombre" name="Usuario"
-              (ngModelChange)="user.Nombre=$event">
-            <label for="last">Nombre</label>
-          </span>
+                    <ng-template #habilitarBoton>
+                        <button class="btn btn-outline-dark btn-block" (click)="altaUsuario()">Guardar</button>
+                    </ng-template>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <input placeholder="Email" class="form-control" type="text" [ngModel]="user.Email" name="Email"
-              (ngModelChange)="user.Email=$event">
-            <label for="last">Email</label>
-          </span>
-        </div>
-
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <input placeholder="Password" class="form-control" type="password" [ngModel]="user.Clave" name="Password"
-              (ngModelChange)="user.Clave=$event">
-            <label for="last">Password</label>
-          </span>
-        </div>
-
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <input placeholder="CI" class="form-control" type="text" [ngModel]="user.CI" name="CI"
-              (ngModelChange)="user.CI=$event">
-            <label for="last">CI</label>
-          </span>
-        </div>
-
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <select [(ngModel)]="user.oCompany" name="Compania" class="custom-select">
-              <option *ngFor="let c of companias" [ngValue]="c.Id">{{c.Name}}</option>
-            </select>
-            <label for="second">Compania</label>
-          </span>
-        </div>
-
-        <div class="form-group form-check">
-          <input [(ngModel)]="user.Administrador" name="estado" class="form-check-input" type="checkbox" required> Es admin
-        </div>
-
-
-        <!-- Validacion de campos -->
-        
-        <div *ngIf="hayerrores || user.Nombres== '' || user.Email == '' || user.CI == ''; else habilitarBoton">
-          <button class="btn btn-outline-dark btn-block" disabled (click)="altaUsuario()">Guardar</button>                      
-        </div>
-
-        <ng-template #habilitarBoton>
-          <button class="btn btn-outline-dark btn-block" (click)="altaUsuario()">Guardar</button>
-          </ng-template>
-        
-      </form>
     </div>
-  </div>
 </div>

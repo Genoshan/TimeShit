@@ -35,7 +35,8 @@ export class HeaderComponent implements OnInit, DoCheck{
 
   logout() {
     this.router.navigate([""]);
-    localStorage.removeItem("usuario");
+    localStorage.clear();
+    //localStorage.removeItem("usuario");
     this.user1 = null;    
     //this.auth.logout();
   }
