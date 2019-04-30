@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="table-wrapper">
+    <div class="table-wrapper addMarginBot">
         <div class="table-title">
             <div class="row">
                 <div class="col-sm">
@@ -17,14 +17,14 @@
 
 
         <mat-accordion>
-            <mat-expansion-panel *ngFor="let p of result | keys | paginate:{itemsPerPage:15,currentPage: p} ; let i = index" class="addMarginBot">
+            <mat-expansion-panel *ngFor="let p of result | keys | paginate:{itemsPerPage:15,currentPage: p} ; let i = index" class="">
                 <mat-expansion-panel-header>
                     {{result[p].name | date: "EEEE, dd-MM-yyyy" }} | Horas: <span class="badge badge-success">{{
                         result[p].total }}</span>
                 </mat-expansion-panel-header>
 
 
-                <table class="table table-hover addMarginBotLG">
+                <table class="table table-hover">
 
                     <thead>
                         <tr>

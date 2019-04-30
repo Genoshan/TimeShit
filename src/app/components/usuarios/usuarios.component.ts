@@ -21,6 +21,7 @@ export class UsuariosComponent implements OnInit {
 
   loading:boolean;
   status: string;
+  p: string;
 
   constructor(private uservice: UsuarioService, private _location: Location, private router:Router, ) { }
 

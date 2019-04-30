@@ -36,7 +36,7 @@ export class ProyectoComponent implements OnInit {
   proyecto: Proyecto = {
     Nombre: "",
     FechaInicio: new Date(Date.now()),
-    Estado: true,
+    Estado: false,
     CodigoProyecto: "",
     IdProyecto: 0
   };
@@ -55,14 +55,9 @@ export class ProyectoComponent implements OnInit {
       this.id = parametros["id"];
     });    
   }
-
-//Ir Atras
   backClicked() {
     this._location.back();
 }
-
-  /*****OPERACIONES*****/
-
   getProyecto() {
     if (this.id == "nuevo") {
       
@@ -72,9 +67,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   crearProyectos() {
-    if (this.id == "nuevo") {
-      // insertando
-      //console.log(this.user);    
+    if (this.id == "nuevo") { 
       this.pr.crearProyectos(this.proyecto,this.user).subscribe(
         correcto => {
           if (correcto['RetornoCorrecto']==="S") {
@@ -90,10 +83,8 @@ export class ProyectoComponent implements OnInit {
             });
             this.router.navigate([`/proyectos`]);
             this.proyecto = correcto['Retorno'];
-
           } 
           else {         
-            console.log(correcto);
             this.status = "error";
             swal({
               position: "center",
@@ -107,7 +98,6 @@ export class ProyectoComponent implements OnInit {
         },
         error => {
           this.status = "error";
-          //console.log(error);
           swal(
             'Error',
             ''+error,
@@ -116,8 +106,6 @@ export class ProyectoComponent implements OnInit {
         }
       );
     } else {
-      //actualizando
-      //console.log("Entro al Editar");
       this.pr.editarProyecto(this.proyecto, this.user).subscribe(
         correcto => {
           if (correcto['RetornoCorrecto']==="S") {
@@ -134,7 +122,6 @@ export class ProyectoComponent implements OnInit {
             this.router.navigate([`/proyectos/`]);
             this.proyecto = correcto['Retorno'];
           } else {
-            //this.status = "error";
             this.status = "error";
             swal({
               position: "center",
@@ -148,7 +135,6 @@ export class ProyectoComponent implements OnInit {
         },
         error => {
           this.status = "error";
-          //console.log(error);
           swal(
             'Error',
             ''+error,
@@ -161,26 +147,10 @@ export class ProyectoComponent implements OnInit {
 
   /**** CARGA INICIAL DEL COMPONENTE *****/
   ngOnInit() {
-    //this.user = JSON.parse(localStorage.getItem("usuario"));
-    //{"Nombre":"Alex Rostan","Email":"alex.rostan@arkanosoft.com","Img":"","CI":"4377187-2"}
-    // this.user.CI = JSON.parse(localStorage.getItem("usuario"))["CI"];
-    // this.user.Email = JSON.parse(localStorage.getItem("usuario"))["Email"];
-    // this.user.Img = JSON.parse(localStorage.getItem("usuario"))["Img"];
-    // this.user.Nombre = JSON.parse(localStorage.getItem("usuario"))["Nombre"];
+    
     this.user = JSON.parse(localStorage.getItem("usuario"));
-    //this.usuariologueado = JSON.parse(localStorage.getItem("usuario"));
-
-    // private Usuario: {
-    //   Nombre: string;
-    //   Email: string;
-    //   //password: string,
-    //   Img: string;
-    //   CI: number;
-    // };
-
-    //this.proyecto = JSON.parse(localStorage.getItem("proyecto"));
+    
     //LEVANTO DATOS DE TAREA PARA EDITAR O CREO UNA NUEVA
     this.getProyecto();
-    //this.proyectos.push(this.proyecto);
   }
 }

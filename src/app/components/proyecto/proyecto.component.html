@@ -31,15 +31,15 @@
                         <div class="form-group row">
                             <label for="inputFecha" class="col-sm-3 col-form-label">Fecha Inicio</label>
                             <div class="col-sm-9">
-                                <input id="inputFecha" [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'" onfocus="(this.type='date')" name="Fecha" placeholder="Fecha de Inicio" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" (ngModelChange)="proyecto.FechaInicio=$event"
-                                    required>
+                                <input id="inputFecha" [ngModelOptions]="{standalone: true}" [ngModel]="proyecto.FechaInicio | date: 'yyyy-MM-dd'" onfocus="(this.type='date')" name="Fecha" placeholder="Fecha de Inicio" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                                    (ngModelChange)="proyecto.FechaInicio=$event" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-3">Proy. Activo</div>
                             <div class="col-sm-9">
                                 <div class="form-check">
-                                    <input class="form-check-input" [(ngModel)]="proyecto.Estado" type="checkbox" id="gridCheck1" required>
+                                    <input class="form-check-input" [ngModelOptions]="{standalone: true}" name="Estado" [ngModel]="proyecto.Estado" type="checkbox" id="gridCheck1" (ngModelChange)="proyecto.Estado=$event">
                                     <label class="form-check-label" for="gridCheck1">
                                     Activo?
                                 </label>

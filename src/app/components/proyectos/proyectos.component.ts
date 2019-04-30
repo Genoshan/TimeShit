@@ -167,7 +167,7 @@ export class ProyectosComponent implements OnInit {
                   this.proyectos = null;
                   //this.listarTareasDeProyecto();
                   //LLAMO AL SERVICIO Y LE PASO EL DOCUMENTO COMO PARAMETRO
-                  this.pservice.getProyectosUsuario(this.user["Email"]).subscribe(
+                  this.pservice.getProyectosTotales().subscribe(
                     correcto => {
                       console.log(correcto);
                       if (correcto['RetornoCorrecto'] === "S") {
@@ -372,6 +372,7 @@ export class ProyectosComponent implements OnInit {
           //console.log(correcto);
           if (correcto['Retorno'].length > 0) {
             this.proyectos = correcto['Retorno'];
+            //this.proyectosModal = correcto['Retorno'];
           }
         }
         else {

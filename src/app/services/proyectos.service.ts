@@ -28,6 +28,8 @@ export class ProyectosService {
   };
 
   private proyectos: Proyecto[] = [];
+  private ProyectosSegunEstado: Proyecto[] = [];
+  private ProyectosDeUsuario: Proyecto[] = [];
 
   private url: string; 
 
@@ -158,7 +160,7 @@ export class ProyectosService {
           if (this.retornoListarProyectosSegunEstado.Retorno.length>0)
           {
             
-            this.proyectos = this.retornoListarProyectosSegunEstado.Retorno;            
+            this.ProyectosSegunEstado = this.retornoListarProyectosSegunEstado.Retorno;            
 
             return this.retornoListarProyectosSegunEstado;            
           }
@@ -231,10 +233,8 @@ export class ProyectosService {
         if (this.retornoListarProyectosDeUsuario.RetornoCorrecto==="S")
         {          
           if (this.retornoListarProyectosDeUsuario.Retorno.length>0)
-          {
-            
+          {            
             this.proyectos = this.retornoListarProyectosDeUsuario.Retorno;            
-
             return this.retornoListarProyectosDeUsuario;            
           }
           else {
@@ -250,6 +250,7 @@ export class ProyectosService {
   }
 
   getProyecto(id: number) {
+    //consoleconsole.log(this.proyectos);
     return (this.Proyecto = this.proyectos.find(x => x.IdProyecto == id));
   }
 
@@ -330,7 +331,6 @@ export class ProyectosService {
     headers.append('Content-Type', 'application/json');
 
     let options = new RequestOptions({ headers: headers });
-
     return this._http
       .post(this.url + 'EditarProyecto', body, { headers: headers })
       .map((resp: any) => {
